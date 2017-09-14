@@ -1,5 +1,0 @@
-<resources>
-    <string name="app_name">Taller2Uber</string>
-    <string name="title_activity_splash">SplashActivity</string>
-    <string name="title_activity_main">MainActivity</string>
-</resources>
