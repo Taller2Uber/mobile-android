@@ -1,0 +1,11 @@
+{
+  "name": "OnDemandResourcesMockServer",
+  "version": "1.0.0",
+  "description": "mock server for on demand resources in ios",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Santiago Lazzari",
+  "license": "ISC"
+}
