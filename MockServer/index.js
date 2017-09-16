@@ -1,6 +1,7 @@
 // Setup
 
 var express = require('express');
+var sleep = require('sleep');
 var app = express();
 
 app.use(express.static('public'));
@@ -16,6 +17,31 @@ app.get('/wiki', function (req, res) {
           data_two : "dataTwo"}
 
   res.send(wiki)
+});
+
+app.get('/api/user', function (req, res) {
+  sleep.sleep(2);
+
+  user = {}
+
+  console.log(req)
+
+  if (req.query.id == 1) {
+    user = {name : "Santiago",
+            facebook_token : "asdasdasdtumama",
+            sirname : "Lazzari",
+            age : 22
+          }
+  } else {
+    user = {name : "Luciano",
+            facebook_token : "asdasdasdtumama",
+            sirname : "Lazzari",
+            age : 10000
+          }
+  }
+  console.log("GET USER : " + user)
+
+  res.send(user)
 });
 
 // app.get("/image_id/:imageId/density/:density", function (req, res) {
@@ -50,5 +76,5 @@ app.get("/update_images", function (req, res) {
 });
 
 app.listen(3000, function () {
-  console.log('Example app listening on port 3000!');
+  console.log('Mock server initialized in port 3000!');
 });

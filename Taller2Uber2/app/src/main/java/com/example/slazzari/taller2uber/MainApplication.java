@@ -3,11 +3,16 @@ package com.example.slazzari.taller2uber;
 import android.app.Application;
 import android.util.Log;
 
+import com.example.slazzari.taller2uber.model.User;
+import com.example.slazzari.taller2uber.networking.interactor.Userinteractor;
 import com.example.slazzari.taller2uber.networking.interactor.Wikiinteractor;
 import com.example.slazzari.taller2uber.networking.repository.Wikirepo;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.GsonBuilder;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.mock.MockRetrofit;
@@ -23,7 +28,20 @@ public class MainApplication extends Application {
     public void onCreate() {
         super.onCreate();
 
-        Log.w("Testing", Wikiinteractor.getWiki().toString());
+        Userinteractor.getUser().enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                Log.w("Testing", "did success");
+                User user = response.body();
+                Log.w("Testing", user.toString());
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+                Log.w("Testing", "did fail");
+
+            }
+        });
     }
 
 
