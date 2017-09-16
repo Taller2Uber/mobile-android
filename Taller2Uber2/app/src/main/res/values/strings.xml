@@ -1,5 +1,9 @@
 <resources>
     <string name="app_name">Taller2Uber</string>
+
+    <!--FACEBOOK-->
+
     <string name="facebook_app_id">791858190995497</string>
     <string name="fb_login_protocol_scheme">fb791858190995497</string>
+
 </resources>
