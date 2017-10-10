@@ -8,3 +8,5 @@
 ## 0.2.0
 
 - Setup of mock server
+
+## 0.3.0

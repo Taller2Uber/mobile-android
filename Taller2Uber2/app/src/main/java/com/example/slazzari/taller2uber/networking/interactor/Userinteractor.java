@@ -1,9 +1,7 @@
 package com.example.slazzari.taller2uber.networking.interactor;
 
 import com.example.slazzari.taller2uber.model.User;
-import com.example.slazzari.taller2uber.model.Wiki;
 import com.example.slazzari.taller2uber.networking.repository.Userrepo;
-import com.example.slazzari.taller2uber.networking.repository.Wikirepo;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.GsonBuilder;
 
@@ -30,6 +28,8 @@ public class Userinteractor {
                 .build();
 
         Userrepo userrepo= retrofit.create(Userrepo.class);
+
         return userrepo.getUser();
+
     }
 }
