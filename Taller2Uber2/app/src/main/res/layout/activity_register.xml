@@ -7,37 +7,36 @@
     tools:context="com.example.slazzari.taller2uber.activity.RegisterActivity">
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/register_driver_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Conductor"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button3"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/register_passenger_button"
+        tools:layout_editor_absoluteX="139dp"
+        android:layout_marginTop="24dp" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/register_passenger_button"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:text="Pasajero"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView"
-
-
-
-        />
+        tools:layout_editor_absoluteX="145dp"
+        android:layout_marginTop="123dp" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="20dp"
         android:text="Que tipo de usuario queres ser ?"
         android:layout_centerHorizontal="true"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-
-        />
+        tools:layout_editor_absoluteY="16dp"
+        tools:layout_editor_absoluteX="93dp" />
 
 </android.support.constraint.ConstraintLayout>

@@ -3,8 +3,11 @@
 var express = require('express');
 var sleep = require('sleep');
 var app = express();
+var bodyParser = require('body-parser');
+
 
 app.use(express.static('public'));
+app.use(bodyParser);
 
 
 // @GET
@@ -74,6 +77,21 @@ app.get("/update_images", function (req, res) {
   console.log("Sent updatable images " + response);
   res.send(response)
 });
+
+
+
+// Realistic api
+
+// Login a user with the facebook token (fb_token)
+
+app.post("/api/v1/users/login", function (req, res) {
+  body = res.body;
+
+  console.log(body)
+  res.send()
+});
+
+
 
 app.listen(3000, function () {
   console.log('Mock server initialized in port 3000!');

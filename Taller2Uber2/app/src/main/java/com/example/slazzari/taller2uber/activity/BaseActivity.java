@@ -5,11 +5,11 @@ import android.os.Bundle;
 
 import com.example.slazzari.taller2uber.R;
 
-public class RegisterPassengerActivity extends BaseActivity {
+public class BaseActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register_passenger);
+        setContentView(R.layout.activity_base);
     }
 }

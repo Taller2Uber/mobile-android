@@ -41,7 +41,8 @@
         </activity>
         <activity android:name=".activity.RegisterActivity" />
         <activity android:name=".activity.RegisterPassengerActivity" />
-        <activity android:name=".activity.RegisterDriverActivity"></activity>
+        <activity android:name=".activity.RegisterDriverActivity" />
+        <activity android:name=".activity.BaseActivity"></activity>
     </application>
 
 </manifest>

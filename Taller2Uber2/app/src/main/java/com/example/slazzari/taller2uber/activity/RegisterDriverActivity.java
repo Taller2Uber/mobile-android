@@ -5,7 +5,7 @@ import android.os.Bundle;
 
 import com.example.slazzari.taller2uber.R;
 
-public class RegisterDriverActivity extends AppCompatActivity {
+public class RegisterDriverActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
