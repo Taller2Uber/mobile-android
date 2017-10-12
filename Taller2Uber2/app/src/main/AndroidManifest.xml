@@ -3,7 +3,7 @@
     package="com.example.slazzari.taller2uber">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    
+
     <application
         android:name=".MainApplication"
         android:allowBackup="true"
@@ -44,20 +44,18 @@
         <activity android:name=".activity.RegisterDriverActivity" />
         <activity android:name=".activity.BaseActivity" />
 
-        <service
-            android:name="firebase.MyFirebaseInstanceIDService">
+        <service android:name="firebase.MyFirebaseInstanceIDService">
             <intent-filter>
-                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+        <service android:name=".firebase.MyFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
 
-
-        <service
-            android:name=".firebase.MyFirebaseMessagingService">
-            <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
-            </intent-filter>
-        </service>
+        <activity android:name=".activity.home.PassengerHomeActivity"></activity>
     </application>
 
 </manifest>

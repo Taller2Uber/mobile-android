@@ -20,11 +20,11 @@ public class User {
 
     }
 
-    void setFbToken(String fbToken) {
+    public void setFbToken(String fbToken) {
         this.fbToken = fbToken;
     }
 
-    void setCars(ArrayList<Car> cars) {
+    public void setCars(ArrayList<Car> cars) {
         this.cars = cars;
     }
 
