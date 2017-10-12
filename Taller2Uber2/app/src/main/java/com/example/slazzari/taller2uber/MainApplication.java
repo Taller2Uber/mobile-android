@@ -34,7 +34,7 @@ public class MainApplication extends Application {
     public void onCreate() {
         super.onCreate();
 
-        FacebookToken fbToken = new FacebookToken("EAALQMNov0CkBAI2zaUK6swXQF1MfI8EQI2OaBqvGzlcKOST2Bv6irk4gLnrNrp0oiRCF6nXY4fLHmCvmm4s5IXApLyMeSlZCCwlVUDlkxN7NRUWPGLimvv7r8yCryc9yQQiy3irS5TF5KlwMVucRkfwIFfZAr0KdlzOifdfBu1ZAsZAWon7eiZB0XQrIHb8GPrF3RxnM4xgFdowZAcgzrYsHNuLKqZA9ZAsGJgUZCZAusJJQZDZD");
+        FacebookToken fbToken = new FacebookToken("EAALQMNov0CkBAHASTZBqTFw5ZCJ8Ve7itjRMRwHwfdrGFax9cEUKIBiNIo2j9AB82twdzA3dBNgS20mJ0R0LaV0C1LcrfW7FZBu99hLFv4QtCWEyzD695xRoZCLtP99aRtBnPyAOVFIfLSIHuZBo7UmtAWNC8hbRo29oXdCu7sqD4OWZCm6PYUReoIS2f5PKJnnZBLZAsFmyXl0Sgl2hdTAEGIp8OmJdnRITVXUBrgOyQRCKUPbtz9IT");
 
 
         ArrayList<Car> cars = new ArrayList<Car>();
@@ -44,20 +44,20 @@ public class MainApplication extends Application {
         cars.add(car);
         User driver = new User();
 
-        Userinteractor.registerDriver(driver).enqueue(new Callback<User>() {
-                                                      @Override
-                                                      public void onResponse(Call<User> call, Response<User> response) {
-                                                          Log.w("Testing", "did success");
-                                                          User user = response.body();
-                                                          Log.w("Testing", user.toString());
-                                                      }
-
-                                                      @Override
-                                                      public void onFailure(Call<User> call, Throwable t) {
-                                                          Log.w("Testing", "did fail");
-                                                      }
-                                                  }
-        );
+//        Userinteractor.registerDriver(driver).enqueue(new Callback<User>() {
+//                                                      @Override
+//                                                      public void onResponse(Call<User> call, Response<User> response) {
+//                                                          Log.w("Testing", "did success");
+//                                                          User user = response.body();
+//                                                          Log.w("Testing", user.toString());
+//                                                      }
+//
+//                                                      @Override
+//                                                      public void onFailure(Call<User> call, Throwable t) {
+//                                                          Log.w("Testing", "did fail");
+//                                                      }
+//                                                  }
+//        );
 
 
     }

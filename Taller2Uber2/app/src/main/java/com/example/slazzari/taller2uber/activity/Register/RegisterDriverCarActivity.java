@@ -23,6 +23,8 @@ public class RegisterDriverCarActivity extends AppCompatActivity implements View
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_driver_car);
 
+        getSupportActionBar().setTitle("Agrega tu auto");
+
         carBrandEditText = (EditText)findViewById(R.id.register_driver_car_brand_edit_text);
         carModelEditText = (EditText)findViewById(R.id.register_driver_car_model_edit_text);
         carYearEditText = (EditText)findViewById(R.id.register_driver_car_year_edit_text);

@@ -37,6 +37,8 @@ public class MainActivity extends BaseActivity {
 //                TODO:if (el token está registrado)
 //                  TODO:entrar derecho a la home con ese usuario
 
+
+
     //                else
 //                  Registrar el usuario
 
@@ -47,7 +49,7 @@ public class MainActivity extends BaseActivity {
                 Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
 
                 User user = new User();
-                user.setFbToken("EAALQMNov0CkBAF0eJfia7xQQaylt8zrEUCrPmS561ij2jn15fuhqzemij4Y15VJSiKZAqZCGQmHeQ0lrAd3Sw1hZAQSs5PCOJ74HYTPIuI5v6tqoKcamMV3wZAFoaSaj0aZCuNZB4vqcyKCZCMgEqVRMJpZAuDZByDOtectOg3mMAaV7BPOZB7ljS60PbzAUe1fhTRZB3H99yHZBJUdjyxZASEChlacc47YJ3FlGA75MLMWNzcAZDZD");
+                user.setFbToken("EAALQMNov0CkBAA9Wzw9bj3CvjstiKl5gO191HUZCA8xmZBU3ZBfD58JJmolio8wzYG7OBVRFFK46d7uXDU9eUl5VaITtA6Qc0mI7JRliSyAapa9M6wyvK2ZCNasYTyamOlswzMfe0wm2ZCF9VCLOSLpIhrEYzTHBOgSZAZBZBbZAYCM2NZCpAZAh1mQT1ZCkIZBz4CAWTx9TwAfyfUpkz1c3xGmpYdDJWp75sRZB6jQOZC0ZBrpVqiNZCMZA7PYXZB6");
                 Gson gson = new Gson();
                 intent.putExtra("obj", gson.toJson(user));
                 startActivity(intent);

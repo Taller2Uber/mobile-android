@@ -56,7 +56,9 @@
         </service>
 
         <activity android:name=".activity.home.PassengerHomeActivity" />
-        <activity android:name=".activity.Register.RegisterDriverCarActivity"></activity>
+        <activity android:name=".activity.Register.RegisterDriverCarActivity" />
+        <activity android:name=".activity.home.DriverHomeActivity" />
+        <activity android:name=".activity.home.PassengerDescriptionActivity"></activity>
     </application>
 
 </manifest>

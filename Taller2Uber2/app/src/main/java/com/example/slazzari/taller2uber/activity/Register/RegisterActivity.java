@@ -20,6 +20,8 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
+        getSupportActionBar().setTitle("Registracion");
+
         Gson gson = new Gson();
         String strUser = getIntent().getStringExtra("obj");
         user = gson.fromJson(strUser, User.class);

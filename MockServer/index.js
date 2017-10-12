@@ -116,7 +116,6 @@ app.post("/api/v1/drivers", function (req, res) {
     "fb_token": "EAALQMNov0CkBAI2zaUK6swXQF1MfI8EQI2OaBqvGzlcKOST2Bv6irk4gLnrNrp0oiRCF6nXY4fLHmCvmm4s5IXApLyMeSlZCCwlVUDlkxN7NRUWPGLimvv7r8yCryc9yQQiy3irS5TF5KlwMVucRkfwIFfZAr0KdlzOifdfBu1ZAsZAWon7eiZB0XQrIHb8GPrF3RxnM4xgFdowZAcgzrYsHNuLKqZA9ZAsGJgUZCZAusJJQZDZD",
     "name": "Open Graph Test User",
     "gender": "female",
-
     "latitude": "null",
     "longitude": "null",
     "cars": [
@@ -132,7 +131,54 @@ app.post("/api/v1/drivers", function (req, res) {
   res.send(user)
 });
 
+app.post("/api/v1/drivers", function (req, res) {
 
+  user = {
+    "_id": {
+      "$oid": "59de7b5704599c00083f2e17"
+    },
+
+    "fb_id": "141700183238421",
+    "fb_token": "EAALQMNov0CkBAI2zaUK6swXQF1MfI8EQI2OaBqvGzlcKOST2Bv6irk4gLnrNrp0oiRCF6nXY4fLHmCvmm4s5IXApLyMeSlZCCwlVUDlkxN7NRUWPGLimvv7r8yCryc9yQQiy3irS5TF5KlwMVucRkfwIFfZAr0KdlzOifdfBu1ZAsZAWon7eiZB0XQrIHb8GPrF3RxnM4xgFdowZAcgzrYsHNuLKqZA9ZAsGJgUZCZAusJJQZDZD",
+    "name": "Open Graph Test User",
+    "gender": "female",
+    "latitude": "null",
+    "longitude": "null",
+    "cars": [
+      {
+        "model": "A1",
+        "brand": "Audi",
+        "year": 2017,
+        "license_plate": "eep410",
+        "ac": true
+      }
+    ]
+  }
+  res.send(user)
+});
+
+app.post("/api/v1/passengers", function (req, res) {
+
+  user = {
+    "_id": {
+      "$oid": "59de7b5704599c00083f2e17"
+    },
+
+    "fb_id": "141700183238421",
+    "fb_token": "EAALQMNov0CkBAI2zaUK6swXQF1MfI8EQI2OaBqvGzlcKOST2Bv6irk4gLnrNrp0oiRCF6nXY4fLHmCvmm4s5IXApLyMeSlZCCwlVUDlkxN7NRUWPGLimvv7r8yCryc9yQQiy3irS5TF5KlwMVucRkfwIFfZAr0KdlzOifdfBu1ZAsZAWon7eiZB0XQrIHb8GPrF3RxnM4xgFdowZAcgzrYsHNuLKqZA9ZAsGJgUZCZAusJJQZDZD",
+    "name": "Open Graph Test User",
+    "gender": "female",
+
+    "latitude": "null",
+    "longitude": "null",
+    "card": {
+      "number": "123123123123",
+      "expiration_date": "2017-10-11T19:19:32.009Z",
+      "company": "VISA"
+    }
+}
+  res.send(user)
+});
 
 app.listen(3000, function () {
   console.log('Mock server initialized in port 3000!');

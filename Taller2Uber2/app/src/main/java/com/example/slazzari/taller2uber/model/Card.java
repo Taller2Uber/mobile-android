@@ -19,6 +19,18 @@ public class Card {
         this.company = company;
     }
 
+    public String getNumber() {
+        return number;
+    }
+
+    public String getExpirationDate() {
+        return expirationDate;
+    }
+
+    public String getCompany() {
+        return company;
+    }
+
     @Override
     public String toString() {
         return "Card{" +

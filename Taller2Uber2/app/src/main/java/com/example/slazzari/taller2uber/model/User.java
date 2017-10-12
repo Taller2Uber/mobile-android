@@ -32,6 +32,18 @@ public class User {
         this.card = card;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public Card getCard() {
+        return card;
+    }
+
     @Override
     public String toString() {
         return "User{" +

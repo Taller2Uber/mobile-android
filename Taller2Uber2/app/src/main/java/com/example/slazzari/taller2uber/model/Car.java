@@ -17,6 +17,10 @@ public class Car {
 
     }
 
+    public String getLicensePlate() {
+        return licensePlate;
+    }
+
     public Car(String model, String brand, int year, String licensePlate, Boolean ac) {
         this.model = model;
         this.brand = brand;

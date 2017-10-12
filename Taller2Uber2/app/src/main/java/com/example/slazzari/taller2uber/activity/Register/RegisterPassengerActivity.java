@@ -35,6 +35,8 @@ public class RegisterPassengerActivity extends BaseActivity implements View.OnCl
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_passenger);
 
+        getSupportActionBar().setTitle("Registracion de pasajero");
+
         Gson gson = new Gson();
         String strUser = getIntent().getStringExtra("obj");
         user = gson.fromJson(strUser, User.class);
