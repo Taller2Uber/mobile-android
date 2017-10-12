@@ -23,6 +23,15 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
 
 
+        Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
+
+        User user = new User();
+        user.setFbToken("EAALQMNov0CkBAKnn9BX8aVL3qmZCWpQ75Tox5ZBQw9BHBPXZCMlCmZAZCcRan8J4UxCsYFFZA0NnPhxba6ZBEJzrUsmgQ8ZBMGtLohmsBD0eo0tAv7bGVcdXhGGNppQBuxDnEE0v9XYoMYKZAWOY3LgZC6NLG4OV5yxgJ4ikmZB0UeP1VXGPdNZADRxk5ZBn16kZBhjBVA57ZBYKw0w7p4SY1T4AYZAC3T6XDgv1CNnZBVYm2jNAStgZDZD");
+        Gson gson = new Gson();
+        intent.putExtra("obj", gson.toJson(user));
+        startActivity(intent);
+
+
         LoginButton loginButton = (LoginButton) this.findViewById(R.id.login_button);
         loginButton.setReadPermissions("email");
         // Other app specific specialization
