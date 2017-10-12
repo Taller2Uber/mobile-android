@@ -2,16 +2,17 @@ package com.example.slazzari.taller2uber.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
 import com.example.slazzari.taller2uber.R;
-import com.facebook.AccessToken;
+import com.example.slazzari.taller2uber.activity.Register.RegisterActivity;
+import com.example.slazzari.taller2uber.model.User;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+import com.google.gson.Gson;
 
 public class MainActivity extends BaseActivity {
     private CallbackManager callbackManager;
@@ -33,12 +34,25 @@ public class MainActivity extends BaseActivity {
 
             @Override
             public void onSuccess(LoginResult loginResult) {
-                // App code
+//                TODO:if (el token está registrado)
+//                  TODO:entrar derecho a la home con ese usuario
 
+
+
+    //                else
+//                  Registrar el usuario
+
+//                if (el token está registrado)
+
+//                else
                 Toast.makeText(MainActivity.this, "Login success", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
-                startActivity(intent);
 
+                User user = new User();
+                user.setFbToken("EAALQMNov0CkBAA9Wzw9bj3CvjstiKl5gO191HUZCA8xmZBU3ZBfD58JJmolio8wzYG7OBVRFFK46d7uXDU9eUl5VaITtA6Qc0mI7JRliSyAapa9M6wyvK2ZCNasYTyamOlswzMfe0wm2ZCF9VCLOSLpIhrEYzTHBOgSZAZBZBbZAYCM2NZCpAZAh1mQT1ZCkIZBz4CAWTx9TwAfyfUpkz1c3xGmpYdDJWp75sRZB6jQOZC0ZBrpVqiNZCMZA7PYXZB6");
+                Gson gson = new Gson();
+                intent.putExtra("obj", gson.toJson(user));
+                startActivity(intent);
             }
 
             @Override

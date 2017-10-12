@@ -3,7 +3,7 @@
     package="com.example.slazzari.taller2uber">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    
+
     <application
         android:name=".MainApplication"
         android:allowBackup="true"
@@ -39,25 +39,26 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.RegisterActivity" />
-        <activity android:name=".activity.RegisterPassengerActivity" />
-        <activity android:name=".activity.RegisterDriverActivity" />
+        <activity android:name=".activity.Register.RegisterActivity" />
+        <activity android:name=".activity.Register.RegisterPassengerActivity" />
+        <activity android:name=".activity.Register.RegisterDriverActivity" />
         <activity android:name=".activity.BaseActivity" />
 
-        <service
-            android:name="firebase.MyFirebaseInstanceIDService">
+        <service android:name="firebase.MyFirebaseInstanceIDService">
             <intent-filter>
-                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+        <service android:name=".firebase.MyFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
 
-
-        <service
-            android:name=".firebase.MyFirebaseMessagingService">
-            <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
-            </intent-filter>
-        </service>
+        <activity android:name=".activity.home.PassengerHomeActivity" />
+        <activity android:name=".activity.Register.RegisterDriverCarActivity" />
+        <activity android:name=".activity.home.DriverHomeActivity" />
+        <activity android:name=".activity.home.PassengerDescriptionActivity"></activity>
     </application>
 
 </manifest>

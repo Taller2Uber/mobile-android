@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.slazzari.taller2uber.activity.home.PassengerDescriptionActivity"
+    android:padding="16dp">
+
+    <EditText
+        android:id="@+id/passenger_description_name_edit_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:hint="Nombre y appellido"
+        android:enabled="false"
+ />
+
+    <EditText
+        android:id="@+id/passenger_description_gender_edit_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="Genero"
+        android:enabled="false"
+
+        app:layout_constraintTop_toBottomOf="@+id/passenger_description_name_edit_text"
+        app:layout_constraintLeft_toLeftOf="parent"
+
+
+         />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Datos de la tarjeta"
+
+        app:layout_constraintTop_toBottomOf="@+id/passenger_description_gender_edit_text"
+        app:layout_constraintLeft_toLeftOf="parent"
+
+        tools:layout_editor_absoluteX="32dp"
+        tools:layout_editor_absoluteY="190dp" />
+
+    <EditText
+        android:id="@+id/passenger_description_card_number_edit_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="Numero de tarjeta"
+        app:layout_constraintTop_toBottomOf="@+id/textView4"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:enabled="false"
+
+
+        tools:layout_editor_absoluteY="234dp"
+        tools:layout_editor_absoluteX="16dp" />
+
+    <EditText
+        android:id="@+id/passenger_description_card_expiration_edit_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="Fecha de expiracion"
+        android:enabled="false"
+
+        app:layout_constraintTop_toBottomOf="@+id/passenger_description_card_number_edit_text"
+        app:layout_constraintLeft_toLeftOf="parent"
+
+
+        tools:layout_editor_absoluteY="293dp"
+        tools:layout_editor_absoluteX="4dp" />
+
+    <EditText
+        android:id="@+id/passenger_description_card_company_edit_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="Compania"
+        android:enabled="false"
+
+        app:layout_constraintTop_toBottomOf="@+id/passenger_description_card_expiration_edit_text"
+        app:layout_constraintLeft_toLeftOf="parent"
+
+
+        tools:layout_editor_absoluteY="352dp"
+        tools:layout_editor_absoluteX="16dp" />
+
+    <Button
+        android:id="@+id/passenger_description_edit_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Editar"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+
+        tools:layout_editor_absoluteX="4dp"
+        tools:layout_editor_absoluteY="427dp" />
+
+    <Button
+        android:id="@+id/passenger_description_accept_edit_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Aceptar"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+
+
+        tools:layout_editor_absoluteX="231dp"
+        tools:layout_editor_absoluteY="430dp" />
+</android.support.constraint.ConstraintLayout>

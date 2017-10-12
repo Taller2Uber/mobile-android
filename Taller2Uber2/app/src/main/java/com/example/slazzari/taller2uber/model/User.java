@@ -1,26 +1,55 @@
-    package com.example.slazzari.taller2uber.model;
+package com.example.slazzari.taller2uber.model;
 
-    /**
-     * Created by slazzari on 9/16/17.
-     */
+import java.util.ArrayList;
+import java.util.List;
 
-    public class User {
-        private String name;
-        private String sirname;
-        private String facebookToken;
-        private int age;
+/**
+ * Created by slazzari on 9/16/17.
+ */
 
-        public User() {
+public class User {
+    private String name;
+    private String fbToken;
+    private String gender;
+    private Card card;
+    private ArrayList<Car> cars;
 
-        }
 
-        @Override
-        public String toString() {
-            return "User{" +
-                    "name='" + name + '\'' +
-                    ", sirname='" + sirname + '\'' +
-                    ", facebookToken='" + facebookToken + '\'' +
-                    ", age=" + age +
-                    '}';
-        }
+
+    public User() {
+
     }
+
+    public void setFbToken(String fbToken) {
+        this.fbToken = fbToken;
+    }
+
+    public void setCars(ArrayList<Car> cars) {
+        this.cars = cars;
+    }
+
+    public void setCard(Card card) {
+        this.card = card;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public Card getCard() {
+        return card;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "name='" + name + '\'' +
+                ", facebookToken='" + fbToken + '\'' +
+                ", gender=" + gender +
+                '}';
+    }
+}
