@@ -55,7 +55,8 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".activity.home.PassengerHomeActivity"></activity>
+        <activity android:name=".activity.home.PassengerHomeActivity" />
+        <activity android:name=".activity.Register.RegisterDriverCarActivity"></activity>
     </application>
 
 </manifest>

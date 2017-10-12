@@ -6,4 +6,26 @@
     android:layout_height="match_parent"
     tools:context="com.example.slazzari.taller2uber.activity.Register.RegisterDriverActivity">
 
+    <Button
+        android:id="@+id/register_driver_add_car_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Agregar auto"
+
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        tools:layout_editor_absoluteX="117dp"
+        tools:layout_editor_absoluteY="228dp" />
+
+    <Button
+        android:id="@+id/register_driver_confirm_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Continuar"
+
+        app:layout_constraintBottom_toTopOf="parent"
+        app:layout_constraintRight_toLeftOf="parent"
+
+        tools:layout_editor_absoluteX="280dp"
+        tools:layout_editor_absoluteY="447dp" />
 </android.support.constraint.ConstraintLayout>

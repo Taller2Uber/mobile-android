@@ -47,7 +47,7 @@ public class MainActivity extends BaseActivity {
                 Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
 
                 User user = new User();
-                user.setFbToken("EAALQMNov0CkBAI2zaUK6swXQF1MfI8EQI2OaBqvGzlcKOST2Bv6irk4gLnrNrp0oiRCF6nXY4fLHmCvmm4s5IXApLyMeSlZCCwlVUDlkxN7NRUWPGLimvv7r8yCryc9yQQiy3irS5TF5KlwMVucRkfwIFfZAr0KdlzOifdfBu1ZAsZAWon7eiZB0XQrIHb8GPrF3RxnM4xgFdowZAcgzrYsHNuLKqZA9ZAsGJgUZCZAusJJQZDZD");
+                user.setFbToken("EAALQMNov0CkBAF0eJfia7xQQaylt8zrEUCrPmS561ij2jn15fuhqzemij4Y15VJSiKZAqZCGQmHeQ0lrAd3Sw1hZAQSs5PCOJ74HYTPIuI5v6tqoKcamMV3wZAFoaSaj0aZCuNZB4vqcyKCZCMgEqVRMJpZAuDZByDOtectOg3mMAaV7BPOZB7ljS60PbzAUe1fhTRZB3H99yHZBJUdjyxZASEChlacc47YJ3FlGA75MLMWNzcAZDZD");
                 Gson gson = new Gson();
                 intent.putExtra("obj", gson.toJson(user));
                 startActivity(intent);

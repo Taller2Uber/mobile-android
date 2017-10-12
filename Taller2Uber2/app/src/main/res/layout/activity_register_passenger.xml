@@ -11,6 +11,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Ingrese la informacion de su tarjeta"
+        android:layout_marginLeft="8dp"
+
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="16dp" />
 
@@ -21,9 +23,6 @@
         android:ems="10"
         android:hint="Numero de tarjeta"
         android:inputType="number"
-
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2"
 
         tools:layout_editor_absoluteX="16dp"
@@ -37,9 +36,9 @@
         android:hint="Expiracion"
         android:inputType="date"
 
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/register_passenger_card_number_edit_text"
+        android:layout_marginLeft="8dp"
+
 
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="105dp" />
@@ -52,9 +51,8 @@
         android:hint="Compania"
         android:inputType="textPersonName"
 
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/register_passenger_expiration_card_edit_text"
+        android:layout_marginLeft="8dp"
 
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="169dp" />
