@@ -3,11 +3,8 @@
 var express = require('express');
 var sleep = require('sleep');
 var app = express();
-var bodyParser = require('body-parser');
-
 
 app.use(express.static('public'));
-app.use(bodyParser);
 
 
 // @GET
@@ -85,13 +82,48 @@ app.get("/update_images", function (req, res) {
 // Login a user with the facebook token (fb_token)
 
 app.post("/api/v1/users/login", function (req, res) {
-  body = res.body;
+  user = {
+    "_id": {
+      "$oid": "59de7b5704599c00083f2e17"
+    },
 
-  console.log(body)
-  res.send()
+    "fb_id": "141700183238421",
+    "fb_token": "EAALQMNov0CkBAI2zaUK6swXQF1MfI8EQI2OaBqvGzlcKOST2Bv6irk4gLnrNrp0oiRCF6nXY4fLHmCvmm4s5IXApLyMeSlZCCwlVUDlkxN7NRUWPGLimvv7r8yCryc9yQQiy3irS5TF5KlwMVucRkfwIFfZAr0KdlzOifdfBu1ZAsZAWon7eiZB0XQrIHb8GPrF3RxnM4xgFdowZAcgzrYsHNuLKqZA9ZAsGJgUZCZAusJJQZDZD",
+    "name": "Open Graph Test User",
+    "gender": "female",
+
+    "latitude": null,
+    "longitude": null,
+    "card": {
+      "number": "123123123123",
+      "expiration_date": "2017-10-11T19:19:32.009Z",
+      "company": "VISA"
+    }
 });
 
-
+app.post("/api/v1/drivers", function (req, res) {
+  user = {
+    "_id": {
+      "$oid": "59de7b5704599c00083f2e17"
+    },
+    "fb_id": "141700183238421",
+    "fb_token": "EAALQMNov0CkBAI2zaUK6swXQF1MfI8EQI2OaBqvGzlcKOST2Bv6irk4gLnrNrp0oiRCF6nXY4fLHmCvmm4s5IXApLyMeSlZCCwlVUDlkxN7NRUWPGLimvv7r8yCryc9yQQiy3irS5TF5KlwMVucRkfwIFfZAr0KdlzOifdfBu1ZAsZAWon7eiZB0XQrIHb8GPrF3RxnM4xgFdowZAcgzrYsHNuLKqZA9ZAsGJgUZCZAusJJQZDZD",
+    "name": "Open Graph Test User",
+    "gender": "female",
+    "latitude": null,
+    "longitude": null,
+    "cars": [
+      {
+        "model": "A5",
+        "brand": "Audi",
+        "year": 2016,
+        "license_plate": "eep410",
+        "ac": true
+      }
+    ]
+  }
+  res.send(user)
+});
 
 app.listen(3000, function () {
   console.log('Mock server initialized in port 3000!');
