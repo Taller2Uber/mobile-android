@@ -2,12 +2,11 @@ package com.example.slazzari.taller2uber.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
 import com.example.slazzari.taller2uber.R;
+import com.example.slazzari.taller2uber.activity.Register.RegisterActivity;
 import com.example.slazzari.taller2uber.model.User;
-import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -52,7 +51,6 @@ public class MainActivity extends BaseActivity {
                 Gson gson = new Gson();
                 intent.putExtra("obj", gson.toJson(user));
                 startActivity(intent);
-
             }
 
             @Override

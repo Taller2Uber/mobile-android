@@ -28,6 +28,10 @@ public class User {
         this.cars = cars;
     }
 
+    public void setCard(Card card) {
+        this.card = card;
+    }
+
     @Override
     public String toString() {
         return "User{" +

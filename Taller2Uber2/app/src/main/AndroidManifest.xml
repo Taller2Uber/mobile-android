@@ -39,9 +39,9 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.RegisterActivity" />
-        <activity android:name=".activity.RegisterPassengerActivity" />
-        <activity android:name=".activity.RegisterDriverActivity" />
+        <activity android:name=".activity.Register.RegisterActivity" />
+        <activity android:name=".activity.Register.RegisterPassengerActivity" />
+        <activity android:name=".activity.Register.RegisterDriverActivity" />
         <activity android:name=".activity.BaseActivity" />
 
         <service android:name="firebase.MyFirebaseInstanceIDService">
