@@ -33,33 +33,6 @@ public class MainApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-
-        FacebookToken fbToken = new FacebookToken("EAALQMNov0CkBAHASTZBqTFw5ZCJ8Ve7itjRMRwHwfdrGFax9cEUKIBiNIo2j9AB82twdzA3dBNgS20mJ0R0LaV0C1LcrfW7FZBu99hLFv4QtCWEyzD695xRoZCLtP99aRtBnPyAOVFIfLSIHuZBo7UmtAWNC8hbRo29oXdCu7sqD4OWZCm6PYUReoIS2f5PKJnnZBLZAsFmyXl0Sgl2hdTAEGIp8OmJdnRITVXUBrgOyQRCKUPbtz9IT");
-
-
-        ArrayList<Car> cars = new ArrayList<Car>();
-        Car car = new Car("A1", "Audi", 2017, "eep410", true);
-
-
-        cars.add(car);
-        User driver = new User();
-
-//        Userinteractor.registerDriver(driver).enqueue(new Callback<User>() {
-//                                                      @Override
-//                                                      public void onResponse(Call<User> call, Response<User> response) {
-//                                                          Log.w("Testing", "did success");
-//                                                          User user = response.body();
-//                                                          Log.w("Testing", user.toString());
-//                                                      }
-//
-//                                                      @Override
-//                                                      public void onFailure(Call<User> call, Throwable t) {
-//                                                          Log.w("Testing", "did fail");
-//                                                      }
-//                                                  }
-//        );
-
-
     }
 
 }
