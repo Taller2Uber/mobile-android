@@ -6,5 +6,8 @@
     <string name="facebook_app_id">791858190995497</string>
     <string name="fb_login_protocol_scheme">fb791858190995497</string>
     <string name="title_activity_passenger_home">PassengerHomeActivity</string>
+    <string name="title_activity_maps">Map</string>
+
+
 
 </resources>

@@ -22,35 +22,30 @@
         android:text="Settings" />
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/passenger_home_search_edittext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
 
         app:layout_constraintTop_toBottomOf="@+id/passenger_home_edit_passenger_button"
+
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
 
         android:hint="Busca una direccion" />
 
-    <view
-        class="android.support.v7.widget.RecyclerView"
-        android:id="@+id/view"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+    <Button
+        android:id="@+id/passenger_home_map_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Map"
 
-        app:layout_constraintTop_toBottomOf="@+id/editText"
-        app:layout_constraintBottom_toBottomOf="parent"
-
-        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/editText"
 
-        android:background="#FF00FFf0"
-
-
-        tools:layout_editor_absoluteX="147dp"
-        tools:layout_editor_absoluteY="267dp" />
+        android:layout_marginRight="16dp" />
 
 
 </android.support.constraint.ConstraintLayout>

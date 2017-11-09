@@ -63,23 +63,23 @@ public class RegisterPassengerActivity extends BaseActivity implements View.OnCl
                 user.setCard(card);
 
 
-                Userinteractor.registerPassenger(user).enqueue(new Callback<User>() {
-                       @Override
-                       public void onResponse(Call<User> call, Response<User> response) {
-                           User responseUser = response.body();
-                           Intent passengerActivityIntent = new Intent(RegisterPassengerActivity.this, PassengerHomeActivity.class);
-                           Gson gson = new Gson();
-                           passengerActivityIntent.putExtra("obj", gson.toJson(responseUser));
-
-                           startActivity(passengerActivityIntent);
-                       }
-
-                       @Override
-                       public void onFailure(Call<User> call, Throwable t) {
-                           Toast.makeText(RegisterPassengerActivity.this, "No se pudo registrar el pasajero", Toast.LENGTH_LONG).show();
-                       }
-                    }
-                );
+//                Userinteractor.registerPassenger(user).enqueue(new Callback<User>() {
+//                       @Override
+//                       public void onResponse(Call<User> call, Response<User> response) {
+//                           User responseUser = response.body();
+//                           Intent passengerActivityIntent = new Intent(RegisterPassengerActivity.this, PassengerHomeActivity.class);
+//                           Gson gson = new Gson();
+//                           passengerActivityIntent.putExtra("obj", gson.toJson(responseUser));
+//
+//                           startActivity(passengerActivityIntent);
+//                       }
+//
+//                       @Override
+//                       public void onFailure(Call<User> call, Throwable t) {
+//                           Toast.makeText(RegisterPassengerActivity.this, "No se pudo registrar el pasajero", Toast.LENGTH_LONG).show();
+//                       }
+//                    }
+//                );
         }
     }
 }

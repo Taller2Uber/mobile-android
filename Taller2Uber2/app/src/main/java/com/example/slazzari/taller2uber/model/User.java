@@ -13,8 +13,7 @@ public class User {
     private String gender;
     private Card card;
     private ArrayList<Car> cars;
-
-
+    private String ssId;
 
     public User() {
 
@@ -30,6 +29,10 @@ public class User {
 
     public void setCard(Card card) {
         this.card = card;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getName() {

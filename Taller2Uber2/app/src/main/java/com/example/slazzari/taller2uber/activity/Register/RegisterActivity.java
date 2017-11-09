@@ -8,8 +8,14 @@ import android.widget.Toast;
 
 import com.example.slazzari.taller2uber.R;
 import com.example.slazzari.taller2uber.activity.BaseActivity;
+import com.example.slazzari.taller2uber.activity.home.PassengerHomeActivity;
 import com.example.slazzari.taller2uber.model.User;
+import com.example.slazzari.taller2uber.networking.interactor.Userinteractor;
 import com.google.gson.Gson;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class RegisterActivity extends BaseActivity implements View.OnClickListener {
 
@@ -55,12 +61,32 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
 
                 break;
             case R.id.register_passenger_button :
-                Toast.makeText(RegisterActivity.this,"Passenger button was tapped", 1000).show();
-                Intent passengerActivityIntent = new Intent(RegisterActivity.this, RegisterPassengerActivity.class);
 
-                passengerActivityIntent.putExtra("obj", gson.toJson(user));
+                Userinteractor.registerPassenger(user).enqueue(new Callback<User>() {
+                       @Override
+                       public void onResponse(Call<User> call, Response<User> response) {
+                           User responseUser = response.body();
+                           Intent passengerActivityIntent = new Intent(RegisterActivity.this, PassengerHomeActivity.class);
+                           Gson gson = new Gson();
+                           passengerActivityIntent.putExtra("obj", gson.toJson(responseUser));
 
-                startActivity(passengerActivityIntent);
+                           startActivity(passengerActivityIntent);
+                       }
+
+                       @Override
+                       public void onFailure(Call<User> call, Throwable t) {
+                           Toast.makeText(RegisterActivity.this, "No se pudo registrar el pasajero", Toast.LENGTH_LONG).show();
+                       }
+                    }
+                );
+
+
+//                Toast.makeText(RegisterActivity.this,"Passenger button was tapped", 1000).show();
+//                Intent passengerActivityIntent = new Intent(RegisterActivity.this, RegisterPassengerActivity.class);
+//
+//                passengerActivityIntent.putExtra("obj", gson.toJson(user));
+//
+//                startActivity(passengerActivityIntent);
                 break;
         }
     }
