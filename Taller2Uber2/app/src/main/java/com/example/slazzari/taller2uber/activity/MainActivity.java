@@ -31,72 +31,61 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        User user = new User();
-        user.setName("Santiago Lazzari");
-        user.setFbToken(AccessToken.getCurrentAccessToken().getToken());
-
-        Gson gson = new Gson();
-        Intent intentT = new Intent(MainActivity.this, PassengerHomeActivity.class);
-        intentT.putExtra("obj", gson.toJson(user));
-        startActivity(intentT);
-//        finish();
-
-
 //        Si no tengo el token debo ir a la pantalla de login o sign up
-//        if (AccessToken.getCurrentAccessToken() == null) {
-//            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-//            startActivity(intent);
+        if (AccessToken.getCurrentAccessToken() == null) {
+            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+            startActivity(intent);
 //
 ////        Tengo access token asi que debo loguearme e ir a la home
-//        } else {
-//            Userinteractor.loginUser(new FacebookToken(AccessToken.getCurrentAccessToken().getToken())).enqueue(
-//                    new Callback<User>() {
-//                        @Override
-//                        public void onResponse(Call<User> call, Response<User> response) {
-//
-//                            User responseUser = response.body();
-//
-//                            if (responseUser == null) {
-//                                Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
-//
-//                                User user = new User();
-//                                user.setFbToken(AccessToken.getCurrentAccessToken().getToken());
-//                                Gson gson = new Gson();
-//                                intent.putExtra("obj", gson.toJson(user));
-//                                startActivity(intent);
-//                            } else {
-//                                Intent intent;
-//
-//                                if (responseUser.getCard() == null) {
-//                                    intent = new Intent(MainActivity.this, PassengerHomeActivity.class);
-//                                } else {
-////                                    intent = new Intent(MainActivity.this, DriverHomeActivity.class);
-//                                    intent = new Intent(MainActivity.this, PassengerHomeActivity.class);
-//
-//                                }
-//
-//                                Gson gson = new Gson();
-//                                intent.putExtra("obj", gson.toJson(responseUser));
-//
-//                                startActivity(intent);
-//                            }
-//
-//
-//                        }
-//
-//                        @Override
-//                        public void onFailure(Call<User> call, Throwable t) {
-//                        }
-//
-//                    }
-//            );
+        } else {
+            Userinteractor.loginUser(new FacebookToken(AccessToken.getCurrentAccessToken().getToken())).enqueue(
+                    new Callback<User>() {
+                        @Override
+                        public void onResponse(Call<User> call, Response<User> response) {
+
+                            User responseUser = response.body();
+
+                            if (responseUser == null) {
+                                Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
+
+                                User user = new User();
+                                user.setFbToken(AccessToken.getCurrentAccessToken().getToken());
+                                Gson gson = new Gson();
+                                intent.putExtra("obj", gson.toJson(user));
+                                startActivity(intent);
+                            } else {
+                                Intent intent;
+
+                                if (responseUser.getCard() == null) {
+                                    intent = new Intent(MainActivity.this, PassengerHomeActivity.class);
+                                } else {
+//                                    intent = new Intent(MainActivity.this, DriverHomeActivity.class);
+                                    intent = new Intent(MainActivity.this, PassengerHomeActivity.class);
+
+                                }
+
+                                Gson gson = new Gson();
+                                intent.putExtra("obj", gson.toJson(responseUser));
+
+                                startActivity(intent);
+                            }
 
 
-//            Toast.makeText(MainActivity.this, "token " + AccessToken.getCurrentAccessToken().getToken(), Toast.LENGTH_LONG).show();
-//
-//            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-//            startActivity(intent);
-//        }
+                        }
+
+                        @Override
+                        public void onFailure(Call<User> call, Throwable t) {
+                        }
+
+                    }
+            );
+
+
+            Toast.makeText(MainActivity.this, "token " + AccessToken.getCurrentAccessToken().getToken(), Toast.LENGTH_LONG).show();
+
+            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+            startActivity(intent);
+        }
     }
 
     @Override

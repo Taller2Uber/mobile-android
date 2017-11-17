@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context="com.example.slazzari.taller2uber.activity.LoginActivity">
 
-
     <com.facebook.login.widget.LoginButton
         android:id="@+id/facebook_login_button"
         android:layout_width="wrap_content"
@@ -33,7 +32,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
 
 
-        android:layout_marginBottom="14dp"
+        android:layout_marginBottom="12dp"
         app:layout_constraintHorizontal_bias="0.502" />
 
     <EditText
@@ -51,7 +50,7 @@
 
         app:layout_constraintHorizontal_bias="0.502"
         android:layout_marginRight="0dp"
-        android:layout_marginBottom="0dp" />
+        android:layout_marginBottom="12dp" />
 
     <Button
         android:id="@+id/register_button"
@@ -59,11 +58,12 @@
         android:layout_height="wrap_content"
         android:text="Registrar"
 
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginLeft="111dp"
 
         app:layout_constraintBottom_toTopOf="@+id/facebook_login_button"
-        android:layout_marginBottom="0dp"
-        app:layout_constraintRight_toLeftOf="@+id/login_button"
-        android:layout_marginRight="-5dp" />
+        android:layout_marginBottom="12dp"
+        />
 
     <Button
         android:id="@+id/login_button"
@@ -71,11 +71,8 @@
         android:layout_height="wrap_content"
         android:text="Login"
 
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginRight="8dp"
-
         app:layout_constraintBottom_toTopOf="@+id/facebook_login_button"
-        android:layout_marginBottom="0dp"
+        android:layout_marginBottom="12dp"
         app:layout_constraintLeft_toRightOf="@+id/register_button"
         />
 
