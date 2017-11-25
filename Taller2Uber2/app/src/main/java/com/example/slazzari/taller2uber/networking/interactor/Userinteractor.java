@@ -1,6 +1,5 @@
 package com.example.slazzari.taller2uber.networking.interactor;
 
-import com.example.slazzari.taller2uber.model.FacebookToken;
 import com.example.slazzari.taller2uber.model.User;
 import com.example.slazzari.taller2uber.networking.repository.Userrepo;
 import com.google.gson.FieldNamingPolicy;
@@ -33,7 +32,7 @@ public class Userinteractor {
         return userrepo.getUser();
     }
 
-    public static Call<User> loginUser(FacebookToken facebookToken) {
+    public static Call<User> loginUser(User user) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create(
@@ -45,7 +44,7 @@ public class Userinteractor {
 
         Userrepo userrepo= retrofit.create(Userrepo.class);
 
-        return userrepo.loginUser(facebookToken);
+        return userrepo.loginUser(user);
     }
 
     public static Call<User> registerPassenger(User user) {

@@ -15,7 +15,7 @@
         android:inputType="textPersonName"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:hint="Nombre y appellido"
+        android:hint="Nombre"
         android:enabled="false"
  />
 
@@ -125,4 +125,17 @@
 
         tools:layout_editor_absoluteX="231dp"
         tools:layout_editor_absoluteY="430dp" />
+
+    <Button
+        android:id="@+id/passenger_description_logout_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Log out"
+
+        app:layout_constraintTop_toBottomOf="@+id/passenger_description_card_company_edit_text"
+        app:layout_constraintLeft_toLeftOf="parent"
+
+
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="269dp" />
 </android.support.constraint.ConstraintLayout>

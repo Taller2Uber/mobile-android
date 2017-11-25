@@ -1,11 +1,13 @@
 package com.example.slazzari.taller2uber.activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.slazzari.taller2uber.R;
@@ -21,6 +23,7 @@ import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.gson.Gson;
 
 import retrofit2.Call;
@@ -31,9 +34,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private CallbackManager callbackManager;
 
+    private EditText usernameEditText;
+    private EditText passwordEditText;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
 
         getSupportActionBar().setTitle("Login");
 
@@ -48,6 +55,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         Button registerButton = (Button) this.findViewById(R.id.register_button);
         registerButton.setOnClickListener(this);
 
+        usernameEditText = (EditText) this.findViewById(R.id.username_edit_text);
+        passwordEditText = (EditText) this.findViewById(R.id.password_edit_text);
 
         // Other app specific specialization
 
@@ -63,8 +72,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 //                TODO:if (el token está registrado)
 //                  TODO:entrar derecho a la home con ese usuario
 
-
-                Userinteractor.loginUser(new FacebookToken(AccessToken.getCurrentAccessToken().getToken())).enqueue(
+                User loginUser = new User();
+                loginUser.setFbToken(AccessToken.getCurrentAccessToken().getToken());
+                Userinteractor.loginUser(loginUser).enqueue(
                         new Callback<User>() {
                             @Override
                             public void onResponse(Call<User> call, Response<User> response) {
@@ -76,12 +86,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
                                     User user = new User();
                                     user.setFbToken(AccessToken.getCurrentAccessToken().getToken());
+                                    String firebaseToken = FirebaseInstanceId.getInstance().getToken().toString();
+
+                                    user.setFirebaseToken(firebaseToken);
                                     Gson gson = new Gson();
                                     intent.putExtra("obj", gson.toJson(user));
                                     startActivity(intent);
+                                    finish();
                                 } else {
                                     Intent intent;
-                                    if (responseUser.getCard() == null) {
+                                    if (responseUser.isPassenger()) {
                                         intent = new Intent(LoginActivity.this, PassengerHomeActivity.class);
                                     } else {
                                         intent = new Intent(LoginActivity.this, DriverHomeActivity.class);
@@ -91,6 +105,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                     intent.putExtra("obj", gson.toJson(responseUser));
 
                                     startActivity(intent);
+                                    finish();
                                 }
                             }
 
@@ -118,20 +133,71 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onClick(View view) {
+        final User user = new User();
+
+        user.setUserName(usernameEditText.getText().toString());
+        user.setPassword(passwordEditText.getText().toString());
+
         switch (view.getId()) {
             case R.id.register_button:
                 Toast.makeText(LoginActivity.this, "Register", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
 
-                User user = new User();
-                user.setFbToken(AccessToken.getCurrentAccessToken().getToken());
                 Gson gson = new Gson();
                 intent.putExtra("obj", gson.toJson(user));
                 startActivity(intent);
+                finish();
 
                 break;
             case R.id.login_button:
-                Toast.makeText(LoginActivity.this, "login", Toast.LENGTH_LONG).show();
+                Userinteractor.loginUser(user).enqueue(
+                        new Callback<User>() {
+                            @Override
+                            public void onResponse(Call<User> call, Response<User> response) {
+
+                                User responseUser = response.body();
+
+                                if (responseUser == null) {
+                                    Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+
+                                    User user = new User();
+                                    user.setFbToken(AccessToken.getCurrentAccessToken().getToken());
+                                    String firebaseToken = FirebaseInstanceId.getInstance().getToken().toString();
+
+                                    user.setFirebaseToken(firebaseToken);
+                                    Gson gson = new Gson();
+                                    intent.putExtra("obj", gson.toJson(user));
+                                    startActivity(intent);
+                                    finish();
+                                } else {
+                                    Intent intent;
+                                    if (responseUser.isPassenger()) {
+                                        intent = new Intent(LoginActivity.this, PassengerHomeActivity.class);
+                                    } else {
+                                        intent = new Intent(LoginActivity.this, DriverHomeActivity.class);
+                                    }
+
+                                    SharedPreferences preferences = getBaseContext().getSharedPreferences("MyPrefs", MODE_PRIVATE);
+                                    SharedPreferences.Editor editor = preferences.edit();
+
+                                    editor.putString("username",user.getUserName());
+                                    editor.putString("password",user.getPassword());
+
+                                    editor.commit();
+
+                                    Gson gson = new Gson();
+                                    intent.putExtra("obj", gson.toJson(responseUser));
+
+                                    startActivity(intent);
+                                    finish();
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<User> call, Throwable t) {
+                            }
+                        }
+                );
                 break;
         }
     }

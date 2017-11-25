@@ -80,13 +80,6 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                     }
                 );
 
-
-//                Toast.makeText(RegisterActivity.this,"Passenger button was tapped", 1000).show();
-//                Intent passengerActivityIntent = new Intent(RegisterActivity.this, RegisterPassengerActivity.class);
-//
-//                passengerActivityIntent.putExtra("obj", gson.toJson(user));
-//
-//                startActivity(passengerActivityIntent);
                 break;
         }
     }

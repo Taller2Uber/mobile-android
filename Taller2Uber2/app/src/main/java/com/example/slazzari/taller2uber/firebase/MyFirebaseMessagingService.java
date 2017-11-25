@@ -42,7 +42,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         }
 
 
-        Log.w(TAG, "From: " + notificationBody);
+            Log.w(TAG, "From: " + notificationBody);
         Gson gson = new Gson();
 
         gson.toJson(notificationBody);

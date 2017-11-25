@@ -8,12 +8,54 @@ import java.util.List;
  */
 
 public class User {
-    private String name;
-    private String fbToken;
+    private String firstName;
+    private String lastName;
     private String gender;
     private Card card;
     private ArrayList<Car> cars;
     private String ssId;
+    private String firebaseToken;
+
+
+
+    private String type;
+
+    private String fbToken;
+    private String password;
+    private String userName;
+
+
+    public String getPassword() {
+        return password;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
 
     public User() {
 
@@ -31,26 +73,31 @@ public class User {
         this.card = card;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getName() {
-        return name;
-    }
 
     public String getGender() {
         return gender;
     }
 
-    public Card getCard() {
-        return card;
+    public String getFirebaseToken() {
+        return firebaseToken;
+    }
+
+    public void setFirebaseToken(String firebaseToken) {
+        this.firebaseToken = firebaseToken;
+    }
+
+    public boolean isDriver() {
+        return this.type.equals("driver");
+    }
+
+    public boolean isPassenger() {
+        return this.type.equals("passenger");
     }
 
     @Override
     public String toString() {
         return "User{" +
-                "name='" + name + '\'' +
+                "firstName='" + firstName+ '\'' +
                 ", facebookToken='" + fbToken + '\'' +
                 ", gender=" + gender +
                 '}';

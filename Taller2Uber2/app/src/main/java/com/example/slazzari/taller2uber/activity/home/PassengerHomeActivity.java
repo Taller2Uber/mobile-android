@@ -30,7 +30,7 @@ public class PassengerHomeActivity extends BaseActivity implements View.OnClickL
         user = gson.fromJson(strUser, User.class);
 
 
-        getSupportActionBar().setTitle(user.getName());
+        getSupportActionBar().setTitle(user.getFirstName());
 
         Button editPassangerButton = (Button) findViewById(R.id.passenger_home_edit_passenger_button);
         editPassangerButton.setOnClickListener(this);

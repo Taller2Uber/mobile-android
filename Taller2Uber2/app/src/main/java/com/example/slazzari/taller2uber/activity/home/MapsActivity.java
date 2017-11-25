@@ -28,6 +28,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
@@ -87,12 +88,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     marker = markerOptions;
                 } else {
 
-                    String url = getDirectionsUrl(marker.getPosition(), markerOptions.getPosition());
+//                    String url = getDirectionsUrl(marker.getPosition(), markerOptions.getPosition());
+
+                    String url = "https://llevame-taller2.herokuapp.com/api/v1/routes";
 
                     DownloadTask downloadTask = new DownloadTask();
 
+                    String body =  "{\"latitude_origin\": \"-34.56699\", \"longitude_origin\": \"-58.47636\", \"latitude_destination\": \"-34.616789\", \"longitude_destination\": \"-58.362139\"}";
+
                     // Start downloading json data from Google Directions API
-                    downloadTask.execute(url);
+                    downloadTask.execute(url, body);
                     marker = markerOptions;
                 }
             }
@@ -122,7 +127,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         return url;
     }
     /** A method to download json data from url */
-    private String downloadUrl(String strUrl) throws IOException {
+    private String downloadUrl(String strUrl, String body) throws IOException {
         String data = "";
         InputStream iStream = null;
         HttpURLConnection urlConnection = null;
@@ -132,8 +137,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             // Creating an http connection to communicate with url
             urlConnection = (HttpURLConnection) url.openConnection();
 
+            urlConnection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+            urlConnection.setRequestMethod("POST");
+            urlConnection.setDoInput(true);
+            urlConnection.setInstanceFollowRedirects(false);
+
+
             // Connecting to url
             urlConnection.connect();
+
+            OutputStreamWriter writer = new OutputStreamWriter(urlConnection.getOutputStream(), "UTF-8");
+            writer.write(body);
+            writer.close();
+
 
             // Reading data from url
             iStream = urlConnection.getInputStream();
@@ -172,7 +188,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
             try{
                 // Fetching the data from web service
-                data = downloadUrl(url[0]);
+                data = downloadUrl(url[0], url[1]);
             }catch(Exception e){
                 Log.d("Background Task",e.toString());
             }

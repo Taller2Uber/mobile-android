@@ -10,6 +10,7 @@ import com.example.slazzari.taller2uber.networking.interactor.Userinteractor;
 import com.example.slazzari.taller2uber.networking.interactor.Wikiinteractor;
 import com.example.slazzari.taller2uber.networking.repository.Wikirepo;
 import com.facebook.AccessToken;
+import com.facebook.login.LoginManager;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.gson.FieldNamingPolicy;
@@ -36,6 +37,7 @@ public class MainApplication extends Application {
     public void onCreate() {
         super.onCreate();
 
+        LoginManager.getInstance().logOut();
         String token = FirebaseInstanceId.getInstance().getToken().toString();
     }
 

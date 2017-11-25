@@ -1,6 +1,8 @@
 package com.example.slazzari.taller2uber.activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -17,6 +19,7 @@ import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.login.LoginResult;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.gson.Gson;
 
 import retrofit2.Call;
@@ -31,14 +34,18 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        Si no tengo el token debo ir a la pantalla de login o sign up
-        if (AccessToken.getCurrentAccessToken() == null) {
-            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-            startActivity(intent);
-//
-////        Tengo access token asi que debo loguearme e ir a la home
-        } else {
-            Userinteractor.loginUser(new FacebookToken(AccessToken.getCurrentAccessToken().getToken())).enqueue(
+        SharedPreferences preferences = getBaseContext().getSharedPreferences("MyPrefs", MODE_PRIVATE);
+
+        String userName = preferences.getString("username",null);
+        String password = preferences.getString("password",null);
+
+//      Si guarde en las sharedprefs el username y pass
+        if((userName != null) && (password != null)) {
+            User user = new User();
+            user.setUserName(userName);
+            user.setPassword(password);
+
+            Userinteractor.loginUser(user).enqueue(
                     new Callback<User>() {
                         @Override
                         public void onResponse(Call<User> call, Response<User> response) {
@@ -50,42 +57,92 @@ public class MainActivity extends BaseActivity {
 
                                 User user = new User();
                                 user.setFbToken(AccessToken.getCurrentAccessToken().getToken());
+                                String firebaseToken = FirebaseInstanceId.getInstance().getToken().toString();
+
+                                user.setFirebaseToken(firebaseToken);
                                 Gson gson = new Gson();
                                 intent.putExtra("obj", gson.toJson(user));
                                 startActivity(intent);
+                                finish();
                             } else {
                                 Intent intent;
-
-                                if (responseUser.getCard() == null) {
+                                if (responseUser.isPassenger()) {
                                     intent = new Intent(MainActivity.this, PassengerHomeActivity.class);
                                 } else {
-//                                    intent = new Intent(MainActivity.this, DriverHomeActivity.class);
-                                    intent = new Intent(MainActivity.this, PassengerHomeActivity.class);
-
+                                    intent = new Intent(MainActivity.this, DriverHomeActivity.class);
                                 }
 
                                 Gson gson = new Gson();
                                 intent.putExtra("obj", gson.toJson(responseUser));
 
                                 startActivity(intent);
+                                finish();
                             }
-
-
                         }
 
                         @Override
                         public void onFailure(Call<User> call, Throwable t) {
                         }
-
                     }
             );
 
+        }else{
+//      Si no hay ningun usuario y contraseña en la app
+//        Si no tengo el token debo ir a la pantalla de login o sign up
+            if (AccessToken.getCurrentAccessToken() == null) {
+                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(intent);
 
-            Toast.makeText(MainActivity.this, "token " + AccessToken.getCurrentAccessToken().getToken(), Toast.LENGTH_LONG).show();
+                finish();
+//        Tengo access token asi que debo loguearme e ir a la home
+            } else {
+//            Me falta el caso del login nativo
+                User loginUser = new User();
+                loginUser.setFbToken(AccessToken.getCurrentAccessToken().getToken());
+                Userinteractor.loginUser(loginUser).enqueue(
+                        new Callback<User>() {
+                            @Override
+                            public void onResponse(Call<User> call, Response<User> response) {
 
-            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-            startActivity(intent);
+                                User responseUser = response.body();
+
+                                if (responseUser == null) {
+                                    Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
+
+                                    User user = new User();
+                                    user.setFbToken(AccessToken.getCurrentAccessToken().getToken());
+                                    Gson gson = new Gson();
+                                    intent.putExtra("obj", gson.toJson(user));
+                                    startActivity(intent);
+                                    finish();
+                                } else {
+                                    Intent intent;
+
+                                    if (responseUser.isPassenger()) {
+                                        intent = new Intent(MainActivity.this, PassengerHomeActivity.class);
+                                    } else {
+                                        intent = new Intent(MainActivity.this, DriverHomeActivity.class);
+                                    }
+
+                                    Gson gson = new Gson();
+                                    intent.putExtra("obj", gson.toJson(responseUser));
+
+                                    startActivity(intent);
+                                    finish();
+                                }
+
+                            }
+
+                            @Override
+                            public void onFailure(Call<User> call, Throwable t) {
+                            }
+
+                        }
+                );
+            }
+
         }
+
     }
 
     @Override

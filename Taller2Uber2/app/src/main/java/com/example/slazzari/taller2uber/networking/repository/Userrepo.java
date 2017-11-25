@@ -23,7 +23,7 @@ public interface Userrepo {
     Call<User> getUser();
 
     @POST(LOGIN_USER)
-    Call<User> loginUser(@Body FacebookToken facebookToken);
+    Call<User> loginUser(@Body User user);
 
     @POST(REGISTER_DRIVER)
     Call<User> registerDriver(@Body User user);
