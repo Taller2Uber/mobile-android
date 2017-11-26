@@ -16,8 +16,6 @@ public class User {
     private String ssId;
     private String firebaseToken;
 
-
-
     private String type;
 
     private String fbToken;

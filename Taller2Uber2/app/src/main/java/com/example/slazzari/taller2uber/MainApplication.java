@@ -38,7 +38,7 @@ public class MainApplication extends Application {
         super.onCreate();
 
         LoginManager.getInstance().logOut();
-        String token = FirebaseInstanceId.getInstance().getToken().toString();
+//        String token = FirebaseInstanceId.getInstance().getToken().toString();
     }
 
 }

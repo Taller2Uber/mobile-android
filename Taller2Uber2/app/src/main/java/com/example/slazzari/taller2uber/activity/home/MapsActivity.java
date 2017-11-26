@@ -20,6 +20,7 @@ import com.google.android.gms.maps.model.PolylineOptions;
 
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
+import android.widget.Toast;
 
 
 import org.json.JSONObject;
@@ -36,12 +37,15 @@ import java.util.HashMap;
 import java.util.List;
 
 import static com.example.slazzari.taller2uber.R.id.map;
+import static com.example.slazzari.taller2uber.networking.NetworkingConstants.BASE_URL;
+import static com.example.slazzari.taller2uber.networking.NetworkingConstants.ROUTES;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
     private static final int MY_LOCATION_REQUEST_CODE = 1;
-    private MarkerOptions marker;
+    private MarkerOptions markerOrigin;
+    private MarkerOptions markerDestination;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +55,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(map);
         mapFragment.getMapAsync(this);
+
+        Toast.makeText(MapsActivity.this, "Seleccionar un lugar de pickup", Toast.LENGTH_LONG).show();
     }
 
 
@@ -84,21 +90,21 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 MarkerOptions markerOptions = new MarkerOptions().position(point).title("Custom location").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
                 mMap.addMarker(markerOptions);
 
-                if (marker == null) {
-                    marker = markerOptions;
+                if (markerOrigin == null) {
+                    markerOrigin = markerOptions;
+                    Toast.makeText(MapsActivity.this, "Seleccionar un lugar de destino", Toast.LENGTH_LONG).show();
                 } else {
 
-//                    String url = getDirectionsUrl(marker.getPosition(), markerOptions.getPosition());
+                    markerDestination = markerOptions;
 
-                    String url = "https://llevame-taller2.herokuapp.com/api/v1/routes";
+                    String url = BASE_URL + ROUTES;
 
                     DownloadTask downloadTask = new DownloadTask();
 
-                    String body =  "{\"latitude_origin\": \"-34.56699\", \"longitude_origin\": \"-58.47636\", \"latitude_destination\": \"-34.616789\", \"longitude_destination\": \"-58.362139\"}";
+                    String body =  "{\"passenger_id\": 189, \"latitude_origin\": \"" + markerOrigin.getPosition().latitude + "\", \"longitude_origin\": \""+ markerOrigin.getPosition().longitude +"\", \"latitude_destination\": \"" + markerDestination.getPosition().latitude + "\", \"longitude_destination\": \""+ markerDestination.getPosition().longitude+"\"}";
 
                     // Start downloading json data from Google Directions API
                     downloadTask.execute(url, body);
-                    marker = markerOptions;
                 }
             }
         });
@@ -235,7 +241,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         protected void onPostExecute(List<List<HashMap<String, String>>> result) {
             ArrayList<LatLng> points = null;
             PolylineOptions lineOptions = null;
-            MarkerOptions markerOptions = new MarkerOptions();
 
             // Traversing through all the routes
             for(int i=0;i<result.size();i++){
@@ -244,6 +249,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                 // Fetching i-th route
                 List<HashMap<String, String>> path = result.get(i);
+
 
                 // Fetching all the points in i-th route
                 for(int j=0;j<path.size();j++){
@@ -259,11 +265,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 // Adding all the points in the route to LineOptions
                 lineOptions.addAll(points);
                 lineOptions.width(8);
+
+//                List<Color> colors = new ArrayList<>(Color.BLUE,Color.RED, Color.)
+
                 lineOptions.color(Color.BLUE);
+
+                mMap.addPolyline(lineOptions);
             }
 
             // Drawing polyline in the Google Map for the i-th route
-            mMap.addPolyline(lineOptions);
         }
     }
 

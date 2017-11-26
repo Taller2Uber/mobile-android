@@ -36,11 +36,11 @@ public class MainActivity extends BaseActivity {
 
         SharedPreferences preferences = getBaseContext().getSharedPreferences("MyPrefs", MODE_PRIVATE);
 
-        String userName = preferences.getString("username",null);
-        String password = preferences.getString("password",null);
+        final String userName = preferences.getString("username",null);
+        final String password = preferences.getString("password",null);
 
 //      Si guarde en las sharedprefs el username y pass
-        if((userName != null) && (password != null)) {
+        if ((userName != null) && (password != null)) {
             User user = new User();
             user.setUserName(userName);
             user.setPassword(password);
@@ -51,14 +51,15 @@ public class MainActivity extends BaseActivity {
                         public void onResponse(Call<User> call, Response<User> response) {
 
                             User responseUser = response.body();
+                            String authorization = response.headers().get("authorization");
 
                             if (responseUser == null) {
                                 Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
 
-                                User user = new User();
-                                user.setFbToken(AccessToken.getCurrentAccessToken().getToken());
                                 String firebaseToken = FirebaseInstanceId.getInstance().getToken().toString();
-
+                                User user = new User();
+                                user.setUserName(userName);
+                                user.setPassword(password);
                                 user.setFirebaseToken(firebaseToken);
                                 Gson gson = new Gson();
                                 intent.putExtra("obj", gson.toJson(user));
@@ -105,6 +106,8 @@ public class MainActivity extends BaseActivity {
                             public void onResponse(Call<User> call, Response<User> response) {
 
                                 User responseUser = response.body();
+                                String authorization = response.headers().get("authorization");
+
 
                                 if (responseUser == null) {
                                     Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
@@ -135,6 +138,7 @@ public class MainActivity extends BaseActivity {
 
                             @Override
                             public void onFailure(Call<User> call, Throwable t) {
+
                             }
 
                         }

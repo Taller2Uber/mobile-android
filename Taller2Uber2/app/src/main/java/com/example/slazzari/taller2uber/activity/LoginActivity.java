@@ -63,8 +63,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         // Callback registration
         callbackManager = CallbackManager.Factory.create();
 
-        Toast.makeText(LoginActivity.this, "Login Button" +  loginButton, Toast.LENGTH_LONG).show();
-
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
 
             @Override
@@ -78,6 +76,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         new Callback<User>() {
                             @Override
                             public void onResponse(Call<User> call, Response<User> response) {
+
+                                String authorization = response.headers().get("authorization");
 
                                 User responseUser = response.body();
 
@@ -138,6 +138,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         user.setUserName(usernameEditText.getText().toString());
         user.setPassword(passwordEditText.getText().toString());
 
+//        String firebaseToken = FirebaseInstanceId.getInstance().getToken().toString();
+//        user.setFirebaseToken(firebaseToken);
+
+
         switch (view.getId()) {
             case R.id.register_button:
                 Toast.makeText(LoginActivity.this, "Register", Toast.LENGTH_LONG).show();
@@ -161,7 +165,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                     Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
 
                                     User user = new User();
-                                    user.setFbToken(AccessToken.getCurrentAccessToken().getToken());
                                     String firebaseToken = FirebaseInstanceId.getInstance().getToken().toString();
 
                                     user.setFirebaseToken(firebaseToken);
