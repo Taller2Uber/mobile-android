@@ -1,6 +1,5 @@
 package com.example.slazzari.taller2uber.networking.repository;
 
-import com.example.slazzari.taller2uber.model.FacebookToken;
 import com.example.slazzari.taller2uber.model.User;
 
 import retrofit2.Call;

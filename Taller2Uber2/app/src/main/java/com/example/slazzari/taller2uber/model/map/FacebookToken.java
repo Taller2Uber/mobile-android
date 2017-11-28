@@ -1,4 +1,4 @@
-package com.example.slazzari.taller2uber.model;
+package com.example.slazzari.taller2uber.model.map;
 
 /**
  * Created by slazzari on 10/11/17.

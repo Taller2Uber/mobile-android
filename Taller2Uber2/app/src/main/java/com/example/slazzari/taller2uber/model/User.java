@@ -18,6 +18,38 @@ public class User {
 
     private String type;
 
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public Card getCard() {
+        return card;
+    }
+
+    public ArrayList<Car> getCars() {
+        return cars;
+    }
+
+    public String getSsId() {
+        return ssId;
+    }
+
+    public void setSsId(String ssId) {
+        this.ssId = ssId;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getFbToken() {
+        return fbToken;
+    }
+
     private String fbToken;
     private String password;
     private String userName;

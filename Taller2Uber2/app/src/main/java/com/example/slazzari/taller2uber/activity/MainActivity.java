@@ -4,27 +4,24 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 
 import android.os.Bundle;
-import android.widget.Toast;
 
 import com.example.slazzari.taller2uber.R;
 import com.example.slazzari.taller2uber.activity.Register.RegisterActivity;
-import com.example.slazzari.taller2uber.activity.Register.RegisterPassengerActivity;
 import com.example.slazzari.taller2uber.activity.home.DriverHomeActivity;
 import com.example.slazzari.taller2uber.activity.home.PassengerHomeActivity;
-import com.example.slazzari.taller2uber.model.FacebookToken;
 import com.example.slazzari.taller2uber.model.User;
+import com.example.slazzari.taller2uber.networking.NetworkingConstants;
 import com.example.slazzari.taller2uber.networking.interactor.Userinteractor;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
-import com.facebook.FacebookCallback;
-import com.facebook.FacebookException;
-import com.facebook.login.LoginResult;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.gson.Gson;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static com.example.slazzari.taller2uber.networking.NetworkingConstants.AUTHORIZATION_KEY;
 
 public class MainActivity extends BaseActivity {
     private CallbackManager callbackManager;
@@ -51,10 +48,13 @@ public class MainActivity extends BaseActivity {
                         public void onResponse(Call<User> call, Response<User> response) {
 
                             User responseUser = response.body();
-                            String authorization = response.headers().get("authorization");
+
+                            String authorization = response.headers().get(AUTHORIZATION_KEY);
+                            NetworkingConstants.authToken = authorization;
 
                             if (responseUser == null) {
                                 Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
+
 
                                 String firebaseToken = FirebaseInstanceId.getInstance().getToken().toString();
                                 User user = new User();
@@ -106,7 +106,8 @@ public class MainActivity extends BaseActivity {
                             public void onResponse(Call<User> call, Response<User> response) {
 
                                 User responseUser = response.body();
-                                String authorization = response.headers().get("authorization");
+                                String authorization = response.headers().get(AUTHORIZATION_KEY);
+                                NetworkingConstants.authToken = authorization;
 
 
                                 if (responseUser == null) {
