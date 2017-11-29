@@ -14,8 +14,6 @@ public class PassengerHomeActivity extends BaseActivity implements View.OnClickL
 
     private User user;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,27 +31,7 @@ public class PassengerHomeActivity extends BaseActivity implements View.OnClickL
 
         Button mapPassengerButton = (Button) findViewById(R.id.passenger_home_map_button);
         mapPassengerButton.setOnClickListener(this);
-
-//        EditText searchEdidText = (EditText) findViewById(R.id.passenger_home_search_edittext);
-//        searchEdidText.setOnKeyListener(new View.OnKeyListener() {
-//
-//            @Override
-//            public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
-//                if ((keyEvent.getAction() == KeyEvent.ACTION_DOWN) &&
-//                        (keyCode == KeyEvent.KEYCODE_ENTER)) {
-////                    Hacer el request de los camino
-//                    Toast.makeText(PassengerHomeActivity.this, "Did return", Toast.LENGTH_LONG).show();
-//                    Intent mapActivityIntent = new Intent(PassengerHomeActivity.this, MapsActivity.class);
-//
-//                    startActivity(mapActivityIntent);
-//
-//                    return true;
-//                }
-//
-//                return false;
-//            }
-//        });
-        }
+     }
 
     @Override
     public void onClick(View view) {

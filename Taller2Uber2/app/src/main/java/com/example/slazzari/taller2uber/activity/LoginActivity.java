@@ -166,8 +166,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                 String authorization = response.headers().get(AUTHORIZATION_KEY);
                                 NetworkingConstants.authToken = authorization;
 
-
-
                                 if (responseUser == null) {
                                     Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
 

@@ -41,13 +41,23 @@ public class ChatManager implements MessageReceiver {
         String messagesString = preferences.getString("chat", null);
 
         try {
-            messages = gson.fromJson(messagesString, messages.getClass());
+            List<ChatMessage> sharedMessages = gson.fromJson(messagesString, messages.getClass());
+
+            if (sharedMessages == null) {
+                SharedPreferences.Editor editor = preferences.edit();
+
+                editor.putString("chat", gson.toJson(messages));
+                editor.commit();
+            }
+
         } catch (Exception e) {
             SharedPreferences.Editor editor = preferences.edit();
 
             editor.putString("chat", gson.toJson(messages));
             editor.commit();
         }
+
+        messagesString = preferences.getString("chat", null);
 
         Type messagesType = new TypeToken<List<ChatMessage>>(){}.getType();
 
@@ -102,7 +112,9 @@ public class ChatManager implements MessageReceiver {
         Runnable myRunnable = new Runnable() {
             @Override
             public void run() {
-                messageDelegate.onMessageReceibe(new ChatMessage());
+                if (messageDelegate!= null) {
+                    messageDelegate.onMessageReceibe(new ChatMessage());
+                }
             }
         };
         mainHandler.post(myRunnable);

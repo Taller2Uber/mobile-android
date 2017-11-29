@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 
 import com.facebook.login.LoginManager;
+import com.google.firebase.FirebaseApp;
 
 /**
  * Created by slazzari on 9/12/17.

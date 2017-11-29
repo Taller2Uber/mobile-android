@@ -30,6 +30,7 @@ public class ChatActivity extends AppCompatActivity implements MessageReceiver {
         setContentView(R.layout.activity_chat);
 
         chatManager = ChatManager.getInstance();
+
         chatManager.setMessageDelegate(this);
 
         chatRecyclerView = (RecyclerView) findViewById(R.id.chat_recycler_view);
