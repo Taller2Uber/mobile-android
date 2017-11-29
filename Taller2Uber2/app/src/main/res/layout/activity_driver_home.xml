@@ -16,6 +16,17 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent" />
 
+    <Button
+        android:id="@+id/driver_chat_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Chat"
+
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+
+        />
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/available_routes_recycler_view"
         android:layout_width="0dp"

@@ -4,6 +4,8 @@ import android.nfc.Tag;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.example.slazzari.taller2uber.model.Notification;
+import com.example.slazzari.taller2uber.model.chat.ChatMessage;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.google.gson.Gson;
@@ -41,11 +43,16 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             notificationBody = remoteMessage.getNotification().getBody();
         }
 
-
-            Log.w(TAG, "From: " + notificationBody);
         Gson gson = new Gson();
 
-        gson.toJson(notificationBody);
+        Notification notification = gson.fromJson(notificationBody, Notification.class);
+
+        if (notification.isChatMessage()) {
+            ChatMessage message = gson.fromJson(notification.getContent(), ChatMessage.class);
+        }
+
+        Log.w(TAG, "From: " + notificationBody);
+
 
 
 

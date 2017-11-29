@@ -75,7 +75,6 @@ public class MainActivity extends BaseActivity {
 
                                 String firebaseToken = FirebaseInstanceId.getInstance().getToken().toString();
 
-
                                 Gson gson = new Gson();
                                 intent.putExtra("obj", gson.toJson(responseUser));
 

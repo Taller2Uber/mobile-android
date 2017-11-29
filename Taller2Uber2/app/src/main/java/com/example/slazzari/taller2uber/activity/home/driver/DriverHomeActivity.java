@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.slazzari.taller2uber.R;
+import com.example.slazzari.taller2uber.activity.chat.ChatActivity;
 import com.example.slazzari.taller2uber.activity.home.passenger.MapsActivity;
 import com.example.slazzari.taller2uber.model.User;
 import com.example.slazzari.taller2uber.model.map.AvailableRoute;
@@ -24,8 +25,11 @@ import retrofit2.Response;
 public class DriverHomeActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Button editDriverButton;
+    private Button chatButton;
+
     private User user;
     private RecyclerView availableRoutesRecyclerView;
+
 
 
     @Override
@@ -40,6 +44,9 @@ public class DriverHomeActivity extends AppCompatActivity implements View.OnClic
 
         editDriverButton = (Button) findViewById(R.id.driver_home_edit_passenger_button);
         editDriverButton.setOnClickListener(this);
+
+        chatButton = (Button) findViewById(R.id.driver_chat_button);
+        chatButton.setOnClickListener(this);
 
         availableRoutesRecyclerView = (RecyclerView) findViewById(R.id.available_routes_recycler_view);
 
@@ -106,6 +113,11 @@ public class DriverHomeActivity extends AppCompatActivity implements View.OnClic
 
                 startActivity(passengerActivityIntent);
 
+                break;
+            case R.id.driver_chat_button:
+                Intent chatActivityIntent = new Intent(DriverHomeActivity.this, ChatActivity.class);
+
+                startActivity(chatActivityIntent);
                 break;
         }
     }
