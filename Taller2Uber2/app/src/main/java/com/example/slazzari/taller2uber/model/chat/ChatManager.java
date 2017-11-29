@@ -1,11 +1,17 @@
 package com.example.slazzari.taller2uber.model.chat;
 
 import android.app.Notification;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 
+import com.example.slazzari.taller2uber.MainApplication;
 import com.example.slazzari.taller2uber.networking.interactor.Notificationinteractor;
 import com.example.slazzari.taller2uber.networking.repository.Notificationrepo;
+import com.google.gson.Gson;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.MediaType;
@@ -23,7 +29,7 @@ public class ChatManager implements MessageReceiver {
     public static ChatManager getInstance() {
         return ourInstance;
     }
-    private List<ChatMessage> messages;
+    private List<ChatMessage> messages = new ArrayList<ChatMessage>();
     public String toToken;
     private MessageReceiver messageDelegate;
 
@@ -33,15 +39,35 @@ public class ChatManager implements MessageReceiver {
 
     private ChatManager() {}
 
-    public List<ChatMessage> getMessages() {
+    public List<ChatMessage> updateMessages() {
+
+        Gson gson = new Gson();
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(MainApplication.getAppContext());
+        String messagesString = preferences.getString("chat", null);
+
+        if (messagesString == null) {
+            SharedPreferences.Editor editor = preferences.edit();
+
+            editor.putString("chat", gson.toJson(messages));
+            editor.commit();
+
+            return messages;
+        }
+
+        messages = gson.fromJson(messagesString, messages.getClass());
+
         return messages;
     }
 
+
+
     public void clearChat() {
-//        TODO: implement method
+
     }
 
     public void postMessage(ChatMessage message) {
+        onMessageReceibe(message);
+
         Notificationinteractor.sendChatMessage(message).enqueue(
                 new okhttp3.Callback() {
                     @Override
@@ -57,25 +83,11 @@ public class ChatManager implements MessageReceiver {
         );
     }
 
-//        Notificationinteractor.sendChatMessage(message).enqueue(
-//                new Callback<String>() {
-//                    @Override
-//                    public void onResponse(Call<String> call, Response<String> response) {
-//                        int reponseCode = response.code();
-//
-//                        String responseStirng = response.body();
-//
-//                    }
-//
-//                    @Override
-//                    public void onFailure(Call<String> call, Throwable t) {
-//
-//                    }
-//                }
-//        );
-
     @Override
     public void onMessageReceibe(ChatMessage message) {
+        messages.add(message);
+        updateMessages();
+
         messageDelegate.onMessageReceibe(message);
     }
 }

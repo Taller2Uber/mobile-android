@@ -6,10 +6,19 @@ package com.example.slazzari.taller2uber.model.chat;
 
 public class ChatMessage {
     private String message;
+    private int from;
 
     public ChatMessage(String message) {
         this.message = message;
     };
+
+    public void setFrom(int from) {
+        this.from = from;
+    }
+
+    public int getFrom() {
+        return from;
+    }
 
     public String getMessage() {
         return message;

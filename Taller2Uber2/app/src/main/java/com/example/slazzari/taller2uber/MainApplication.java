@@ -1,6 +1,7 @@
 package com.example.slazzari.taller2uber;
 
 import android.app.Application;
+import android.content.Context;
 
 import com.facebook.login.LoginManager;
 
@@ -10,12 +11,14 @@ import com.facebook.login.LoginManager;
 
 public class MainApplication extends Application {
 
-    @Override
+    private static Context context;
+
     public void onCreate() {
         super.onCreate();
-
-        LoginManager.getInstance().logOut();
-//        String token = FirebaseInstanceId.getInstance().getToken().toString();
+        MainApplication.context = getApplicationContext();
     }
 
+    public static Context getAppContext() {
+        return MainApplication.context;
+    }
 }
