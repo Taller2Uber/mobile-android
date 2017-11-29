@@ -5,11 +5,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.slazzari.taller2uber.R;
 import com.example.slazzari.taller2uber.activity.home.driver.AvailableRoutesRecyclerViewAdapter;
 import com.example.slazzari.taller2uber.model.chat.ChatMessage;
 import com.example.slazzari.taller2uber.model.map.AvailableRoute;
+
+import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -43,6 +46,7 @@ public class ChatRecyclerViewAdapter extends
     public void onBindViewHolder(ChatRecyclerViewHolder holder, int position) {
         ChatMessage message = messages.get(position);
         holder.message = message;
+        holder.messageTextView.setText(message.getMessage());
     }
 
 
@@ -53,12 +57,12 @@ public class ChatRecyclerViewAdapter extends
 
     public class ChatRecyclerViewHolder extends RecyclerView.ViewHolder {
         public ChatMessage message;
-
-
+        public TextView messageTextView;
 
         public ChatRecyclerViewHolder(View view) {
             super(view);
 
+            messageTextView = (TextView) view.findViewById(R.id.cell_chat_message_text_view);
         }
 
     }

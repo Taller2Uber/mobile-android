@@ -2,15 +2,19 @@ package com.example.slazzari.taller2uber.model.chat;
 
 import android.app.Notification;
 import android.content.SharedPreferences;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 
 import com.example.slazzari.taller2uber.MainApplication;
 import com.example.slazzari.taller2uber.networking.interactor.Notificationinteractor;
 import com.example.slazzari.taller2uber.networking.repository.Notificationrepo;
 import com.google.gson.Gson;
+import com.google.gson.internal.bind.ArrayTypeAdapter;
+import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
 import java.lang.reflect.Array;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,7 +49,10 @@ public class ChatManager implements MessageReceiver {
             editor.commit();
         }
 
-        messages = gson.fromJson(messagesString, messages.getClass());
+        Type messagesType = new TypeToken<List<ChatMessage>>(){}.getType();
+
+        List<ChatMessage> messagesFromGson = gson.fromJson(messagesString, messagesType);
+        messages = messagesFromGson;
         return messages;
     }
 
@@ -91,6 +98,13 @@ public class ChatManager implements MessageReceiver {
     public void onMessageReceibe(ChatMessage message) {
         addMessage(message);
 
-        messageDelegate.onMessageReceibe(message);
+        Handler mainHandler = new Handler(MainApplication.getAppContext().getMainLooper());
+        Runnable myRunnable = new Runnable() {
+            @Override
+            public void run() {
+                messageDelegate.onMessageReceibe(new ChatMessage());
+            }
+        };
+        mainHandler.post(myRunnable);
     }
 }

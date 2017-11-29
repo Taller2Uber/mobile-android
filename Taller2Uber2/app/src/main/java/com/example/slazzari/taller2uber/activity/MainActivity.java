@@ -106,7 +106,6 @@ public class MainActivity extends BaseActivity {
                         new Callback<User>() {
                             @Override
                             public void onResponse(Call<User> call, Response<User> response) {
-
                                 User responseUser = response.body();
                                 String authorization = response.headers().get(AUTHORIZATION_KEY);
                                 NetworkingConstants.authToken = authorization;

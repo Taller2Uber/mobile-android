@@ -11,6 +11,7 @@ public class ChatMessage {
     public ChatMessage(String message) {
         this.message = message;
     };
+    public ChatMessage(){}
 
     public void setFrom(int from) {
         this.from = from;
