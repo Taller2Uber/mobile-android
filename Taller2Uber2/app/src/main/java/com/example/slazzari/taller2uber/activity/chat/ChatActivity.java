@@ -38,6 +38,7 @@ public class ChatActivity extends AppCompatActivity implements MessageReceiver {
         chatRecyclerView.setAdapter(chatRecyclerViewAdapter);
         LinearLayoutManager llm = new LinearLayoutManager(ChatActivity.this);
         llm.setOrientation(LinearLayoutManager.VERTICAL);
+        
         chatRecyclerView.setLayoutManager(llm);
 
 

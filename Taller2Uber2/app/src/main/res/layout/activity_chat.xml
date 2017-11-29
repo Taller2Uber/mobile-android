@@ -5,7 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.slazzari.taller2uber.activity.chat.ChatActivity"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:windowSoftInputMode="adjustPan"
+    >
 
     <EditText
         android:id="@+id/chat_edit_text"
@@ -25,7 +27,10 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/chat_recycler_view"
         android:layout_width="0dp"
-        android:layout_height="413dp"
+        android:layout_height="0dp"
+
+        android:stackFromBottom="true"
+        android:transcriptMode="alwaysScroll"
 
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
