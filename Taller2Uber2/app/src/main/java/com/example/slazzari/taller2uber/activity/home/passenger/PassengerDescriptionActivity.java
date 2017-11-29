@@ -11,8 +11,13 @@ import android.widget.EditText;
 import com.example.slazzari.taller2uber.R;
 import com.example.slazzari.taller2uber.activity.LoginActivity;
 import com.example.slazzari.taller2uber.model.User;
+import com.example.slazzari.taller2uber.networking.interactor.Userinteractor;
 import com.facebook.login.LoginManager;
 import com.google.gson.Gson;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class PassengerDescriptionActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -20,9 +25,8 @@ public class PassengerDescriptionActivity extends AppCompatActivity implements V
 
     private EditText nameEditText;
     private EditText genderEditText;
-    private EditText cardNumberEditText;
-    private EditText cardExpirationDateEditText;
-    private EditText cardCompanyEditText;
+    private EditText lastnameEditText;
+
 
     private Button editButton;
     private Button acceptButton;
@@ -43,6 +47,7 @@ public class PassengerDescriptionActivity extends AppCompatActivity implements V
         acceptButton = (Button) findViewById(R.id.passenger_description_accept_edit_button);
         logoutButton = (Button) findViewById(R.id.passenger_description_logout_button);
 
+
         editButton.setOnClickListener(this);
         acceptButton.setOnClickListener(this);
         logoutButton.setOnClickListener(this);
@@ -50,15 +55,11 @@ public class PassengerDescriptionActivity extends AppCompatActivity implements V
 
         nameEditText = (EditText) findViewById(R.id.passenger_description_name_edit_text);
         genderEditText = (EditText) findViewById(R.id.passenger_description_gender_edit_text);
-        cardNumberEditText = (EditText) findViewById(R.id.passenger_description_card_number_edit_text);
-        cardExpirationDateEditText = (EditText) findViewById(R.id.passenger_description_card_expiration_edit_text);
-        cardCompanyEditText = (EditText) findViewById(R.id.passenger_description_card_company_edit_text);
+        lastnameEditText = (EditText) findViewById(R.id.passenger_description_lastname_edit_text);
 
         nameEditText.setText(user.getFirstName());
         genderEditText.setText(user.getGender());
-//        cardNumberEditText.setText(user.getCard().getNumber());
-//        cardExpirationDateEditText.setText(user.getCard().getExpirationDate());
-//        cardCompanyEditText.setText(user.getCard().getCompany());
+        lastnameEditText.setText(user.getLastName());
     }
 
     @Override
@@ -67,16 +68,29 @@ public class PassengerDescriptionActivity extends AppCompatActivity implements V
             case R.id.passenger_description_edit_button:
                 nameEditText.setEnabled(true);
                 genderEditText.setEnabled(true);
-                cardNumberEditText.setEnabled(true);
-                cardExpirationDateEditText.setEnabled(true);
-                cardCompanyEditText.setEnabled(true);
+                lastnameEditText.setEnabled(true);
                 break;
             case R.id.passenger_description_accept_edit_button:
+                user.setFirstName(nameEditText.getText().toString());
+                user.setLastName(lastnameEditText.getText().toString());
+
+                Userinteractor.updatePassenger(user).enqueue(
+                        new Callback<User>() {
+                            @Override
+                            public void onResponse(Call<User> call, Response<User> response) {
+                                user = response.body();
+                            }
+
+                            @Override
+                            public void onFailure(Call<User> call, Throwable t) {
+
+                            }
+                        }
+                );
+
                 nameEditText.setEnabled(false);
                 genderEditText.setEnabled(false);
-                cardNumberEditText.setEnabled(false);
-                cardExpirationDateEditText.setEnabled(false);
-                cardCompanyEditText.setEnabled(false);
+                lastnameEditText.setEnabled(false);
                 break;
 
             case R.id.passenger_description_logout_button:
