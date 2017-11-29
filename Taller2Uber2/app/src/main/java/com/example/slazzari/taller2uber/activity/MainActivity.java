@@ -7,8 +7,8 @@ import android.os.Bundle;
 
 import com.example.slazzari.taller2uber.R;
 import com.example.slazzari.taller2uber.activity.Register.RegisterActivity;
-import com.example.slazzari.taller2uber.activity.home.DriverHomeActivity;
-import com.example.slazzari.taller2uber.activity.home.PassengerHomeActivity;
+import com.example.slazzari.taller2uber.activity.home.driver.DriverHomeActivity;
+import com.example.slazzari.taller2uber.activity.home.passenger.PassengerHomeActivity;
 import com.example.slazzari.taller2uber.model.User;
 import com.example.slazzari.taller2uber.networking.NetworkingConstants;
 import com.example.slazzari.taller2uber.networking.interactor.Userinteractor;
@@ -72,6 +72,9 @@ public class MainActivity extends BaseActivity {
                                 } else {
                                     intent = new Intent(MainActivity.this, DriverHomeActivity.class);
                                 }
+
+                                String firebaseToken = FirebaseInstanceId.getInstance().getToken().toString();
+
 
                                 Gson gson = new Gson();
                                 intent.putExtra("obj", gson.toJson(responseUser));

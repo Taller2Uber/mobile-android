@@ -30,6 +30,8 @@ public class Routes {
     private String longitudeDestination;
 
 
+
+
     public void setOriginAndDestination(LatLng origin, LatLng destination) {
         latitudeOrigin = new Double(origin.latitude).toString();
         longitudeOrigin = new Double(origin.longitude).toString();

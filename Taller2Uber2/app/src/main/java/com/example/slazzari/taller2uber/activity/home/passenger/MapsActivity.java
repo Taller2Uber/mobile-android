@@ -1,12 +1,14 @@
-package com.example.slazzari.taller2uber.activity.home;
+package com.example.slazzari.taller2uber.activity.home.passenger;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.location.Location;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 
+import com.example.slazzari.taller2uber.model.map.PassengerConfirmRoute;
 import com.example.slazzari.taller2uber.model.map.Route;
 import com.example.slazzari.taller2uber.model.map.Routes;
 import com.example.slazzari.taller2uber.model.User;
@@ -26,7 +28,6 @@ import android.widget.Toast;
 
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import retrofit2.Call;
@@ -42,6 +43,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private MarkerOptions markerOrigin;
     private MarkerOptions markerDestination;
     private User user;
+    private Routes routes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +53,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Gson gson = new Gson();
         String strUser = getIntent().getStringExtra("obj");
         user = gson.fromJson(strUser, User.class);
+
+
 
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
@@ -83,6 +87,44 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     MY_LOCATION_REQUEST_CODE);
         }
 
+        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+            @Override
+            public void onMapClick(LatLng clickCoords) {
+
+                for (Route route : routes.getRoutes()) {
+                    for (List<LatLng> leg: route.getPolyline())
+                        for (LatLng polyCoords : leg) {
+                            float[] results = new float[1];
+                            Location.distanceBetween(clickCoords.latitude, clickCoords.longitude,
+                                    polyCoords.latitude, polyCoords.longitude, results);
+
+                            if (results[0] < 100) {
+                                // If distance is less than 100 meters, this is your polyline
+                                PassengerConfirmRoute confirmRoute = new PassengerConfirmRoute(route, routes.getPassengerId());
+
+                                Routesinteractor.passengerConfirmRoute(confirmRoute).enqueue(new Callback<PassengerConfirmRoute>() {
+                                    @Override
+                                    public void onResponse(Call<PassengerConfirmRoute> call, Response<PassengerConfirmRoute> response) {
+                                        PassengerConfirmRoute confirmRoute1 = response.body();
+
+                                        Toast.makeText(MapsActivity.this, "Su solicitud de viaje fue completada", Toast.LENGTH_LONG).show();
+                                        finish();
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<PassengerConfirmRoute> call, Throwable t) {
+                                        Toast.makeText(MapsActivity.this, "No se pudo solicitar su viaje, intente nuevemante", Toast.LENGTH_LONG).show();
+
+                                    }
+                                });
+                                return;
+                            }
+                        }
+                }
+            }
+        });
+
+
 
         mMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
             @Override
@@ -107,9 +149,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                             new Callback<Routes>() {
                                 @Override
                                 public void onResponse(Call<Routes> call, Response<Routes> response) {
-                                    String bofy = call.request().body().toString();
-                                    Toast.makeText(MapsActivity.this, "Success", Toast.LENGTH_LONG).show();
                                     Routes routes = response.body();
+                                    routes.setPassengerId(user.getSsId());
+
                                     drawRoutes(routes);
                                 }
 
@@ -124,7 +166,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         });
     }
 
-    private void drawRoute(Route route) {
+    private void drawRoute(Route route, Integer color) {
         ArrayList<LatLng> points = null;
         PolylineOptions lineOptions = null;
 
@@ -140,18 +182,25 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
 
         lineOptions.addAll(points);
-        lineOptions.width(8);
+        lineOptions.width(10);
 
-//                List<Color> colors = new ArrayList<>(Color.BLUE,Color.RED, Color.)
+        lineOptions.color(color);
 
-        lineOptions.color(Color.BLUE);
 
         mMap.addPolyline(lineOptions);
     }
 
     private void drawRoutes(Routes routes) {
-        for (Route route : routes.getRoutes()) {
-            drawRoute(route);
+        this.routes = routes;
+        List<Integer> colors = new ArrayList<Integer>();
+        colors.add(new Integer(Color.GRAY));
+        colors.add(new Integer(Color.DKGRAY));
+        colors.add(new Integer(Color.LTGRAY));
+        List<Route> routesList = routes.getRoutes();
+        for (int i = 0; i<routesList.size(); i++) {
+            Route route = routesList.get(i);
+            Integer color = colors.get(i % routesList.size());
+            drawRoute(route, color);
         }
     }
 

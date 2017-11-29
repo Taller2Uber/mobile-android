@@ -1,26 +1,19 @@
 package com.example.slazzari.taller2uber.activity.Register;
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.ButtonBarLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Toast;
 
 import com.example.slazzari.taller2uber.R;
 import com.example.slazzari.taller2uber.activity.BaseActivity;
-import com.example.slazzari.taller2uber.activity.home.DriverHomeActivity;
+import com.example.slazzari.taller2uber.activity.home.driver.DriverHomeActivity;
 import com.example.slazzari.taller2uber.model.Car;
 import com.example.slazzari.taller2uber.model.User;
-import com.example.slazzari.taller2uber.networking.interactor.Userinteractor;
 import com.google.gson.Gson;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class RegisterDriverActivity extends BaseActivity implements View.OnClickListener {

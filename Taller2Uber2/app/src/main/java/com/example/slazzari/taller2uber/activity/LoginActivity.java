@@ -11,8 +11,8 @@ import android.widget.Toast;
 
 import com.example.slazzari.taller2uber.R;
 import com.example.slazzari.taller2uber.activity.Register.RegisterActivity;
-import com.example.slazzari.taller2uber.activity.home.DriverHomeActivity;
-import com.example.slazzari.taller2uber.activity.home.PassengerHomeActivity;
+import com.example.slazzari.taller2uber.activity.home.driver.DriverHomeActivity;
+import com.example.slazzari.taller2uber.activity.home.passenger.PassengerHomeActivity;
 import com.example.slazzari.taller2uber.model.User;
 import com.example.slazzari.taller2uber.networking.NetworkingConstants;
 import com.example.slazzari.taller2uber.networking.interactor.Userinteractor;
@@ -167,11 +167,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                 NetworkingConstants.authToken = authorization;
 
 
+
                                 if (responseUser == null) {
                                     Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
 
                                     User user = new User();
                                     String firebaseToken = FirebaseInstanceId.getInstance().getToken().toString();
+                                    user.setUserName(usernameEditText.getText().toString());
+                                    user.setPassword(passwordEditText.getText().toString());
 
                                     user.setFirebaseToken(firebaseToken);
                                     Gson gson = new Gson();
@@ -193,6 +196,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                     editor.putString("password",user.getPassword());
 
                                     editor.commit();
+
 
                                     Gson gson = new Gson();
                                     intent.putExtra("obj", gson.toJson(responseUser));

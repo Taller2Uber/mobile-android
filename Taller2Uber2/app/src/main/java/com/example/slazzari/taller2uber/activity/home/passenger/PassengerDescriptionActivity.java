@@ -1,4 +1,4 @@
-package com.example.slazzari.taller2uber.activity.home;
+package com.example.slazzari.taller2uber.activity.home.passenger;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -10,7 +10,6 @@ import android.widget.EditText;
 
 import com.example.slazzari.taller2uber.R;
 import com.example.slazzari.taller2uber.activity.LoginActivity;
-import com.example.slazzari.taller2uber.activity.MainActivity;
 import com.example.slazzari.taller2uber.model.User;
 import com.facebook.login.LoginManager;
 import com.google.gson.Gson;

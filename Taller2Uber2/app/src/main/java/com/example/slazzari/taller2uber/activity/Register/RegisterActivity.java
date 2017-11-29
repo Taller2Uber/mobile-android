@@ -8,14 +8,18 @@ import android.widget.Toast;
 
 import com.example.slazzari.taller2uber.R;
 import com.example.slazzari.taller2uber.activity.BaseActivity;
-import com.example.slazzari.taller2uber.activity.home.PassengerHomeActivity;
+import com.example.slazzari.taller2uber.activity.home.driver.DriverHomeActivity;
+import com.example.slazzari.taller2uber.activity.home.passenger.PassengerHomeActivity;
 import com.example.slazzari.taller2uber.model.User;
+import com.example.slazzari.taller2uber.networking.NetworkingConstants;
 import com.example.slazzari.taller2uber.networking.interactor.Userinteractor;
 import com.google.gson.Gson;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static com.example.slazzari.taller2uber.networking.NetworkingConstants.AUTHORIZATION_KEY;
 
 public class RegisterActivity extends BaseActivity implements View.OnClickListener {
 
@@ -45,19 +49,22 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
 
     @Override
     public void onClick(View v) {
-        // TODO Auto-generated method stub
-
-        Gson gson = new Gson();
-
         switch(v.getId())
         {
             case R.id.register_driver_button :
-                Toast.makeText(RegisterActivity.this,"Driver button was tapped", 1000).show();
-                Intent driverActiviryIntent = new Intent(RegisterActivity.this, RegisterDriverActivity.class);
+                Userinteractor.registerDriver(user).enqueue(new Callback<User>() {
+                                                                   @Override
+                                                                   public void onResponse(Call<User> call, Response<User> response) {
+                                                                       User responseUser = response.body();
+                                                                       authenticateUser(responseUser);
+                                                                   }
 
-                driverActiviryIntent.putExtra("obj", gson.toJson(user));
-
-                startActivity(driverActiviryIntent);
+                                                                   @Override
+                                                                   public void onFailure(Call<User> call, Throwable t) {
+                                                                       Toast.makeText(RegisterActivity.this, "No se pudo registrar el pasajero", Toast.LENGTH_LONG).show();
+                                                                   }
+                                                               }
+                );
 
                 break;
             case R.id.register_passenger_button :
@@ -66,11 +73,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                        @Override
                        public void onResponse(Call<User> call, Response<User> response) {
                            User responseUser = response.body();
-                           Intent passengerActivityIntent = new Intent(RegisterActivity.this, PassengerHomeActivity.class);
-                           Gson gson = new Gson();
-                           passengerActivityIntent.putExtra("obj", gson.toJson(responseUser));
-
-                           startActivity(passengerActivityIntent);
+                           authenticateUser(responseUser);
                        }
 
                        @Override
@@ -82,5 +85,38 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
 
                 break;
         }
+    }
+
+    private void authenticateUser(User user) {
+        Userinteractor.loginUser(user).enqueue(
+                new Callback<User>() {
+                    @Override
+                    public void onResponse(Call<User> call, Response<User> response) {
+
+                        User responseUser = response.body();
+
+                        String authorization = response.headers().get(AUTHORIZATION_KEY);
+                        NetworkingConstants.authToken = authorization;
+
+                        Intent intent;
+                        if (responseUser.isPassenger()) {
+                            intent = new Intent(RegisterActivity.this, PassengerHomeActivity.class);
+                        } else {
+                            intent = new Intent(RegisterActivity.this, DriverHomeActivity.class);
+                        }
+
+                        Gson gson = new Gson();
+                        intent.putExtra("obj", gson.toJson(responseUser));
+
+                        startActivity(intent);
+                        finish();
+                    }
+
+                    @Override
+                    public void onFailure(Call<User> call, Throwable t) {
+                    }
+                }
+        );
+
     }
 }

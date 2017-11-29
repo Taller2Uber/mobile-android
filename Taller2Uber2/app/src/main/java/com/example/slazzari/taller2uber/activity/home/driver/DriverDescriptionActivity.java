@@ -1,4 +1,4 @@
-package com.example.slazzari.taller2uber.activity.home;
+package com.example.slazzari.taller2uber.activity.home.driver;
 
 import android.content.Intent;
 import android.content.SharedPreferences;

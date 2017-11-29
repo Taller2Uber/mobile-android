@@ -1,9 +1,14 @@
 package com.example.slazzari.taller2uber.networking.interactor;
 
+import com.example.slazzari.taller2uber.model.map.AvailableRoute;
+import com.example.slazzari.taller2uber.model.map.PassengerConfirmRoute;
+import com.example.slazzari.taller2uber.model.map.Route;
 import com.example.slazzari.taller2uber.model.map.Routes;
 import com.example.slazzari.taller2uber.networking.repository.Routesrepo;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.GsonBuilder;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Retrofit;
@@ -33,4 +38,54 @@ public class Routesinteractor {
 
         return routesrepo.getRoutes(authToken, routes);
     }
+
+
+    public static Call<PassengerConfirmRoute> passengerConfirmRoute(PassengerConfirmRoute confirmRoute) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create(
+                        new GsonBuilder()
+                                .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+                                .create()
+                ))
+                .build();
+
+
+        Routesrepo routesrepo = retrofit.create(Routesrepo.class);
+
+        return routesrepo.passengerConfirmRoutes(authToken, confirmRoute);
+    }
+
+    public static Call<List<AvailableRoute>> getAvailableRoutes() {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create(
+                        new GsonBuilder()
+                                .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+                                .create()
+                ))
+                .build();
+
+
+        Routesrepo routesrepo = retrofit.create(Routesrepo.class);
+
+        return routesrepo.getAvailableRoutes(authToken);
+    }
+
+    public static Call<AvailableRoute> driverConfritmRoute(AvailableRoute route) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create(
+                        new GsonBuilder()
+                                .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+                                .create()
+                ))
+                .build();
+
+        Routesrepo routesrepo = retrofit.create(Routesrepo.class);
+
+        return routesrepo.driverConfirmRoute(route.getId(), authToken);
+    }
+
+
 }

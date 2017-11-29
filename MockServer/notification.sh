@@ -9,7 +9,7 @@ function post_notification() {
     -H 'cache-control: no-cache' \
     -H 'content-type: application/json' \
     -d '{
-      "to": "df7Bfmbs_KU:APA91bGIHoBUaFEVJ-HvGav__9D0rODHFwaC-aAfho6Tkbd5Ul83PzcOhc2yQ15-Hmtq12D9bqPBrD-WnxAZ8hxahQaz3UTYIz4DdpBNfjm61z7rrDmA6UKMNNbN3EI2O_jSZO8lZQ1q",
+      "to": "df7Bfmbs_KU:APA91bGIHoBUaFEVJ-HvGav__9D0rODHFwaC-aAfho6Tkbd5Ul83PzcOhc2yQ15-Hmtq12D9bqPBrD-dFUsCR3KbKw:APA91bGCf9XOniAWV-MblDvnTvi_vYuLMBCquNnSCmfVWsTN3yM-lSeE_sxtBFfc92Bk2GI3PNA46eeAiFqAilh4h39BvK-fP20u7dekMSPHCHe-NmXhxVg8nuZVGA8lUjw5z9PcGFfF",
       "notification" : {
       	"body":"'$1'"
       }
