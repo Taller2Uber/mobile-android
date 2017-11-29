@@ -18,6 +18,10 @@ public class NetworkingConstants {
     public static final String LOGIN_USER = "users/login";
     public static final String REGISTER_PASSENGER = "passengers";
     public static final String REGISTER_DRIVER = "drivers";
+    public static final String UPDATE_PASSENGER = "passengers/{passenger}";
+    public static final String UPDATE_DRIVER = "drivers/{driver}";
+
+
     public static final String ROUTES = "routes";
     public static final String PASSENGER_CONFIRM_ROUTE = "routes/confirm";
     public static final String AUTHORIZATION_KEY = "authorization";
