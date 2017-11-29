@@ -14,14 +14,6 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
-import okhttp3.MediaType;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
 public class ChatManager implements MessageReceiver {
 
     private static final ChatManager ourInstance = new ChatManager();
@@ -39,22 +31,34 @@ public class ChatManager implements MessageReceiver {
 
     private ChatManager() {}
 
-    public List<ChatMessage> updateMessages() {
-
+    public List<ChatMessage> getMessages() {
         Gson gson = new Gson();
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(MainApplication.getAppContext());
         String messagesString = preferences.getString("chat", null);
 
-        if (messagesString == null) {
+        try {
+            messages = gson.fromJson(messagesString, messages.getClass());
+        } catch (Exception e) {
             SharedPreferences.Editor editor = preferences.edit();
 
             editor.putString("chat", gson.toJson(messages));
             editor.commit();
-
-            return messages;
         }
 
         messages = gson.fromJson(messagesString, messages.getClass());
+        return messages;
+    }
+
+    public List<ChatMessage> addMessage(ChatMessage message) {
+        Gson gson = new Gson();
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(MainApplication.getAppContext());
+        messages = getMessages();
+        messages.add(message);
+
+        SharedPreferences.Editor editor = preferences.edit();
+
+        editor.putString("chat", gson.toJson(messages));
+        editor.commit();
 
         return messages;
     }
@@ -85,8 +89,7 @@ public class ChatManager implements MessageReceiver {
 
     @Override
     public void onMessageReceibe(ChatMessage message) {
-        messages.add(message);
-        updateMessages();
+        addMessage(message);
 
         messageDelegate.onMessageReceibe(message);
     }
