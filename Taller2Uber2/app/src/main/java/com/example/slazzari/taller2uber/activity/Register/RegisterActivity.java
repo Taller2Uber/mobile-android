@@ -11,6 +11,8 @@ import com.example.slazzari.taller2uber.activity.BaseActivity;
 import com.example.slazzari.taller2uber.activity.home.driver.DriverHomeActivity;
 import com.example.slazzari.taller2uber.activity.home.passenger.PassengerHomeActivity;
 import com.example.slazzari.taller2uber.model.User;
+import com.example.slazzari.taller2uber.model.login.LoginManager;
+import com.example.slazzari.taller2uber.model.login.LoginManagerResponse;
 import com.example.slazzari.taller2uber.networking.NetworkingConstants;
 import com.example.slazzari.taller2uber.networking.interactor.Userinteractor;
 import com.google.gson.Gson;
@@ -88,35 +90,27 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
     }
 
     private void authenticateUser(User user) {
-        Userinteractor.loginUser(user).enqueue(
-                new Callback<User>() {
-                    @Override
-                    public void onResponse(Call<User> call, Response<User> response) {
-
-                        User responseUser = response.body();
-
-                        String authorization = response.headers().get(AUTHORIZATION_KEY);
-                        NetworkingConstants.authToken = authorization;
-
-                        Intent intent;
-                        if (responseUser.isPassenger()) {
-                            intent = new Intent(RegisterActivity.this, PassengerHomeActivity.class);
-                        } else {
-                            intent = new Intent(RegisterActivity.this, DriverHomeActivity.class);
-                        }
-
-                        Gson gson = new Gson();
-                        intent.putExtra("obj", gson.toJson(responseUser));
-
-                        startActivity(intent);
-                        finish();
-                    }
-
-                    @Override
-                    public void onFailure(Call<User> call, Throwable t) {
-                    }
+        new LoginManager().login(user, new LoginManagerResponse() {
+            @Override
+            public void onLoginWithUser(User user) {
+                Intent intent;
+                if (user.isPassenger()) {
+                    intent = new Intent(RegisterActivity.this, PassengerHomeActivity.class);
+                } else {
+                    intent = new Intent(RegisterActivity.this, DriverHomeActivity.class);
                 }
-        );
 
+                Gson gson = new Gson();
+                intent.putExtra("obj", gson.toJson(user));
+
+                startActivity(intent);
+                finish();
+            }
+
+            @Override
+            public void onLoginWithFailure() {
+                Toast.makeText(RegisterActivity.this, "Se registró el pasajero pero no se pudo entrar a la aplicacion", Toast.LENGTH_LONG).show();
+            }
+        });
     }
 }
