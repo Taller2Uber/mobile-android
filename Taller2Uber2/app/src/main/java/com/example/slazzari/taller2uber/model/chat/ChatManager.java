@@ -83,7 +83,7 @@ public class ChatManager implements MessageReceiver {
 
 
     public void clearChat() {
-
+        //TODO: implement
     }
 
     public void postMessage(ChatMessage message) {

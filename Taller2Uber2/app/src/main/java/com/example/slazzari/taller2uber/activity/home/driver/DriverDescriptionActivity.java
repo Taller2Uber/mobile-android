@@ -9,7 +9,7 @@ import android.widget.Button;
 
 import com.example.slazzari.taller2uber.R;
 import com.example.slazzari.taller2uber.activity.LoginActivity;
-import com.facebook.login.LoginManager;
+import com.example.slazzari.taller2uber.model.login.LoginManager;
 import com.google.gson.Gson;
 
 public class DriverDescriptionActivity extends AppCompatActivity implements View.OnClickListener {
@@ -31,19 +31,7 @@ public class DriverDescriptionActivity extends AppCompatActivity implements View
 
         switch (view.getId()) {
             case R.id.driver_description_logout_button:
-                SharedPreferences preferences = getBaseContext().getSharedPreferences("MyPrefs", MODE_PRIVATE);
-                SharedPreferences.Editor editor = preferences.edit();
-
-                String userName = preferences.getString("username",null);
-                String password = preferences.getString("password",null);
-
-                if((userName != null) && (password != null)) {
-                    editor.remove("username").commit();
-                    editor.remove("password").commit();
-                    editor.commit();
-                }else{
-                    LoginManager.getInstance().logOut();
-                }
+                new LoginManager().logout();
 
                 Intent intent = new Intent(DriverDescriptionActivity.this, LoginActivity.class);
 

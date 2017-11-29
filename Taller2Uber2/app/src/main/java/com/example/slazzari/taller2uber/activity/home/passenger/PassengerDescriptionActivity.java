@@ -11,8 +11,8 @@ import android.widget.EditText;
 import com.example.slazzari.taller2uber.R;
 import com.example.slazzari.taller2uber.activity.LoginActivity;
 import com.example.slazzari.taller2uber.model.User;
+import com.example.slazzari.taller2uber.model.login.LoginManager;
 import com.example.slazzari.taller2uber.networking.interactor.Userinteractor;
-import com.facebook.login.LoginManager;
 import com.google.gson.Gson;
 
 import retrofit2.Call;
@@ -94,20 +94,7 @@ public class PassengerDescriptionActivity extends AppCompatActivity implements V
                 break;
 
             case R.id.passenger_description_logout_button:
-                SharedPreferences preferences = getBaseContext().getSharedPreferences("MyPrefs", MODE_PRIVATE);
-                SharedPreferences.Editor editor = preferences.edit();
-
-                String userName = preferences.getString("username",null);
-                String password = preferences.getString("password",null);
-
-                if((userName != null) && (password != null)) {
-                    editor.remove("username").commit();
-                    editor.remove("password").commit();
-                    editor.commit();
-                }else{
-                    LoginManager.getInstance().logOut();
-                }
-
+                new LoginManager().logout();
                 Intent intent = new Intent(PassengerDescriptionActivity.this, LoginActivity.class);
 
                 startActivity(intent);

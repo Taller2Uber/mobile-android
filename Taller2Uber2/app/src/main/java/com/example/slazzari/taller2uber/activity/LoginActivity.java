@@ -14,6 +14,8 @@ import com.example.slazzari.taller2uber.activity.Register.RegisterActivity;
 import com.example.slazzari.taller2uber.activity.home.driver.DriverHomeActivity;
 import com.example.slazzari.taller2uber.activity.home.passenger.PassengerHomeActivity;
 import com.example.slazzari.taller2uber.model.User;
+import com.example.slazzari.taller2uber.model.login.LoginManager;
+import com.example.slazzari.taller2uber.model.login.LoginManagerResponse;
 import com.example.slazzari.taller2uber.networking.NetworkingConstants;
 import com.example.slazzari.taller2uber.networking.interactor.Userinteractor;
 import com.facebook.AccessToken;
@@ -31,7 +33,7 @@ import retrofit2.Response;
 
 import static com.example.slazzari.taller2uber.networking.NetworkingConstants.AUTHORIZATION_KEY;
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener, LoginManagerResponse {
 
     private CallbackManager callbackManager;
 
@@ -41,7 +43,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
 
         getSupportActionBar().setTitle("Login");
 
@@ -68,66 +69,19 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
             @Override
             public void onSuccess(LoginResult loginResult) {
-//                TODO:if (el token está registrado)
-//                  TODO:entrar derecho a la home con ese usuario
-
-                User loginUser = new User();
-                loginUser.setFbToken(AccessToken.getCurrentAccessToken().getToken());
-                Userinteractor.loginUser(loginUser).enqueue(
-                        new Callback<User>() {
-                            @Override
-                            public void onResponse(Call<User> call, Response<User> response) {
-
-                                String authorization = response.headers().get(AUTHORIZATION_KEY);
-                                NetworkingConstants.authToken = authorization;
-
-                                User responseUser = response.body();
-
-                                if (responseUser == null) {
-                                    Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
-
-                                    User user = new User();
-                                    user.setFbToken(AccessToken.getCurrentAccessToken().getToken());
-                                    String firebaseToken = FirebaseInstanceId.getInstance().getToken().toString();
-
-                                    user.setFirebaseToken(firebaseToken);
-                                    Gson gson = new Gson();
-                                    intent.putExtra("obj", gson.toJson(user));
-                                    startActivity(intent);
-                                    finish();
-                                } else {
-                                    Intent intent;
-                                    if (responseUser.isPassenger()) {
-                                        intent = new Intent(LoginActivity.this, PassengerHomeActivity.class);
-                                    } else {
-                                        intent = new Intent(LoginActivity.this, DriverHomeActivity.class);
-                                    }
-
-                                    Gson gson = new Gson();
-                                    intent.putExtra("obj", gson.toJson(responseUser));
-
-                                    startActivity(intent);
-                                    finish();
-                                }
-                            }
-
-                            @Override
-                            public void onFailure(Call<User> call, Throwable t) {
-                            }
-                        }
-                );
-
+                String fbToken = loginResult.getAccessToken().getToken();
+                new LoginManager().login(fbToken, LoginActivity.this);
             }
 
             @Override
             public void onCancel() {
-                Toast.makeText(LoginActivity.this, "Login cancel", Toast.LENGTH_LONG).show();
+                Toast.makeText(LoginActivity.this, "Login cancelado", Toast.LENGTH_LONG).show();
             }
 
             @Override
             public void onError(FacebookException exception) {
                 // App code
-                Toast.makeText(LoginActivity.this, "Login error", Toast.LENGTH_LONG).show();
+                Toast.makeText(LoginActivity.this, "Error en el login q", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -135,18 +89,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onClick(View view) {
-        final User user = new User();
-
-        user.setUserName(usernameEditText.getText().toString());
-        user.setPassword(passwordEditText.getText().toString());
-
-//        String firebaseToken = FirebaseInstanceId.getInstance().getToken().toString();
-//        user.setFirebaseToken(firebaseToken);
-
 
         switch (view.getId()) {
             case R.id.register_button:
-                Toast.makeText(LoginActivity.this, "Register", Toast.LENGTH_LONG).show();
+
+                final User user = new User();
+
+                user.setUserName(usernameEditText.getText().toString());
+                user.setPassword(passwordEditText.getText().toString());
+
                 Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
 
                 Gson gson = new Gson();
@@ -156,59 +107,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
                 break;
             case R.id.login_button:
-                Userinteractor.loginUser(user).enqueue(
-                        new Callback<User>() {
-                            @Override
-                            public void onResponse(Call<User> call, Response<User> response) {
-
-                                User responseUser = response.body();
-
-                                String authorization = response.headers().get(AUTHORIZATION_KEY);
-                                NetworkingConstants.authToken = authorization;
-
-                                if (responseUser == null) {
-                                    Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
-
-                                    User user = new User();
-                                    String firebaseToken = FirebaseInstanceId.getInstance().getToken().toString();
-                                    user.setUserName(usernameEditText.getText().toString());
-                                    user.setPassword(passwordEditText.getText().toString());
-
-                                    user.setFirebaseToken(firebaseToken);
-                                    Gson gson = new Gson();
-                                    intent.putExtra("obj", gson.toJson(user));
-                                    startActivity(intent);
-                                    finish();
-                                } else {
-                                    Intent intent;
-                                    if (responseUser.isPassenger()) {
-                                        intent = new Intent(LoginActivity.this, PassengerHomeActivity.class);
-                                    } else {
-                                        intent = new Intent(LoginActivity.this, DriverHomeActivity.class);
-                                    }
-
-                                    SharedPreferences preferences = getBaseContext().getSharedPreferences("MyPrefs", MODE_PRIVATE);
-                                    SharedPreferences.Editor editor = preferences.edit();
-
-                                    editor.putString("username",user.getUserName());
-                                    editor.putString("password",user.getPassword());
-
-                                    editor.commit();
-
-
-                                    Gson gson = new Gson();
-                                    intent.putExtra("obj", gson.toJson(responseUser));
-
-                                    startActivity(intent);
-                                    finish();
-                                }
-                            }
-
-                            @Override
-                            public void onFailure(Call<User> call, Throwable t) {
-                            }
-                        }
-                );
+                new LoginManager().login(usernameEditText.getText().toString(), passwordEditText.getText().toString(), this);
                 break;
         }
     }
@@ -217,5 +116,27 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         callbackManager.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    public void onLoginWithUser(User user) {
+        Intent intent;
+        if (user.isPassenger()) {
+            intent = new Intent(LoginActivity.this, PassengerHomeActivity.class);
+        } else {
+            intent = new Intent(LoginActivity.this, DriverHomeActivity.class);
+        }
+
+        Gson gson = new Gson();
+        intent.putExtra("obj", gson.toJson(user));
+
+        startActivity(intent);
+        finish();
+
+    }
+
+    @Override
+    public void onLoginWithFailure() {
+        Toast.makeText(LoginActivity.this, "No se pudo hacer el login", Toast.LENGTH_LONG).show();
     }
 }
