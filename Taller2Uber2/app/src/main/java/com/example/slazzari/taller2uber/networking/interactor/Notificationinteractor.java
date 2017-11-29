@@ -8,8 +8,16 @@ import com.example.slazzari.taller2uber.model.map.Routes;
 import com.example.slazzari.taller2uber.networking.repository.Notificationrepo;
 import com.example.slazzari.taller2uber.networking.repository.Routesrepo;
 import com.google.gson.FieldNamingPolicy;
+import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.io.IOException;
+import java.security.GeneralSecurityException;
+
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -25,31 +33,36 @@ import static com.example.slazzari.taller2uber.networking.NetworkingConstants.au
 
 public class Notificationinteractor {
 
-    public static Call<String> sendChatMessage(ChatMessage chatMessage) {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(FIREBASE_BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create(
-                        new GsonBuilder()
-                                .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
-                                .create()
-                ))
-                .build();
+    public static okhttp3.Call sendChatMessage(ChatMessage chatMessage) {
+
+        OkHttpClient client = new OkHttpClient();
+
+
+        Gson gson = new Gson();
 
         Notification notification = new Notification();
         notification.setType(NOTIFICATION_TYPE_CHAT_MESSAGE);
-        notification.setContent("hola como estas");
+        notification.setContent(chatMessage.getMessage());
 
         FirebaseNotificationBody firebaseNotificationBody = new FirebaseNotificationBody();
         firebaseNotificationBody.setBody(notification);
 
-        FirebaseNotification firebaseNotification = new FirebaseNotification();
-        firebaseNotification.setTo("dFUsCR3KbKw:APA91bGCf9XOniAWV-MblDvnTvi_vYuLMBCquNnSCmfVWsTN3yM-lSeE_sxtBFfc92Bk2GI3PNA46eeAiFqAilh4h39BvK-fP20u7dekMSPHCHe-NmXhxVg8nuZVGA8lUjw5z9PcGFfF");
-        firebaseNotification.setBody(firebaseNotificationBody);
 
 
-        Notificationrepo notificationrepo = retrofit.create(Notificationrepo.class);
+        MediaType mediaType = MediaType.parse("application/json");
+        RequestBody body = RequestBody.create(mediaType, "{\"to\":\"dFUsCR3KbKw:APA91bGCf9XOniAWV-MblDvnTvi_vYuLMBCquNnSCmfVWsTN3yM-lSeE_sxtBFfc92Bk2GI3PNA46eeAiFqAilh4h39BvK-fP20u7dekMSPHCHe-NmXhxVg8nuZVGA8lUjw5z9PcGFfF\",\"notification\":{\"body\":" + gson.toJson(notification)+"}}");
+        Request request = new Request.Builder()
+                .url("https://fcm.googleapis.com/fcm/send")
+                .post(body)
+                .addHeader("content-type", "application/json")
+                .addHeader("authorization", "key=AAAAc3lcLr8:APA91bEjf0y6NSLjfjvPmbDT0kyadEtyu3KK7TLZ9QHG97LpIr9mhdmuE1DHlzkF_8MzPjNJSwNCilfYBkUgoBkQJUBYssqzJMeI0KYBzR0UbgHbAdJxZWEH-dCGxRodFzQtEwjtdV5-")
+                .addHeader("cache-control", "no-cache")
+                .addHeader("postman-token", "8b36b199-53e5-ced2-fecd-2a3a79fe64dc")
+                .build();
 
-        return notificationrepo.sendNotification(firebaseNotification);
+        return client.newCall(request);
+
+
     }
 
 }

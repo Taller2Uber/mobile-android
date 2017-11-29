@@ -5,6 +5,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.example.slazzari.taller2uber.model.Notification;
+import com.example.slazzari.taller2uber.model.chat.ChatManager;
 import com.example.slazzari.taller2uber.model.chat.ChatMessage;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
@@ -48,16 +49,13 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         Notification notification = gson.fromJson(notificationBody, Notification.class);
 
         if (notification.isChatMessage()) {
-            ChatMessage message = gson.fromJson(notification.getContent(), ChatMessage.class);
+            ChatMessage message = new ChatMessage(notification.getContent());
+
+            ChatManager.getInstance().onMessageReceibe(message);
         }
 
         Log.w(TAG, "From: " + notificationBody);
 
-
-
-
-        // Also if you intend on generating your own notifications as a result of a received FCM
-        // message, here is where that should be initiated. See sendNotification method below.
     }
 
 }
