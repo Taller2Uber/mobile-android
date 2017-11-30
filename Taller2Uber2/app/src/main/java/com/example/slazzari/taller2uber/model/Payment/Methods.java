@@ -8,14 +8,14 @@ import java.util.List;
 
 public class Methods {
 
-    private int balance;
+    private float balance;
     private List<Method> paymethods;
 
     public List<Method> getPaymethods() {
         return paymethods;
     }
 
-    public int getBalance() {
+    public float getBalance() {
         return balance;
     }
 

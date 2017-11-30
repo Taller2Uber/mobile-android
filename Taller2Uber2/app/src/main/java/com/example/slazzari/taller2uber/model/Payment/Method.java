@@ -10,6 +10,11 @@ public class Method {
 
     private String paymethod;
     private HashMap<String, String> parameters;
+    private float ammount;
+
+    public void setAmmount(float ammount) {
+        this.ammount = ammount;
+    }
 
     public HashMap<String, String> getParameters() {
         return parameters;

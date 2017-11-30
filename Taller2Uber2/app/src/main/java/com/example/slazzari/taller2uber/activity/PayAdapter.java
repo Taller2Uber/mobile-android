@@ -10,13 +10,14 @@ import com.example.slazzari.taller2uber.model.Car;
 import com.example.slazzari.taller2uber.model.Payment.Method;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by slazzari on 11/30/17.
  */
 
 public class PayAdapter extends RecyclerView.Adapter<PayAdapter.ViewHolder> {
-    private ArrayList<String> mDataset;
+    private List<String> mDataset;
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -31,7 +32,7 @@ public class PayAdapter extends RecyclerView.Adapter<PayAdapter.ViewHolder> {
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public PayAdapter(ArrayList<String> myDataset) {
+    public PayAdapter(List<String> myDataset) {
         mDataset = myDataset;
     }
 

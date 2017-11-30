@@ -1,6 +1,7 @@
 package com.example.slazzari.taller2uber.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Rect;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,10 +16,12 @@ import com.example.slazzari.taller2uber.R;
 import com.example.slazzari.taller2uber.activity.Register.MyAdapter;
 import com.example.slazzari.taller2uber.model.Car;
 import com.example.slazzari.taller2uber.model.CurrentUserCredentials;
+import com.example.slazzari.taller2uber.model.Payment.Method;
 import com.example.slazzari.taller2uber.model.Payment.Methods;
 import com.example.slazzari.taller2uber.model.User;
 import com.example.slazzari.taller2uber.networking.interactor.Userinteractor;
 import com.example.slazzari.taller2uber.networking.repository.Userrepo;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
@@ -52,6 +55,18 @@ public class PaymentActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View view, final int position) {
+                Intent intent = new Intent (PaymentActivity.this, PayActivity.class);
+
+                intent.setFlags (Intent.FLAG_ACTIVITY_NEW_TASK);
+
+                Gson gson = new Gson();
+
+                Method method = methods.getPaymethods().get(position);
+                method.setAmmount(methods.getBalance());
+
+                intent.putExtra("obj", gson.toJson(methods.getPaymethods().get(position)));
+
+                startActivity(intent);
 
             }
 
@@ -76,12 +91,6 @@ public class PaymentActivity extends AppCompatActivity {
                     }
                 }
         );
-
-
-
-
-
-
     }
 
 
