@@ -1,5 +1,8 @@
 package com.example.slazzari.taller2uber.networking.interactor;
 
+import com.example.slazzari.taller2uber.model.Payment.Amount;
+import com.example.slazzari.taller2uber.model.Payment.Method;
+import com.example.slazzari.taller2uber.model.Payment.Methods;
 import com.example.slazzari.taller2uber.model.User;
 import com.example.slazzari.taller2uber.networking.repository.Userrepo;
 import com.google.gson.FieldNamingPolicy;
@@ -122,7 +125,10 @@ public class Userinteractor {
 
         Userrepo userrepo= retrofit.create(Userrepo.class);
 
-        return userrepo.updatePassenger(user, user.getSsId(), authToken);
+        String ssid = user.getSsId();
+        user.setSsId(null);
+
+        return userrepo.updatePassenger(user, ssid, authToken);
     }
 
     public static Call<User> updateDriver(User user) {
@@ -137,6 +143,47 @@ public class Userinteractor {
 
         Userrepo userrepo= retrofit.create(Userrepo.class);
 
-        return userrepo.updateDriver(user, user.getSsId(), authToken);
+        String ssid = user.getSsId();
+        user.setSsId(null);
+
+
+        return userrepo.updateDriver(user, ssid, authToken);
+    }
+
+    public static Call<Void> userPay(User user, Amount amount) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create(
+                        new GsonBuilder()
+                                .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+                                .create()
+                ))
+                .build();
+
+        Userrepo userrepo= retrofit.create(Userrepo.class);
+
+        String ssid = user.getSsId();
+        user.setSsId(null);
+
+
+        return userrepo.pay(amount, ssid, authToken);
+    }
+
+    public static Call<Methods> userDebt(User user) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create(
+                        new GsonBuilder()
+                                .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+                                .create()
+                ))
+                .build();
+
+        Userrepo userrepo= retrofit.create(Userrepo.class);
+
+        String ssid = user.getSsId();
+        user.setSsId(null);
+
+        return userrepo.debt(ssid, authToken);
     }
 }

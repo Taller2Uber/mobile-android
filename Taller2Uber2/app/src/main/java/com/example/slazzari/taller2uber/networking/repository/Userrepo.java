@@ -1,5 +1,7 @@
 package com.example.slazzari.taller2uber.networking.repository;
 
+import com.example.slazzari.taller2uber.model.Payment.Amount;
+import com.example.slazzari.taller2uber.model.Payment.Methods;
 import com.example.slazzari.taller2uber.model.User;
 
 import retrofit2.Call;
@@ -19,6 +21,8 @@ import static com.example.slazzari.taller2uber.networking.NetworkingConstants.RE
 import static com.example.slazzari.taller2uber.networking.NetworkingConstants.UPDATE_DRIVER;
 import static com.example.slazzari.taller2uber.networking.NetworkingConstants.UPDATE_PASSENGER;
 import static com.example.slazzari.taller2uber.networking.NetworkingConstants.USER;
+import static com.example.slazzari.taller2uber.networking.NetworkingConstants.USER_DEBT;
+import static com.example.slazzari.taller2uber.networking.NetworkingConstants.USER_PAY;
 
 /**
  * Created by slazzari on 9/16/17.
@@ -56,4 +60,10 @@ public interface Userrepo {
     @PUT(UPDATE_DRIVER)
     Call<User> updateDriver(@Body User user, @Path("driver") String driverId, @Header(AUTHORIZATION_KEY) String authorization);
 
+
+    @POST(USER_PAY)
+    Call<Void> pay(@Body Amount amount, @Path("user") String userId, @Header(AUTHORIZATION_KEY) String authorization);
+
+    @GET(USER_DEBT)
+    Call<Methods> debt(@Path("user") String userId, @Header(AUTHORIZATION_KEY) String authorization);
 }
