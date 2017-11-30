@@ -40,7 +40,6 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         user = gson.fromJson(strUser, User.class);
 
 
-
         Button registerDriverButton = (Button) findViewById(R.id.register_driver_button);
         registerDriverButton.setOnClickListener(this);
 
@@ -52,6 +51,9 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
 
     @Override
     public void onClick(View v) {
+        String firebaseToken = FirebaseInstanceId.getInstance().getToken();
+        user.setFirebaseToken(firebaseToken);
+
         switch(v.getId())
         {
             case R.id.register_driver_button :
@@ -92,10 +94,6 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
     }
 
     private void authenticateUser(User authUser) {
-
-        String firebaseToken = FirebaseInstanceId.getInstance().getToken();
-        authUser.setFirebaseToken(firebaseToken);
-
         authUser.setFbToken(user.getFbToken());
         authUser.setPassword(user.getPassword());
         authUser.setUserName(user.getUserName());
