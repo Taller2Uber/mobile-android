@@ -52,6 +52,7 @@ public class PaymentActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View view, final int position) {
+
             }
 
             @Override
