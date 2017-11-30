@@ -45,8 +45,6 @@ public interface Routesrepo {
     @GET(AVAILABLE_ROUTES)
     Call<List<AvailableRoute>> getAvailableRoutes(@Header(AUTHORIZATION_KEY) String authorization);
 
-    @GET()
-
     @POST(REQUEST_ROUTE)
     Call<AvailableRoute> driverConfirmRoute(@Path("route") String route, @Header(AUTHORIZATION_KEY) String authorization, @Body AvailableRoute availableRoute);
 
