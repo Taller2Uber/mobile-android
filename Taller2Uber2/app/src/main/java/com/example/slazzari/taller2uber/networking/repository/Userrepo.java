@@ -27,6 +27,13 @@ public interface Userrepo {
     @GET(USER)
     Call<User> getUser();
 
+
+    @GET(USER)
+    Call<User> getPassenger(@Path("passenger") String passengerId, @Header(AUTHORIZATION_KEY) String authorization);
+
+    @GET(USER)
+    Call<User> getDriver(@Path("driver") String passengerId, @Header(AUTHORIZATION_KEY) String authorization);
+
     @POST(LOGIN_USER)
     Call<User> loginUser(@Body User user);
 

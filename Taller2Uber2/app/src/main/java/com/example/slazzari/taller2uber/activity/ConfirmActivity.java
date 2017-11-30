@@ -7,10 +7,13 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.slazzari.taller2uber.R;
+import com.example.slazzari.taller2uber.activity.home.driver.DriverDescriptionActivity;
+import com.example.slazzari.taller2uber.activity.home.driver.DriverHomeActivity;
 import com.example.slazzari.taller2uber.activity.home.driver.DriverViewRouteActivity;
 import com.example.slazzari.taller2uber.model.User;
 import com.example.slazzari.taller2uber.model.map.AvailableRoute;
 import com.example.slazzari.taller2uber.networking.interactor.Routesinteractor;
+import com.example.slazzari.taller2uber.networking.interactor.Userinteractor;
 import com.google.gson.Gson;
 
 import retrofit2.Call;
@@ -25,6 +28,8 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
     private Button viewDriverButton;
 
     private String routeId;
+    private AvailableRoute availableRoute;
+    private User driver;
 
 
     @Override
@@ -46,6 +51,35 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
 
         viewDriverButton = (Button) findViewById(R.id.confirm_view_driver_button);
         viewDriverButton.setOnClickListener(this);
+
+        Routesinteractor.getRoute(routeId).enqueue(
+                new Callback<AvailableRoute>() {
+                    @Override
+                    public void onResponse(Call<AvailableRoute> call, Response<AvailableRoute> response) {
+                        Intent intent = new Intent (ConfirmActivity.this, DriverViewRouteActivity.class);
+
+                        availableRoute = response.body();
+
+                        Userinteractor.getDriver(String.valueOf(availableRoute.getDriverId())).enqueue(
+                                new Callback<User>() {
+                                    @Override
+                                    public void onResponse(Call<User> call, Response<User> response) {
+                                        driver = response.body();
+                                    }
+                                    @Override
+                                    public void onFailure(Call<User> call, Throwable t) {
+                                    }
+                                }
+                        );
+                    }
+
+                    @Override
+                    public void onFailure(Call<AvailableRoute> call, Throwable t) {
+
+                    }
+                }
+        );
+
     }
 
     @Override
@@ -56,19 +90,7 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
             case R.id.confirm_accept_button:
                 didAccept = true;
 
-                Routesinteractor.passengerAcceptRoute(routeId, didAccept).enqueue(
-                        new Callback<Void>() {
-                            @Override
-                            public void onResponse(Call<Void> call, Response<Void> response) {
 
-                            }
-
-                            @Override
-                            public void onFailure(Call<Void> call, Throwable t) {
-
-                            }
-                        }
-                );
 
                 break;
             case R.id.confirm_cancel_button:
@@ -109,6 +131,19 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
                             }
                         }
                 );
+                break;
+            case R.id.confirm_view_driver_button:
+                Intent driverActivityIntent = new Intent(ConfirmActivity.this, DriverDescriptionActivity.class);
+
+
+                Gson gson = new Gson();
+                String stringUser = gson.toJson(driver);
+                driverActivityIntent.putExtra("obj", stringUser);
+
+                startActivity(driverActivityIntent);
+
+
+                break;
 
         }
 

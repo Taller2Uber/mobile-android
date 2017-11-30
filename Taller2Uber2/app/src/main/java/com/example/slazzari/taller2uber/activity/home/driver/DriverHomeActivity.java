@@ -107,10 +107,12 @@ public class DriverHomeActivity extends AppCompatActivity implements View.OnClic
 
         switch (view.getId()) {
             case R.id.driver_home_edit_passenger_button:
-                Intent passengerActivityIntent = new Intent(DriverHomeActivity.this, DriverDescriptionActivity.class);
+                Intent driverActivityIntent = new Intent(DriverHomeActivity.this, DriverDescriptionActivity.class);
 
+                String stringUser = gson.toJson(user);
+                driverActivityIntent.putExtra("obj", stringUser);
 
-                startActivity(passengerActivityIntent);
+                startActivity(driverActivityIntent);
 
                 break;
             case R.id.driver_chat_button:

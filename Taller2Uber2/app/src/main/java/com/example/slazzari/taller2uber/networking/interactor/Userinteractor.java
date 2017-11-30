@@ -33,6 +33,38 @@ public class Userinteractor {
         return userrepo.getUser();
     }
 
+    public static Call<User> getPassenger(String passengerId) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create(
+                        new GsonBuilder()
+                                .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+                                .create()
+                ))
+                .build();
+
+        Userrepo userrepo= retrofit.create(Userrepo.class);
+
+        return userrepo.getPassenger(passengerId, authToken);
+    }
+
+    public static Call<User> getDriver(String driverId) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create(
+                        new GsonBuilder()
+                                .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+                                .create()
+                ))
+                .build();
+
+        Userrepo userrepo= retrofit.create(Userrepo.class);
+
+        return userrepo.getDriver(driverId, authToken);
+    }
+
+
+
     public static Call<User> loginUser(User user) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)

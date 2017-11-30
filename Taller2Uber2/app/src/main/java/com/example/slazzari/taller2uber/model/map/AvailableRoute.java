@@ -19,6 +19,10 @@ public class AvailableRoute {
     private AvailableRouteId _id;
     private int driverId;
 
+    public int getDriverId() {
+        return driverId;
+    }
+
     public void setDriverId(int driverId) {
         this.driverId = driverId;
     }
@@ -30,7 +34,6 @@ public class AvailableRoute {
             return $oid;
         }
     }
-
 
     public String getId() {
         return _id.get$oid();

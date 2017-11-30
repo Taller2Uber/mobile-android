@@ -7,15 +7,81 @@
     tools:context="com.example.slazzari.taller2uber.activity.home.driver.DriverDescriptionActivity"
     android:padding="16dp">
 
+
+    <EditText
+        android:id="@+id/driver_description_name_edit_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:hint="Nombre"
+        android:enabled="false"
+        />
+
+    <EditText
+        android:id="@+id/driver_description_lastname_edit_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintTop_toBottomOf="@+id/driver_description_name_edit_text"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:hint="Apellido"
+        android:enabled="false"
+        />
+
+
+
+    <EditText
+        android:id="@+id/driver_description_gender_edit_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="Genero"
+        android:enabled="false"
+
+        app:layout_constraintTop_toBottomOf="@+id/driver_description_lastname_edit_text"
+        app:layout_constraintLeft_toLeftOf="parent"
+        />
+
+    <Button
+        android:id="@+id/driver_description_edit_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Editar"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+
+        tools:layout_editor_absoluteX="4dp"
+        tools:layout_editor_absoluteY="427dp" />
+
+    <Button
+        android:id="@+id/driver_description_accept_edit_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Guardar"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+
+
+        tools:layout_editor_absoluteX="231dp"
+        tools:layout_editor_absoluteY="430dp" />
+
     <Button
         android:id="@+id/driver_description_logout_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Logout"
+        android:text="Log out"
+
+        app:layout_constraintTop_toBottomOf="@+id/driver_description_gender_edit_text"
 
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
 
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp" />
-</android.support.constraint.ConstraintLayout>
+
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="318dp" /></android.support.constraint.ConstraintLayout>
