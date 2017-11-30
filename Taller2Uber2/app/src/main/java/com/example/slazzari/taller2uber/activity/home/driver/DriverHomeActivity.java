@@ -1,8 +1,10 @@
 package com.example.slazzari.taller2uber.activity.home.driver;
 
 import android.content.Intent;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -11,6 +13,7 @@ import android.widget.Button;
 import com.example.slazzari.taller2uber.R;
 import com.example.slazzari.taller2uber.activity.chat.ChatActivity;
 import com.example.slazzari.taller2uber.activity.home.passenger.MapsActivity;
+import com.example.slazzari.taller2uber.model.TrackingLooper;
 import com.example.slazzari.taller2uber.model.User;
 import com.example.slazzari.taller2uber.model.map.AvailableRoute;
 import com.example.slazzari.taller2uber.networking.interactor.Routesinteractor;
@@ -30,6 +33,7 @@ public class DriverHomeActivity extends AppCompatActivity implements View.OnClic
     private User user;
     private RecyclerView availableRoutesRecyclerView;
 
+    private SwipeRefreshLayout swipeRefreshLayout;
 
 
     @Override
@@ -49,11 +53,31 @@ public class DriverHomeActivity extends AppCompatActivity implements View.OnClic
         chatButton.setOnClickListener(this);
 
         availableRoutesRecyclerView = (RecyclerView) findViewById(R.id.available_routes_recycler_view);
+        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.available_routes_recycler_view_swipe_to_refresh);
 
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(availableRoutesRecyclerView.getContext(),
+                DividerItemDecoration.VERTICAL);
+        availableRoutesRecyclerView.addItemDecoration(dividerItemDecoration);
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getAvailableRoutes();
+            }
+        });
+
+        TrackingLooper.getInstance().setup(this);
+
+        getAvailableRoutes();
+    }
+
+    private void getAvailableRoutes() {
         Routesinteractor.getAvailableRoutes().enqueue(new Callback<List<AvailableRoute>>() {
             @Override
             public void onResponse(Call<List<AvailableRoute>> call, Response<List<AvailableRoute>> response) {
                 List<AvailableRoute> availableRoutes = response.body();
+
+                swipeRefreshLayout.setRefreshing(false);
 
                 AvailableRoutesRecyclerViewAdapter routesAdapter = new AvailableRoutesRecyclerViewAdapter(availableRoutes, new AvailableViewOnClick() {
                     @Override
@@ -75,12 +99,10 @@ public class DriverHomeActivity extends AppCompatActivity implements View.OnClic
                                     @Override
                                     public void onResponse(Call<AvailableRoute> call, Response<AvailableRoute> response) {
                                         AvailableRoute responseRoute = response.body();
-
                                     }
 
                                     @Override
                                     public void onFailure(Call<AvailableRoute> call, Throwable t) {
-
                                     }
                                 }
                         );
@@ -95,7 +117,7 @@ public class DriverHomeActivity extends AppCompatActivity implements View.OnClic
 
             @Override
             public void onFailure(Call<List<AvailableRoute>> call, Throwable t) {
-
+                swipeRefreshLayout.setRefreshing(false);
             }
         });
     }

@@ -41,14 +41,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
         // ...
 
-//        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-//        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this)
-//                .setSmallIcon(R.mipmap.ic_launcher)
-//                .setContentTitle(title)
-//                .setContentText(message)
-//                .setStyle(new NotificationCompat.BigTextStyle().bigText(message))
-//                .setTicker(message)
-//                .setAutoCancel(true);
+        String titleNotification = "";
+        String messageNotification = "";
 
 
         // Not getting messages here? See why this may be: https://goo.gl/39bRNJ
@@ -67,6 +61,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             notificationBody = remoteMessage.getNotification().getBody();
         }
 
+        boolean sendPush = false;
+
         Gson gson = new Gson();
 
         Notification notification = gson.fromJson(notificationBody, Notification.class);
@@ -78,7 +74,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         }
 
         if (notification.isDriverConfirmedRoute()) {
-//            TODO: show modal that make a passanger confirm the drive
             Intent intent = new Intent (this, ConfirmActivity.class);
 
             intent.setFlags (Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -87,22 +82,47 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         }
 
         if (notification.isPassengerConfirmedDriver()) {
+            titleNotification = "Aviso de ruta";
+            messageNotification = "El pasajero confirmo tu solicitud de viaje";
 
+            sendPush = true;
         }
 
         if (notification.isPassengerRejectedRoute()) {
-
+            titleNotification = "Aviso de ruta";
+            messageNotification = "El pasajero confirmo tu solicitud de viaje";
+            sendPush = true;
         }
 
         if (notification.isDriverStartedRoute()) {
+            titleNotification = "Aviso de ruta";
+            messageNotification = "El conductor compenzó la ruta";
 
+            sendPush = true;
         }
 
         if (notification.isDriverFinishedRoute()) {
+            titleNotification = "Aviso de ruta";
+            messageNotification = "El conductor finalizo la ruta";
 
+            sendPush = true;
         }
 
-        Log.w(TAG, "From: " + notificationBody);
+        if (sendPush) {
+            int mNotificationId = 001;
+            NotificationManager mNotifyMgr =
+                    (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+
+            NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+            NotificationCompat.Builder mBuilder = (NotificationCompat.Builder) new NotificationCompat.Builder(this)
+                    .setSmallIcon(R.mipmap.ic_launcher)
+                    .setContentTitle(titleNotification)
+                    .setContentText(messageNotification)
+                    .setAutoCancel(false);
+
+            mNotifyMgr.notify(mNotificationId, mBuilder.build());
+
+        }
     }
 
 }

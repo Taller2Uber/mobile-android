@@ -6,8 +6,14 @@ package com.example.slazzari.taller2uber.model;
 
 public class CurrentUserCredentials {
     private static final CurrentUserCredentials ourInstance = new CurrentUserCredentials();
+
+    public static final String NO_STATE = "NO_STATE";
+    public static final String BEGIN_ROUTE = "BEGIN_ROUTE";
+    public static final String FINISH_ROUTE = "FINISH_ROUTE";
+
     private String id;
     private String type;
+    private String state = NO_STATE;
 
     public String getId() {
         return id;
@@ -30,6 +36,7 @@ public class CurrentUserCredentials {
     }
 
     private CurrentUserCredentials() {
+
     }
 
     public boolean isDriver() {
@@ -39,4 +46,13 @@ public class CurrentUserCredentials {
         return this.type.equals("passenger");
     }
 
+    public void beginRoute() {
+        state = BEGIN_ROUTE;
+    }
+
+    public void finishRoute() {
+        state = FINISH_ROUTE;
+    }
+
 }
+

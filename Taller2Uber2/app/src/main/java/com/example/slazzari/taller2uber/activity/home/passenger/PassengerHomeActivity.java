@@ -7,6 +7,7 @@ import android.widget.Button;
 
 import com.example.slazzari.taller2uber.R;
 import com.example.slazzari.taller2uber.activity.BaseActivity;
+import com.example.slazzari.taller2uber.model.TrackingLooper;
 import com.example.slazzari.taller2uber.model.User;
 import com.google.gson.Gson;
 
@@ -31,6 +32,8 @@ public class PassengerHomeActivity extends BaseActivity implements View.OnClickL
 
         Button mapPassengerButton = (Button) findViewById(R.id.passenger_home_map_button);
         mapPassengerButton.setOnClickListener(this);
+
+        TrackingLooper.getInstance().setup(this);
      }
 
     @Override

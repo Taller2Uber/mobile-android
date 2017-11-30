@@ -3,4 +3,8 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="colorUberButtons">#88acc4</color>
+    <color name="colorUberCells">#979797</color>
+
+
 </resources>

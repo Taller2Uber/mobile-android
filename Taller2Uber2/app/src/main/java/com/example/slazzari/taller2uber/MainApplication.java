@@ -3,6 +3,7 @@ package com.example.slazzari.taller2uber;
 import android.app.Application;
 import android.content.Context;
 
+import com.example.slazzari.taller2uber.model.TrackingLooper;
 import com.facebook.login.LoginManager;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.iid.FirebaseInstanceId;
@@ -18,8 +19,6 @@ public class MainApplication extends Application {
     public void onCreate() {
         super.onCreate();
         MainApplication.context = getApplicationContext();
-
-
     }
 
     public static Context getAppContext() {

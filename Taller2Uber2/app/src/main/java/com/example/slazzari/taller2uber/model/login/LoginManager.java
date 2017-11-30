@@ -10,6 +10,7 @@ import com.example.slazzari.taller2uber.activity.Register.RegisterActivity;
 import com.example.slazzari.taller2uber.activity.home.driver.DriverHomeActivity;
 import com.example.slazzari.taller2uber.activity.home.passenger.PassengerHomeActivity;
 import com.example.slazzari.taller2uber.model.CurrentUserCredentials;
+import com.example.slazzari.taller2uber.model.TrackingLooper;
 import com.example.slazzari.taller2uber.model.User;
 import com.example.slazzari.taller2uber.networking.NetworkingConstants;
 import com.example.slazzari.taller2uber.networking.interactor.Userinteractor;
@@ -87,8 +88,11 @@ public class LoginManager  {
 
                                 editor.commit();
 
-                                CurrentUserCredentials.getInstance().setId(user.getSsId());
-                                CurrentUserCredentials.getInstance().setType(user.getType());
+                                CurrentUserCredentials.getInstance().setId(responseUser.getSsId());
+                                CurrentUserCredentials.getInstance().setType(responseUser.getType());
+                                CurrentUserCredentials.getInstance().setType(responseUser.getType());
+
+                                TrackingLooper.getInstance().beginTracking();
 
                                 loginResponse.onLoginWithUser(responseUser);
                             }
@@ -118,6 +122,7 @@ public class LoginManager  {
             com.facebook.login.LoginManager.getInstance().logOut();
         }
 
+        TrackingLooper.getInstance().finishTracking();
         CurrentUserCredentials.getInstance().setId(null);
         CurrentUserCredentials.getInstance().setType(null);
     }

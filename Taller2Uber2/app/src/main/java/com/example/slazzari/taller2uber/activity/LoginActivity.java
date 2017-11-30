@@ -13,6 +13,7 @@ import com.example.slazzari.taller2uber.R;
 import com.example.slazzari.taller2uber.activity.Register.RegisterActivity;
 import com.example.slazzari.taller2uber.activity.home.driver.DriverHomeActivity;
 import com.example.slazzari.taller2uber.activity.home.passenger.PassengerHomeActivity;
+import com.example.slazzari.taller2uber.model.TrackingLooper;
 import com.example.slazzari.taller2uber.model.User;
 import com.example.slazzari.taller2uber.model.login.LoginManager;
 import com.example.slazzari.taller2uber.model.login.LoginManagerResponse;
@@ -64,6 +65,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         // Callback registration
         callbackManager = CallbackManager.Factory.create();
+
+        TrackingLooper.getInstance().setup(this);
 
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
 

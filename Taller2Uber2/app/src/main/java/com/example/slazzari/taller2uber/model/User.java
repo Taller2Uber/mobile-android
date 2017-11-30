@@ -16,6 +16,9 @@ public class User {
     private String ssId;
     private String firebaseToken;
 
+    private String latitude;
+    private String longitude;
+
     private String type;
 
     public void setGender(String gender) {
@@ -48,6 +51,14 @@ public class User {
 
     public String getFbToken() {
         return fbToken;
+    }
+
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
+    }
+
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
     }
 
     private String fbToken;

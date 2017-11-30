@@ -28,7 +28,7 @@
         />
 
     <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/swipeRefreshLayout"
+        android:id="@+id/available_routes_recycler_view_swipe_to_refresh"
         android:layout_width="0dp"
         android:layout_height="0dp"
 
