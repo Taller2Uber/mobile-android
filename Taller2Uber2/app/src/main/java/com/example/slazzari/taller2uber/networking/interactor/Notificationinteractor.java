@@ -33,7 +33,7 @@ import static com.example.slazzari.taller2uber.networking.NetworkingConstants.au
 
 public class Notificationinteractor {
 
-    public static okhttp3.Call sendChatMessage(ChatMessage chatMessage) {
+    public static okhttp3.Call sendChatMessage(ChatMessage chatMessage, String to) {
 
         OkHttpClient client = new OkHttpClient();
 
@@ -50,7 +50,7 @@ public class Notificationinteractor {
 
 
         MediaType mediaType = MediaType.parse("application/json");
-        RequestBody body = RequestBody.create(mediaType, "{\"to\":\"ezbJFqlOdo0:APA91bFxKV-oGf30q3_JAW-MoFNKyzH_Nmv80uqj-yIZFMD9am1Xjz7PTsaiDx_OYmQDr8pg9bYQo-SZJHa58bzgew1ra-WXcCdYKd9Y_mq2cn41pGOoltkuyWr8LABuSqTG21mjP_HC\",\"notification\":{\"body\":" + gson.toJson(notification)+"}}");
+        RequestBody body = RequestBody.create(mediaType, "{\"to\":\"" + to + "\",\"notification\":{\"body\":" + gson.toJson(notification)+"}}");
         Request request = new Request.Builder()
                 .url("https://fcm.googleapis.com/fcm/send")
                 .post(body)

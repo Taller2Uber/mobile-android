@@ -3,6 +3,7 @@ package com.example.slazzari.taller2uber.firebase;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Credentials;
 import android.nfc.Tag;
 import android.os.Bundle;
 import android.support.v7.app.NotificationCompat;
@@ -12,12 +13,22 @@ import android.widget.Toast;
 import com.example.slazzari.taller2uber.R;
 import com.example.slazzari.taller2uber.activity.ConfirmActivity;
 import com.example.slazzari.taller2uber.activity.PaymentActivity;
+import com.example.slazzari.taller2uber.activity.home.driver.DriverViewRouteActivity;
+import com.example.slazzari.taller2uber.model.CurrentUserCredentials;
 import com.example.slazzari.taller2uber.model.Notification;
+import com.example.slazzari.taller2uber.model.User;
 import com.example.slazzari.taller2uber.model.chat.ChatManager;
 import com.example.slazzari.taller2uber.model.chat.ChatMessage;
+import com.example.slazzari.taller2uber.model.map.AvailableRoute;
+import com.example.slazzari.taller2uber.networking.interactor.Routesinteractor;
+import com.example.slazzari.taller2uber.networking.interactor.Userinteractor;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.google.gson.Gson;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import static com.example.slazzari.taller2uber.networking.NetworkingConstants.NOTIFICATION_TYPE_DRIVER_CONFIRM_ROUTE;
 import static com.example.slazzari.taller2uber.networking.NetworkingConstants.NOTIFICATION_TYPE_DRIVER_FINISHED_ROUTE;
@@ -83,6 +94,34 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         }
 
         if (notification.isPassengerConfirmedDriver()) {
+            CurrentUserCredentials.getInstance().setRouteId(notification.getContent());
+
+            Routesinteractor.getRoute(notification.getContent()).enqueue(
+                    new Callback<AvailableRoute>() {
+                        @Override
+                        public void onResponse(Call<AvailableRoute> call, Response<AvailableRoute> response) {
+                            AvailableRoute availableRoute = response.body();
+
+                            Userinteractor.getDriver(String.valueOf(availableRoute.getPassengerId())).enqueue(
+                                    new Callback<User>() {
+                                        @Override
+                                        public void onResponse(Call<User> call, Response<User> response) {
+                                            CurrentUserCredentials.getInstance().setOtherFirebaseToken(response.body().getFirebaseToken());
+                                        }
+
+                                        @Override
+                                        public void onFailure(Call<User> call, Throwable t) {
+                                        }
+                                    }
+                            );
+                        }
+
+                        @Override
+                        public void onFailure(Call<AvailableRoute> call, Throwable t) {
+
+                        }
+                    }
+            );
             titleNotification = "Aviso de ruta";
             messageNotification = "El pasajero confirmo tu solicitud de viaje";
 
@@ -111,6 +150,13 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             intent.setFlags (Intent.FLAG_ACTIVITY_NEW_TASK);
             intent.putExtra("obj", notification.getContent());
             startActivity(intent);
+
+            sendPush = true;
+        }
+
+        if (notification.isSeparationExceeded()) {
+            titleNotification = "Aviso de ruta";
+            messageNotification = "Se alejaron mucho el conductor y el pasajero :(";
 
             sendPush = true;
         }

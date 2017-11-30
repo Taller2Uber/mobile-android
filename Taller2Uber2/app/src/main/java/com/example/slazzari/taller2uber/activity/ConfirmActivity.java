@@ -1,6 +1,7 @@
 package com.example.slazzari.taller2uber.activity;
 
 import android.content.Intent;
+import android.net.Credentials;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -10,6 +11,7 @@ import com.example.slazzari.taller2uber.R;
 import com.example.slazzari.taller2uber.activity.home.driver.DriverDescriptionActivity;
 import com.example.slazzari.taller2uber.activity.home.driver.DriverHomeActivity;
 import com.example.slazzari.taller2uber.activity.home.driver.DriverViewRouteActivity;
+import com.example.slazzari.taller2uber.model.CurrentUserCredentials;
 import com.example.slazzari.taller2uber.model.User;
 import com.example.slazzari.taller2uber.model.map.AvailableRoute;
 import com.example.slazzari.taller2uber.networking.interactor.Routesinteractor;
@@ -94,7 +96,7 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
                         new Callback<Void>() {
                             @Override
                             public void onResponse(Call<Void> call, Response<Void> response) {
-
+                                CurrentUserCredentials.getInstance().setOtherFirebaseToken(driver.getFirebaseToken());
                             }
 
                             @Override

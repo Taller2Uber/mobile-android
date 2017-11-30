@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.preference.PreferenceManager;
 
 import com.example.slazzari.taller2uber.MainApplication;
+import com.example.slazzari.taller2uber.model.CurrentUserCredentials;
 import com.example.slazzari.taller2uber.networking.interactor.Notificationinteractor;
 import com.example.slazzari.taller2uber.networking.repository.Notificationrepo;
 import com.google.gson.Gson;
@@ -89,7 +90,7 @@ public class ChatManager implements MessageReceiver {
     public void postMessage(ChatMessage message) {
         onMessageReceibe(message);
 
-        Notificationinteractor.sendChatMessage(message).enqueue(
+        Notificationinteractor.sendChatMessage(message, CurrentUserCredentials.getInstance().getOtherFirebaseToken()).enqueue(
                 new okhttp3.Callback() {
                     @Override
                     public void onFailure(okhttp3.Call call, IOException e) {

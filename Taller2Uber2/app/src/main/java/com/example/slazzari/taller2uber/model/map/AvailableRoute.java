@@ -27,6 +27,10 @@ public class AvailableRoute {
         this.driverId = driverId;
     }
 
+    public int getPassengerId() {
+        return passengerId;
+    }
+
     private class AvailableRouteId {
         private String $oid;
 

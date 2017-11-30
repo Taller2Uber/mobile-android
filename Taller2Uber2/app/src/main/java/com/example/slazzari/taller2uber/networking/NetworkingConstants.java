@@ -50,5 +50,6 @@ public class NetworkingConstants {
     public static final String NOTIFICATION_TYPE_PASSENGER_REJECTED_DRIVER = "passengerRejectedDriver";
     public static final String NOTIFICATION_TYPE_DRIVER_STARTED_ROUTE = "driverStartedRoute";
     public static final String NOTIFICATION_TYPE_DRIVER_FINISHED_ROUTE = "driverFinishedRoute";
+    public static final String NOTIFICATION_TYPE_SEPARATION_EXCEEDED = "separationNotif";
 
 }

@@ -6,6 +6,7 @@ import static com.example.slazzari.taller2uber.networking.NetworkingConstants.NO
 import static com.example.slazzari.taller2uber.networking.NetworkingConstants.NOTIFICATION_TYPE_DRIVER_STARTED_ROUTE;
 import static com.example.slazzari.taller2uber.networking.NetworkingConstants.NOTIFICATION_TYPE_PASSENGER_CONFIRMED_DELIVERY;
 import static com.example.slazzari.taller2uber.networking.NetworkingConstants.NOTIFICATION_TYPE_PASSENGER_REJECTED_DRIVER;
+import static com.example.slazzari.taller2uber.networking.NetworkingConstants.NOTIFICATION_TYPE_SEPARATION_EXCEEDED;
 
 /**
  * Created by slazzari on 11/28/17.
@@ -29,6 +30,7 @@ public class Notification {
     public boolean isPassengerRejectedRoute() {return type.equals(NOTIFICATION_TYPE_PASSENGER_REJECTED_DRIVER);}
     public boolean isDriverStartedRoute() {return type.equals(NOTIFICATION_TYPE_DRIVER_STARTED_ROUTE);}
     public boolean isDriverFinishedRoute() {return  type.equals(NOTIFICATION_TYPE_DRIVER_FINISHED_ROUTE);}
+    public boolean isSeparationExceeded() {return type.equals(NOTIFICATION_TYPE_SEPARATION_EXCEEDED);}
 
     public void setContent(String content) {
         this.content = content;
