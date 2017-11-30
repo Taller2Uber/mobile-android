@@ -29,6 +29,8 @@ public class DriverHomeActivity extends AppCompatActivity implements View.OnClic
 
     private Button editDriverButton;
     private Button chatButton;
+    private Button beginDriveButton;
+    private Button finishDriveButton;
 
     private User user;
     private RecyclerView availableRoutesRecyclerView;
@@ -51,6 +53,12 @@ public class DriverHomeActivity extends AppCompatActivity implements View.OnClic
 
         chatButton = (Button) findViewById(R.id.driver_chat_button);
         chatButton.setOnClickListener(this);
+
+        beginDriveButton = (Button) findViewById(R.id.driver_home_begin_drive_button);
+        beginDriveButton.setOnClickListener(this);
+
+        finishDriveButton = (Button) findViewById(R.id.driver_home_finish_drive_button);
+        finishDriveButton.setOnClickListener(this);
 
         availableRoutesRecyclerView = (RecyclerView) findViewById(R.id.available_routes_recycler_view);
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.available_routes_recycler_view_swipe_to_refresh);
@@ -141,6 +149,13 @@ public class DriverHomeActivity extends AppCompatActivity implements View.OnClic
                 Intent chatActivityIntent = new Intent(DriverHomeActivity.this, ChatActivity.class);
 
                 startActivity(chatActivityIntent);
+                break;
+
+            case R.id.driver_home_begin_drive_button:
+
+
+                break;
+            case R.id.driver_home_finish_drive_button:
                 break;
         }
     }

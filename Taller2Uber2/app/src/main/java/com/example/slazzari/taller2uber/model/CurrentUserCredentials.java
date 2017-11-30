@@ -11,6 +11,8 @@ public class CurrentUserCredentials {
     public static final String BEGIN_ROUTE = "BEGIN_ROUTE";
     public static final String FINISH_ROUTE = "FINISH_ROUTE";
 
+
+
     private String id;
     private String type;
     private String state = NO_STATE;

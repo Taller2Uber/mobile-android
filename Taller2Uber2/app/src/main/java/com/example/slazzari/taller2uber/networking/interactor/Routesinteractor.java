@@ -121,5 +121,36 @@ public class Routesinteractor {
         return routesrepo.passengerAcceptRouteRequest(routId, authToken, acceptedRoute);
     }
 
+    public static Call<Void> driverStartRoute(String routId) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create(
+                        new GsonBuilder()
+                                .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+                                .create()
+                ))
+                .build();
+
+        Routesrepo routesrepo = retrofit.create(Routesrepo.class);
+
+        return routesrepo.driverStartRoute(routId, authToken);
+    }
+
+    public static Call<Void> driverFinishRoute(String routId) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create(
+                        new GsonBuilder()
+                                .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+                                .create()
+                ))
+                .build();
+
+        Routesrepo routesrepo = retrofit.create(Routesrepo.class);
+
+        return routesrepo.driverFinishRoute(routId, authToken);
+    }
+
+
 
 }

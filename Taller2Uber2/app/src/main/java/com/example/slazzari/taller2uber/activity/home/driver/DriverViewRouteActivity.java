@@ -43,7 +43,6 @@ public class DriverViewRouteActivity extends FragmentActivity implements OnMapRe
         route = gson.fromJson(stringRoute, Route.class);
 
         mapFragment.getMapAsync(this);
-
     }
 
     /**

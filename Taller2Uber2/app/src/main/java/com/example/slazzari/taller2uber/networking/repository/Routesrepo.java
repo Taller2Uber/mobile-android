@@ -21,6 +21,8 @@ import retrofit2.http.Query;
 
 import static com.example.slazzari.taller2uber.networking.NetworkingConstants.AUTHORIZATION_KEY;
 import static com.example.slazzari.taller2uber.networking.NetworkingConstants.AVAILABLE_ROUTES;
+import static com.example.slazzari.taller2uber.networking.NetworkingConstants.DRIVER_FINISH_ROUTE;
+import static com.example.slazzari.taller2uber.networking.NetworkingConstants.DRIVER_START_ROUTE;
 import static com.example.slazzari.taller2uber.networking.NetworkingConstants.PASSENGER_CONFIRM_ROUTE;
 import static com.example.slazzari.taller2uber.networking.NetworkingConstants.PASSENGER_CONFIRM_ROUTE_REQUEST;
 import static com.example.slazzari.taller2uber.networking.NetworkingConstants.REQUEST_ROUTE;
@@ -50,5 +52,11 @@ public interface Routesrepo {
 
     @POST(PASSENGER_CONFIRM_ROUTE_REQUEST)
     Call<Void> passengerAcceptRouteRequest(@Path("route") String string, @Header(AUTHORIZATION_KEY) String authorization, @Body PassengerAcceptedRoute acceptRoute);
+
+    @POST(DRIVER_START_ROUTE)
+    Call<Void> driverStartRoute(@Path("route") String string, @Header(AUTHORIZATION_KEY) String authorization);
+
+    @POST(DRIVER_FINISH_ROUTE)
+    Call<Void> driverFinishRoute(@Path("route") String string, @Header(AUTHORIZATION_KEY) String authorization);
 
 }
