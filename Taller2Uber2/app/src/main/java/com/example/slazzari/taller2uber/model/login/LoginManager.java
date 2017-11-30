@@ -73,7 +73,7 @@ public class LoginManager  {
                         String authorization = response.headers().get(AUTHORIZATION_KEY);
                         NetworkingConstants.authToken = authorization;
 
-                        if (response.code() != 200) {
+                        if (response.code() < 200 || response.code() > 300) {
                             loginResponse.onLoginWithFailure();
                             return;
                         } else {
