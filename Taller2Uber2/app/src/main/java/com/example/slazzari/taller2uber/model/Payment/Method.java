@@ -24,6 +24,14 @@ public class Method {
         return paymethod;
     }
 
+    public float getAmmount() {
+        return ammount;
+    }
+
+    public void setParameters(HashMap<String, String> parameters) {
+        this.parameters = parameters;
+    }
+
     public Method() {}
 
 

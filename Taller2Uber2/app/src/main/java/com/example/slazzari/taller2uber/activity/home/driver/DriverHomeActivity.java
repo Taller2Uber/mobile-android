@@ -14,10 +14,12 @@ import android.widget.Button;
 import com.example.slazzari.taller2uber.R;
 import com.example.slazzari.taller2uber.activity.chat.ChatActivity;
 import com.example.slazzari.taller2uber.activity.home.passenger.MapsActivity;
+import com.example.slazzari.taller2uber.model.CurrentUserCredentials;
 import com.example.slazzari.taller2uber.model.TrackingLooper;
 import com.example.slazzari.taller2uber.model.User;
 import com.example.slazzari.taller2uber.model.map.AvailableRoute;
 import com.example.slazzari.taller2uber.networking.interactor.Routesinteractor;
+import com.example.slazzari.taller2uber.networking.interactor.Userinteractor;
 import com.google.gson.Gson;
 
 import java.util.List;
@@ -154,10 +156,31 @@ public class DriverHomeActivity extends AppCompatActivity implements View.OnClic
 
             case R.id.driver_home_begin_drive_button:
 
+                Routesinteractor.driverStartRoute(CurrentUserCredentials.getInstance().getRouteId()).enqueue(new Callback<Void>() {
+                    @Override
+                    public void onResponse(Call<Void> call, Response<Void> response) {
 
+                    }
+
+                    @Override
+                    public void onFailure(Call<Void> call, Throwable t) {
+
+                    }
+                });
 
                 break;
             case R.id.driver_home_finish_drive_button:
+                Routesinteractor.driverFinishRoute(CurrentUserCredentials.getInstance().getRouteId()).enqueue(new Callback<Void>() {
+                    @Override
+                    public void onResponse(Call<Void> call, Response<Void> response) {
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<Void> call, Throwable t) {
+
+                    }
+                });
                 break;
         }
     }

@@ -43,7 +43,7 @@ public class PaymentActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment);
 
-        paymentMethodsRecyclerView = (RecyclerView)findViewById(R.id.payment_methods_recycler_view);
+        paymentMethodsRecyclerView = (RecyclerView)findViewById(R.id.pay_methods_recycler_view);
         paymentLayoutManager = new LinearLayoutManager(this);
         paymentMethodsRecyclerView.setLayoutManager(paymentLayoutManager);
 
@@ -62,7 +62,7 @@ public class PaymentActivity extends AppCompatActivity {
                 Gson gson = new Gson();
 
                 Method method = methods.getPaymethods().get(position);
-                method.setAmmount(methods.getBalance());
+                method.setAmmount(methods.getBalance() * (-1));
 
                 intent.putExtra("obj", gson.toJson(methods.getPaymethods().get(position)));
 

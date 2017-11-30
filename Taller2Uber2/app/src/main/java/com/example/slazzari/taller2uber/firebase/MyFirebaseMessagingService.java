@@ -102,7 +102,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                         public void onResponse(Call<AvailableRoute> call, Response<AvailableRoute> response) {
                             AvailableRoute availableRoute = response.body();
 
-                            Userinteractor.getDriver(String.valueOf(availableRoute.getPassengerId())).enqueue(
+                            Userinteractor.getPassenger(String.valueOf(availableRoute.getPassengerId())).enqueue(
                                     new Callback<User>() {
                                         @Override
                                         public void onResponse(Call<User> call, Response<User> response) {
@@ -130,7 +130,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
         if (notification.isPassengerRejectedRoute()) {
             titleNotification = "Aviso de ruta";
-            messageNotification = "El pasajero confirmo tu solicitud de viaje";
+            messageNotification = "El pasajero rechazó tu solicitud de viaje";
             sendPush = true;
         }
 

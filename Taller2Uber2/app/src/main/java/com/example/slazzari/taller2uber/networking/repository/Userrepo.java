@@ -1,6 +1,7 @@
 package com.example.slazzari.taller2uber.networking.repository;
 
 import com.example.slazzari.taller2uber.model.Payment.Amount;
+import com.example.slazzari.taller2uber.model.Payment.Method;
 import com.example.slazzari.taller2uber.model.Payment.Methods;
 import com.example.slazzari.taller2uber.model.User;
 
@@ -62,7 +63,7 @@ public interface Userrepo {
 
 
     @POST(USER_PAY)
-    Call<Void> pay(@Body Amount amount, @Path("user") String userId, @Header(AUTHORIZATION_KEY) String authorization);
+    Call<Void> pay(@Body Method method, @Path("user") String userId, @Header(AUTHORIZATION_KEY) String authorization);
 
     @GET(USER_DEBT)
     Call<Methods> debt(@Path("user") String userId, @Header(AUTHORIZATION_KEY) String authorization);

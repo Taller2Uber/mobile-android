@@ -150,7 +150,7 @@ public class Userinteractor {
         return userrepo.updateDriver(user, ssid, authToken);
     }
 
-    public static Call<Void> userPay(User user, Amount amount) {
+    public static Call<Void> userPay(User user, Method method) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create(
@@ -166,7 +166,7 @@ public class Userinteractor {
         user.setSsId(null);
 
 
-        return userrepo.pay(amount, ssid, authToken);
+        return userrepo.pay(method, ssid, authToken);
     }
 
     public static Call<Methods> userDebt(User user) {

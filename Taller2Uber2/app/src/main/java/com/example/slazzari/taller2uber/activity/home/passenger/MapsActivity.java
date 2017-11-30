@@ -1,6 +1,7 @@
 package com.example.slazzari.taller2uber.activity.home.passenger;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Location;
@@ -8,6 +9,9 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 
+import com.example.slazzari.taller2uber.activity.PayActivity;
+import com.example.slazzari.taller2uber.activity.PaymentActivity;
+import com.example.slazzari.taller2uber.model.Payment.Method;
 import com.example.slazzari.taller2uber.model.map.PassengerConfirmRoute;
 import com.example.slazzari.taller2uber.model.map.Route;
 import com.example.slazzari.taller2uber.model.map.Routes;
@@ -53,8 +57,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Gson gson = new Gson();
         String strUser = getIntent().getStringExtra("obj");
         user = gson.fromJson(strUser, User.class);
-
-
 
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
@@ -149,10 +151,21 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                             new Callback<Routes>() {
                                 @Override
                                 public void onResponse(Call<Routes> call, Response<Routes> response) {
-                                    Routes routes = response.body();
-                                    routes.setPassengerId(user.getSsId());
 
-                                    drawRoutes(routes);
+                                    if (response.code() == 402) {
+                                        Intent intent = new Intent (MapsActivity.this, PaymentActivity.class);
+
+                                        intent.setFlags (Intent.FLAG_ACTIVITY_NEW_TASK);
+
+                                        startActivity(intent);
+
+                                    } else {
+                                        Routes routes = response.body();
+                                        routes.setPassengerId(user.getSsId());
+
+                                        drawRoutes(routes);
+                                    }
+
                                 }
 
                                 @Override

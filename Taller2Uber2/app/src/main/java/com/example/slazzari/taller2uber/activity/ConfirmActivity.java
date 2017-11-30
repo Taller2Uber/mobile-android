@@ -97,6 +97,7 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
                             @Override
                             public void onResponse(Call<Void> call, Response<Void> response) {
                                 CurrentUserCredentials.getInstance().setOtherFirebaseToken(driver.getFirebaseToken());
+                                finish();
                             }
 
                             @Override
@@ -115,7 +116,7 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
                         new Callback<Void>() {
                             @Override
                             public void onResponse(Call<Void> call, Response<Void> response) {
-
+                                finish();
                             }
 
                             @Override

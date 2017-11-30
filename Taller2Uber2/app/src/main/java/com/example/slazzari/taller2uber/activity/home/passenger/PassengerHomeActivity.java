@@ -7,13 +7,18 @@ import android.widget.Button;
 
 import com.example.slazzari.taller2uber.R;
 import com.example.slazzari.taller2uber.activity.BaseActivity;
+import com.example.slazzari.taller2uber.activity.chat.ChatActivity;
+import com.example.slazzari.taller2uber.activity.home.driver.DriverHomeActivity;
 import com.example.slazzari.taller2uber.model.TrackingLooper;
 import com.example.slazzari.taller2uber.model.User;
+import com.example.slazzari.taller2uber.model.chat.ChatMessage;
 import com.google.gson.Gson;
 
 public class PassengerHomeActivity extends BaseActivity implements View.OnClickListener{
 
     private User user;
+
+    private Button chatButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +38,9 @@ public class PassengerHomeActivity extends BaseActivity implements View.OnClickL
         Button mapPassengerButton = (Button) findViewById(R.id.passenger_home_map_button);
         mapPassengerButton.setOnClickListener(this);
 
+        chatButton = (Button) findViewById(R.id.passenger_home_chat_button);
+        chatButton.setOnClickListener(this);
+
         TrackingLooper.getInstance().setup(this);
      }
 
@@ -45,7 +53,6 @@ public class PassengerHomeActivity extends BaseActivity implements View.OnClickL
                 Intent passengerActivityIntent = new Intent(PassengerHomeActivity.this, PassengerDescriptionActivity.class);
 
                 passengerActivityIntent.putExtra("obj", gson.toJson(user));
-
                 startActivity(passengerActivityIntent);
 
                 break;
@@ -57,6 +64,11 @@ public class PassengerHomeActivity extends BaseActivity implements View.OnClickL
                 startActivity(mapActivityIntent);
 
                 break;
+
+            case R.id.passenger_home_chat_button:
+                Intent chatActivityIntent = new Intent(PassengerHomeActivity.this, ChatActivity.class);
+
+                startActivity(chatActivityIntent);
         }
     }
 }
