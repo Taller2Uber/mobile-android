@@ -5,6 +5,7 @@ import android.content.Context;
 
 import com.facebook.login.LoginManager;
 import com.google.firebase.FirebaseApp;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 /**
  * Created by slazzari on 9/12/17.
@@ -17,6 +18,8 @@ public class MainApplication extends Application {
     public void onCreate() {
         super.onCreate();
         MainApplication.context = getApplicationContext();
+
+
     }
 
     public static Context getAppContext() {

@@ -84,8 +84,11 @@ public class DriverViewRouteActivity extends FragmentActivity implements OnMapRe
 
         CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, padding);
 
-        mMap.animateCamera(cu);
+        try {
+            mMap.animateCamera(cu);
+        } catch (Exception e) {
 
+        }
         drawRoute(route, Color.DKGRAY);
     }
 

@@ -1,9 +1,16 @@
 package com.example.slazzari.taller2uber.firebase;
 
+import android.app.NotificationManager;
+import android.content.Context;
+import android.content.Intent;
 import android.nfc.Tag;
+import android.os.Bundle;
+import android.support.v7.app.NotificationCompat;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.example.slazzari.taller2uber.R;
+import com.example.slazzari.taller2uber.activity.ConfirmActivity;
 import com.example.slazzari.taller2uber.model.Notification;
 import com.example.slazzari.taller2uber.model.chat.ChatManager;
 import com.example.slazzari.taller2uber.model.chat.ChatMessage;
@@ -34,6 +41,16 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
         // ...
 
+//        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+//        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this)
+//                .setSmallIcon(R.mipmap.ic_launcher)
+//                .setContentTitle(title)
+//                .setContentText(message)
+//                .setStyle(new NotificationCompat.BigTextStyle().bigText(message))
+//                .setTicker(message)
+//                .setAutoCancel(true);
+
+
         // Not getting messages here? See why this may be: https://goo.gl/39bRNJ
         Log.w(TAG, "From: " + remoteMessage.getFrom());
 
@@ -61,7 +78,12 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         }
 
         if (notification.isDriverConfirmedRoute()) {
+//            TODO: show modal that make a passanger confirm the drive
+            Intent intent = new Intent (this, ConfirmActivity.class);
 
+            intent.setFlags (Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.putExtra("obj", notification.getContent());
+            startActivity(intent);
         }
 
         if (notification.isPassengerConfirmedDriver()) {

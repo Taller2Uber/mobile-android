@@ -87,7 +87,6 @@ public class DriverHomeActivity extends AppCompatActivity implements View.OnClic
                     }
                 });
 
-
                 availableRoutesRecyclerView.setAdapter(routesAdapter);
                 LinearLayoutManager llm = new LinearLayoutManager(DriverHomeActivity.this);
                 llm.setOrientation(LinearLayoutManager.VERTICAL);

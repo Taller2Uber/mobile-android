@@ -59,6 +59,8 @@ public class MainActivity extends BaseActivity {
                     }
                 }
         );
+
+        String refreshedToken = FirebaseInstanceId.getInstance().getToken();
     }
 
     @Override

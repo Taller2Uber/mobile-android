@@ -15,7 +15,7 @@ public class AvailableRoute {
     }
 
     private String status;
-    private String passengerId;
+    private int passengerId;
     private AvailableRouteId _id;
     private int driverId;
 

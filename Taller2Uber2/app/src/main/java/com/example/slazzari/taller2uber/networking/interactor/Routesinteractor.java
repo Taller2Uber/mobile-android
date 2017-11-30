@@ -1,6 +1,7 @@
 package com.example.slazzari.taller2uber.networking.interactor;
 
 import com.example.slazzari.taller2uber.model.map.AvailableRoute;
+import com.example.slazzari.taller2uber.model.map.PassengerAcceptedRoute;
 import com.example.slazzari.taller2uber.model.map.PassengerConfirmRoute;
 import com.example.slazzari.taller2uber.model.map.Route;
 import com.example.slazzari.taller2uber.model.map.Routes;
@@ -39,6 +40,21 @@ public class Routesinteractor {
         return routesrepo.getRoutes(authToken, routes);
     }
 
+    public static Call<AvailableRoute> getRoute(String routeId) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create(
+                        new GsonBuilder()
+                                .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+                                .create()
+                ))
+                .build();
+
+
+        Routesrepo routesrepo = retrofit.create(Routesrepo.class);
+
+        return routesrepo.getRoute(routeId, authToken);
+    }
 
     public static Call<PassengerConfirmRoute> passengerConfirmRoute(PassengerConfirmRoute confirmRoute) {
         Retrofit retrofit = new Retrofit.Builder()
@@ -84,7 +100,25 @@ public class Routesinteractor {
 
         Routesrepo routesrepo = retrofit.create(Routesrepo.class);
 
-        return routesrepo.driverConfirmRoute(route.getId(), authToken);
+        return routesrepo.driverConfirmRoute(route.getId(), authToken, route);
+    }
+
+    public static Call<Void> passengerAcceptRoute(String routId, boolean passengerAcceptRoute) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create(
+                        new GsonBuilder()
+                                .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+                                .create()
+                ))
+                .build();
+
+        Routesrepo routesrepo = retrofit.create(Routesrepo.class);
+
+        PassengerAcceptedRoute acceptedRoute = new PassengerAcceptedRoute();
+        acceptedRoute.setAccepted(passengerAcceptRoute);
+
+        return routesrepo.passengerAcceptRouteRequest(routId, authToken, acceptedRoute);
     }
 
 
