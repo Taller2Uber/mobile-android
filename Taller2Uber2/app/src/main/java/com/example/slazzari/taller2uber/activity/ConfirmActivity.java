@@ -90,6 +90,19 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
             case R.id.confirm_accept_button:
                 didAccept = true;
 
+                Routesinteractor.passengerAcceptRoute(routeId, didAccept).enqueue(
+                        new Callback<Void>() {
+                            @Override
+                            public void onResponse(Call<Void> call, Response<Void> response) {
+
+                            }
+
+                            @Override
+                            public void onFailure(Call<Void> call, Throwable t) {
+
+                            }
+                        }
+                );
 
 
                 break;
@@ -112,6 +125,7 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
 
                 break;
             case R.id.confirm_view_route_button:
+
                 Routesinteractor.getRoute(routeId).enqueue(
                         new Callback<AvailableRoute>() {
                             @Override
@@ -134,7 +148,6 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
                 break;
             case R.id.confirm_view_driver_button:
                 Intent driverActivityIntent = new Intent(ConfirmActivity.this, DriverDescriptionActivity.class);
-
 
                 Gson gson = new Gson();
                 String stringUser = gson.toJson(driver);

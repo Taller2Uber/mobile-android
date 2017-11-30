@@ -11,7 +11,9 @@ import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
 import static com.example.slazzari.taller2uber.networking.NetworkingConstants.AUTHORIZATION_KEY;
+import static com.example.slazzari.taller2uber.networking.NetworkingConstants.DRIVER;
 import static com.example.slazzari.taller2uber.networking.NetworkingConstants.LOGIN_USER;
+import static com.example.slazzari.taller2uber.networking.NetworkingConstants.PASSENGER;
 import static com.example.slazzari.taller2uber.networking.NetworkingConstants.REGISTER_DRIVER;
 import static com.example.slazzari.taller2uber.networking.NetworkingConstants.REGISTER_PASSENGER;
 import static com.example.slazzari.taller2uber.networking.NetworkingConstants.UPDATE_DRIVER;
@@ -28,11 +30,13 @@ public interface Userrepo {
     Call<User> getUser();
 
 
-    @GET(USER)
+    @GET(PASSENGER)
     Call<User> getPassenger(@Path("passenger") String passengerId, @Header(AUTHORIZATION_KEY) String authorization);
 
-    @GET(USER)
+    @GET(DRIVER)
     Call<User> getDriver(@Path("driver") String passengerId, @Header(AUTHORIZATION_KEY) String authorization);
+
+
 
     @POST(LOGIN_USER)
     Call<User> loginUser(@Body User user);
@@ -42,6 +46,9 @@ public interface Userrepo {
 
     @POST(REGISTER_PASSENGER)
     Call<User> registerPassenger(@Body User user);
+
+
+
 
     @PUT(UPDATE_PASSENGER)
     Call<User> updatePassenger(@Body User user, @Path("passenger") String passengerId, @Header(AUTHORIZATION_KEY) String authorization);
