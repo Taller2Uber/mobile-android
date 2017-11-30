@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.slazzari.taller2uber.R;
@@ -34,6 +35,7 @@ public class PaymentActivity extends AppCompatActivity {
     private RecyclerView paymentMethodsRecyclerView;
     private LinearLayoutManager paymentLayoutManager;
     private PaymentAdapter paymentAdapter;
+    private TextView paymentTextView;
 
     private Methods methods;
 
@@ -61,8 +63,10 @@ public class PaymentActivity extends AppCompatActivity {
 
                 Gson gson = new Gson();
 
+
+
                 Method method = methods.getPaymethods().get(position);
-                method.setAmmount(methods.getBalance() * (-1));
+                method.setAmount(methods.getBalance() * (-1));
 
                 intent.putExtra("obj", gson.toJson(methods.getPaymethods().get(position)));
 
@@ -83,6 +87,10 @@ public class PaymentActivity extends AppCompatActivity {
                         methods = response.body();
                         paymentAdapter = new PaymentAdapter(methods.getPaymethods());
                         paymentMethodsRecyclerView.setAdapter(paymentAdapter);
+
+                        paymentTextView = (TextView) findViewById(R.id.debt_text_view);
+                        paymentTextView.setText("Debes " + methods.getBalance() * (-1) + " elegí una forma de pago");
+
                     }
 
                     @Override

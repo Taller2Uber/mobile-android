@@ -10,10 +10,10 @@ public class Method {
 
     private String paymethod;
     private HashMap<String, String> parameters;
-    private float ammount;
+    private float amount;
 
-    public void setAmmount(float ammount) {
-        this.ammount = ammount;
+    public void setAmount(float amount) {
+        this.amount = amount;
     }
 
     public HashMap<String, String> getParameters() {
@@ -24,8 +24,8 @@ public class Method {
         return paymethod;
     }
 
-    public float getAmmount() {
-        return ammount;
+    public float getAmount() {
+        return amount;
     }
 
     public void setParameters(HashMap<String, String> parameters) {

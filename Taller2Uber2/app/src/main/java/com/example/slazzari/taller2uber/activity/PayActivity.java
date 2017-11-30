@@ -102,7 +102,7 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
 
                 Method sendMethod = new Method();
 
-                sendMethod.setAmmount(method.getAmmount());
+                sendMethod.setAmount(method.getAmount());
                 sendMethod.setParameters(editedParametersHash);
 
                 User sendUser = new User();
