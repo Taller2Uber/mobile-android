@@ -11,6 +11,12 @@ import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.google.gson.Gson;
 
+import static com.example.slazzari.taller2uber.networking.NetworkingConstants.NOTIFICATION_TYPE_DRIVER_CONFIRM_ROUTE;
+import static com.example.slazzari.taller2uber.networking.NetworkingConstants.NOTIFICATION_TYPE_DRIVER_FINISHED_ROUTE;
+import static com.example.slazzari.taller2uber.networking.NetworkingConstants.NOTIFICATION_TYPE_DRIVER_STARTED_ROUTE;
+import static com.example.slazzari.taller2uber.networking.NetworkingConstants.NOTIFICATION_TYPE_PASSENGER_CONFIRMED_DELIVERY;
+import static com.example.slazzari.taller2uber.networking.NetworkingConstants.NOTIFICATION_TYPE_PASSENGER_REJECTED_DRIVER;
+
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     final private String TAG = "MyFirebaseMessaging";
@@ -35,7 +41,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         if (remoteMessage.getData().size() > 0) {
             Log.w(TAG, "Message data payload: " + remoteMessage.getData());
         }
-//
+
 //        // Check if message contains a notification payload.
         String notificationBody = "";
         if (remoteMessage.getNotification() != null) {
@@ -54,8 +60,27 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             ChatManager.getInstance().onMessageReceibe(message);
         }
 
-        Log.w(TAG, "From: " + notificationBody);
+        if (notification.isDriverConfirmedRoute()) {
 
+        }
+
+        if (notification.isPassengerConfirmedDriver()) {
+
+        }
+
+        if (notification.isPassengerRejectedRoute()) {
+
+        }
+
+        if (notification.isDriverStartedRoute()) {
+
+        }
+
+        if (notification.isDriverFinishedRoute()) {
+
+        }
+
+        Log.w(TAG, "From: " + notificationBody);
     }
 
 }

@@ -10,7 +10,7 @@ public class NetworkingConstants {
     public static final String BASE_URL = "http://llevame-taller2.herokuapp.com/api/v1/";
 //    public static final String BASE_URL = "http://10.0.2.2:3000/api/v1/";
 //    public static final String BASE_URL = "http://172.20.10.4/api/v1/";
-//    public static final String BASE_URL = "http://192.168.8.210:5000/api/v1/";
+//    public static final String BASE_URL = "http://172.20.10.2:5000/api/v1/";
 
 
     public static final String WIKI = "wiki";
@@ -39,4 +39,10 @@ public class NetworkingConstants {
 
 //  NOTIFICATION
     public static final String NOTIFICATION_TYPE_CHAT_MESSAGE = "chat_message";
+    public static final String NOTIFICATION_TYPE_DRIVER_CONFIRM_ROUTE = "driverConfirmedRoute";
+    public static final String NOTIFICATION_TYPE_PASSENGER_CONFIRMED_DELIVERY = "passengerConfirmedDriver";
+    public static final String NOTIFICATION_TYPE_PASSENGER_REJECTED_DRIVER = "passengerRejectedDriver";
+    public static final String NOTIFICATION_TYPE_DRIVER_STARTED_ROUTE = "driverStartedRoute";
+    public static final String NOTIFICATION_TYPE_DRIVER_FINISHED_ROUTE = "driverFinishedRoute";
+
 }

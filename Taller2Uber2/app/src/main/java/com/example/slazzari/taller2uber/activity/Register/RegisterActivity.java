@@ -15,6 +15,7 @@ import com.example.slazzari.taller2uber.model.login.LoginManager;
 import com.example.slazzari.taller2uber.model.login.LoginManagerResponse;
 import com.example.slazzari.taller2uber.networking.NetworkingConstants;
 import com.example.slazzari.taller2uber.networking.interactor.Userinteractor;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.gson.Gson;
 
 import retrofit2.Call;
@@ -90,6 +91,10 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
     }
 
     private void authenticateUser(User user) {
+
+        String firebaseToken = FirebaseInstanceId.getInstance().getToken();
+        user.setFirebaseToken(firebaseToken);
+
         new LoginManager().login(user, new LoginManagerResponse() {
             @Override
             public void onLoginWithUser(User user) {
