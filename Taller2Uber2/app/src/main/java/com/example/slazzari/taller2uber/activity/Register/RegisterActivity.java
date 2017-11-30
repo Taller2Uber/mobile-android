@@ -59,6 +59,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                                                                    @Override
                                                                    public void onResponse(Call<User> call, Response<User> response) {
                                                                        User responseUser = response.body();
+
                                                                        authenticateUser(responseUser);
                                                                    }
 
@@ -90,12 +91,16 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         }
     }
 
-    private void authenticateUser(User user) {
+    private void authenticateUser(User authUser) {
 
         String firebaseToken = FirebaseInstanceId.getInstance().getToken();
-        user.setFirebaseToken(firebaseToken);
+        authUser.setFirebaseToken(firebaseToken);
 
-        new LoginManager().login(user, new LoginManagerResponse() {
+        authUser.setFbToken(user.getFbToken());
+        authUser.setPassword(user.getPassword());
+        authUser.setUserName(user.getUserName());
+
+        new LoginManager().login(authUser, new LoginManagerResponse() {
             @Override
             public void onLoginWithUser(User user) {
                 Intent intent;
