@@ -11,6 +11,14 @@ public class Method {
     private String paymethod;
     private HashMap<String, String> parameters;
 
+    public HashMap<String, String> getParameters() {
+        return parameters;
+    }
+
+    public String getPaymethod() {
+        return paymethod;
+    }
+
     public Method() {}
 
 

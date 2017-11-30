@@ -11,6 +11,14 @@ public class Methods {
     private int balance;
     private List<Method> paymethods;
 
+    public List<Method> getPaymethods() {
+        return paymethods;
+    }
+
+    public int getBalance() {
+        return balance;
+    }
+
     public Methods(){};
 
 }

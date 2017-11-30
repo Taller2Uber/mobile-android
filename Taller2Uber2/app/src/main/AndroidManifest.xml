@@ -81,7 +81,8 @@
         <activity android:name=".activity.home.passenger.PassengerRoutesSelectActivity" />
         <activity android:name=".activity.chat.ChatActivity" />
         <activity android:name=".activity.ConfirmActivity" />
-        <activity android:name=".activity.PaymentActivity"></activity>
+        <activity android:name=".activity.PaymentActivity" />
+        <activity android:name=".activity.PayActivity"></activity>
     </application>
 
 </manifest>

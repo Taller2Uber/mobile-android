@@ -30,7 +30,7 @@ BODY='{\"rout\":\"<rout>\",\"passenger\":\"<passenger>\"}'
 # Cuando el chofer seleccionó el camino se le debe alertar al pasajero que
 # este lo acepto.
 
-BODY='{\"type\":\"driverConfirmedRoute\",\"content\":\"5a1f8d325c4a5a28221ea8b3\"}'
+BODY='{\"type\":\"driverFinishedRoute\",\"content\":\"5a1f8d325c4a5a28221ea8b3\"}'
 
 # Cuando el chofer llegó, le avisa al pasajero que llego, esto elimina el chat
 # y tambien empieza a trackear las posiciones de ambos

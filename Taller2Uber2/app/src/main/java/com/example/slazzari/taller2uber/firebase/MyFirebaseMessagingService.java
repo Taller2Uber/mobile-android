@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.example.slazzari.taller2uber.R;
 import com.example.slazzari.taller2uber.activity.ConfirmActivity;
+import com.example.slazzari.taller2uber.activity.PaymentActivity;
 import com.example.slazzari.taller2uber.model.Notification;
 import com.example.slazzari.taller2uber.model.chat.ChatManager;
 import com.example.slazzari.taller2uber.model.chat.ChatMessage;
@@ -104,6 +105,12 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         if (notification.isDriverFinishedRoute()) {
             titleNotification = "Aviso de ruta";
             messageNotification = "El conductor finalizo la ruta";
+
+            Intent intent = new Intent (this, PaymentActivity.class);
+
+            intent.setFlags (Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.putExtra("obj", notification.getContent());
+            startActivity(intent);
 
             sendPush = true;
         }
