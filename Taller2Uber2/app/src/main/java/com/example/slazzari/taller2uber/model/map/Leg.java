@@ -9,6 +9,12 @@ import java.util.List;
 public class Leg {
     private List<Step> steps;
 
+
+    private LegLocation startLocation;
+    private LegLocation endLocation;
+
+    private LegDistance distance;
+
     public List<Step> getSteps() {
         return steps;
     }
