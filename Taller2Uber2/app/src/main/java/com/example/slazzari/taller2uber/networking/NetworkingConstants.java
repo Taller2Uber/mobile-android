@@ -26,7 +26,7 @@ public class NetworkingConstants {
     public static final String PASSENGER_CONFIRM_ROUTE = "routes/confirm";
     public static final String AUTHORIZATION_KEY = "authorization";
     public static final String AVAILABLE_ROUTES = "routes/availables";
-    public static final String REQUEST_ROUTE = "requestroute/{route}";
+    public static final String REQUEST_ROUTE = "routes/request/{route}";
     public static String authToken;
 
 
