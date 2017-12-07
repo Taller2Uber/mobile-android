@@ -29,10 +29,18 @@ import static com.example.slazzari.taller2uber.networking.NetworkingConstants.AU
  */
 
 /*
-* Encargado del login de la aplicacion, incluyendo
+* Encargado del login de la aplicacion, incluyendo tanto la de facebook como la nativa
+* Todas las formas de login requieren de un LoginResponse que es llamado con el resultado del
+* Login, este puede ser fallido o exitoso.
 * */
 public class LoginManager  {
 
+
+    /*
+    * Forma de login sin parámetros, este es llamado cuando se quiere hacer login con data almacenada
+    * en el teléfono. Si se pudo hacer el login, entonces llama al LoginResponse con exito,
+    * si fallo, con la falla.
+    * */
     public void login(LoginManagerResponse loginResponse) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(MainApplication.getAppContext());
 
@@ -51,6 +59,9 @@ public class LoginManager  {
         }
     }
 
+    /*
+    * Forma de login con usuario y contraseña.
+    * */
     public void login(String userName, String password, final LoginManagerResponse loginResponse) {
         User user = new User();
         user.setUserName(userName);
@@ -58,6 +69,10 @@ public class LoginManager  {
         login(user,loginResponse);
     }
 
+
+    /*
+    * Forma de login con token de facebook
+    * */
     public void login(String fbToken, LoginManagerResponse loginResponse) {
         User user = new User();
         user.setFbToken(fbToken);
@@ -65,6 +80,10 @@ public class LoginManager  {
         login(user, loginResponse);
     }
 
+    /*
+    * Forma de login con un user, no importa los parámetros que tenga (fbtoken o user password),
+    * este enviará el request para solicitar loguin con dicho user.
+    * */
     public void login(final User user, final LoginManagerResponse loginResponse) {
         Userinteractor.loginUser(user).enqueue(
                 new Callback<User>() {
@@ -113,6 +132,10 @@ public class LoginManager  {
         );
     }
 
+
+    /*
+    * Maneja el logout de la aplicacion, elimina cache setea los singletones en sus respectivos valores.
+    * */
     public void logout() {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(MainApplication.getAppContext());
         SharedPreferences.Editor editor = preferences.edit();

@@ -28,6 +28,9 @@ import static android.content.Context.LOCATION_SERVICE;
  * Created by slazzari on 11/30/17.
  */
 
+/*
+* Encargado de enviar de forma periódica la ubicacion a el servidor
+* */
 public class TrackingLooper {
     private static final TrackingLooper ourInstance = new TrackingLooper();
 
