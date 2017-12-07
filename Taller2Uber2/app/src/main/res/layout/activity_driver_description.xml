@@ -78,10 +78,22 @@
         android:layout_height="wrap_content"
         android:text="Log out"
 
-        app:layout_constraintTop_toBottomOf="@+id/driver_description_gender_edit_text"
+        app:layout_constraintBottom_toTopOf="@+id/driver_description_edit_button"
 
         app:layout_constraintLeft_toLeftOf="parent"
 
+ />
 
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="318dp" /></android.support.constraint.ConstraintLayout>
+    <Button
+        android:id="@+id/driver_description_show_cars_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ver autos"
+
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/driver_description_gender_edit_text"
+
+
+        tools:layout_editor_absoluteX="32dp"
+        tools:layout_editor_absoluteY="178dp" />
+</android.support.constraint.ConstraintLayout>

@@ -44,7 +44,7 @@
         </activity>
         <activity android:name=".activity.Register.RegisterActivity" />
         <activity android:name=".activity.Register.RegisterPassengerActivity" />
-        <activity android:name=".activity.Register.RegisterDriverActivity" />
+        <activity android:name=".activity.home.driver.RegisterDriverActivity" />
         <activity android:name=".activity.BaseActivity" />
 
         <service android:name=".firebase.MyFirebaseInstanceIDService">
@@ -59,7 +59,7 @@
         </service>
 
         <activity android:name=".activity.home.passenger.PassengerHomeActivity" />
-        <activity android:name=".activity.Register.RegisterDriverCarActivity" />
+        <activity android:name=".activity.home.driver.RegisterDriverCarActivity" />
         <activity android:name=".activity.home.driver.DriverHomeActivity" />
         <activity android:name=".activity.home.passenger.PassengerDescriptionActivity" />
         <activity android:name=".activity.LoginActivity" />

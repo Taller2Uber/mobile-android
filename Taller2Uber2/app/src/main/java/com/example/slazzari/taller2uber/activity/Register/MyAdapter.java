@@ -7,7 +7,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.slazzari.taller2uber.R;
+import com.example.slazzari.taller2uber.activity.home.driver.AvailableRoutesRecyclerViewAdapter;
 import com.example.slazzari.taller2uber.model.Car;
+
+import org.w3c.dom.Text;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -24,10 +27,19 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     // you provide access to all the views for a data item in a view holder
     public static class ViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
-        public TextView mTextView;
-        public ViewHolder(TextView v) {
+
+        public TextView plateTextView;
+        public TextView brandTextView;
+        public TextView modelTextView;
+        public TextView yearTextView;
+
+        public ViewHolder(View v) {
             super(v);
-            mTextView = v;
+
+            plateTextView = (TextView) v.findViewById(R.id.car_cell_licence_plate);
+            brandTextView = (TextView) v.findViewById(R.id.car_cell_brand);
+            modelTextView = (TextView) v.findViewById(R.id.car_cell_model);
+            yearTextView = (TextView) v.findViewById(R.id.car_cell_year);
         }
     }
 
@@ -41,11 +53,10 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     public MyAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
                                                    int viewType) {
         // create a new view
-        TextView v = new TextView(parent.getContext());
-        v.setText("hola");
-        v.setTextSize(20);
-        ViewHolder vh = new ViewHolder(v);
-        return vh;
+        View v = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.cell_driver_car,parent, false);
+
+        return new ViewHolder(v);
     }
 
     // Replace the contents of a view (invoked by the layout manager)
@@ -53,8 +64,13 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     public void onBindViewHolder(ViewHolder holder, int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-        holder.mTextView.setText(mDataset.get(position).getLicensePlate());
 
+        Car car = mDataset.get(position);
+
+        holder.plateTextView.setText(car.getLicensePlate());
+        holder.brandTextView.setText(car.getBrand());
+        holder.modelTextView.setText(car.getModel());
+        holder.yearTextView.setText(car.getYear());
     }
 
     // Return the size of your dataset (invoked by the layout manager)

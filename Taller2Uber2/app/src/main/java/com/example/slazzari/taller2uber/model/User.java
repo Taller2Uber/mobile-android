@@ -8,6 +8,9 @@ import java.util.List;
  */
 
 public class User {
+
+
+
     private String firstName;
     private String lastName;
     private String gender;
@@ -15,6 +18,8 @@ public class User {
     private ArrayList<Car> cars;
     private String ssId;
     private String firebaseToken;
+
+    private String state;
 
     private String latitude;
     private String longitude;

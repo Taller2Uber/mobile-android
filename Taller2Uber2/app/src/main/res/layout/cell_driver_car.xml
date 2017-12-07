@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:padding="20dp">
+
+
+    <TextView
+        android:id="@+id/car_cell_year"
+        android:layout_width="100dp"
+        android:layout_height="0dp"
+        android:text="TextView"
+
+        android:textAlignment="center"
+        android:gravity="center"
+        android:textSize="20dp"
+
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+
+        tools:layout_editor_absoluteX="275dp"
+        tools:layout_editor_absoluteY="41dp" />
+
+    <TextView
+        android:id="@+id/car_cell_licence_plate"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:text="TextView"
+
+        android:textAlignment="center"
+        android:gravity="center"
+        android:textSize="20dp"
+
+        android:textColor="#FFFFFF"
+        android:background="#000000"
+        android:padding="5dp"
+
+
+
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+
+
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="16dp" />
+
+    <TextView
+        android:id="@+id/car_cell_brand"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        app:layout_constraintLeft_toRightOf="@id/car_cell_licence_plate"
+        app:layout_constraintTop_toTopOf="parent"
+
+        android:layout_marginLeft="8dp"
+
+        android:text="marca"
+        tools:layout_editor_absoluteX="139dp"
+        tools:layout_editor_absoluteY="16dp" />
+
+    <TextView
+        android:id="@+id/car_cell_model"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        app:layout_constraintLeft_toRightOf="@id/car_cell_licence_plate"
+        app:layout_constraintTop_toBottomOf="@id/car_cell_brand"
+
+        android:layout_marginLeft="8dp"
+
+
+        android:text="modelo"
+        tools:layout_editor_absoluteX="142dp"
+        tools:layout_editor_absoluteY="57dp" />
+
+</android.support.constraint.ConstraintLayout>

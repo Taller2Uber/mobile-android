@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.example.slazzari.taller2uber.R;
 import com.example.slazzari.taller2uber.activity.LoginActivity;
 import com.example.slazzari.taller2uber.activity.home.driver.DriverHomeActivity;
+import com.example.slazzari.taller2uber.model.CurrentUserCredentials;
 import com.example.slazzari.taller2uber.model.chat.ChatManager;
 import com.example.slazzari.taller2uber.model.chat.ChatMessage;
 import com.example.slazzari.taller2uber.model.chat.MessageReceiver;
@@ -49,6 +50,7 @@ public class ChatActivity extends AppCompatActivity implements MessageReceiver {
                 if ((keyEvent.getAction() == KeyEvent.ACTION_DOWN) &&
                         (keyCode == KeyEvent.KEYCODE_ENTER)) {
                     ChatMessage message = new ChatMessage(chatEditText.getText().toString());
+                    message.setFrom(new Integer(CurrentUserCredentials.getInstance().getId()));
                     chatManager.postMessage(message);
                     chatEditText.setText("");
                     return true;

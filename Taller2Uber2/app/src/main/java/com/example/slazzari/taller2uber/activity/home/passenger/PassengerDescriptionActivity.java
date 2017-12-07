@@ -10,6 +10,7 @@ import android.widget.EditText;
 
 import com.example.slazzari.taller2uber.R;
 import com.example.slazzari.taller2uber.activity.LoginActivity;
+import com.example.slazzari.taller2uber.model.CurrentUserCredentials;
 import com.example.slazzari.taller2uber.model.User;
 import com.example.slazzari.taller2uber.model.login.LoginManager;
 import com.example.slazzari.taller2uber.networking.interactor.Userinteractor;
@@ -56,6 +57,13 @@ public class PassengerDescriptionActivity extends AppCompatActivity implements V
         nameEditText = (EditText) findViewById(R.id.passenger_description_name_edit_text);
         genderEditText = (EditText) findViewById(R.id.passenger_description_gender_edit_text);
         lastnameEditText = (EditText) findViewById(R.id.passenger_description_lastname_edit_text);
+
+
+        if (!CurrentUserCredentials.getInstance().getId().equals(user.getSsId())) {
+            editButton.setVisibility(View.GONE);
+            acceptButton.setVisibility(View.GONE);
+            logoutButton.setVisibility(View.GONE);
+        }
 
         nameEditText.setText(user.getFirstName());
         genderEditText.setText(user.getGender());

@@ -1,4 +1,4 @@
-package com.example.slazzari.taller2uber.activity.Register;
+package com.example.slazzari.taller2uber.activity.home.driver;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;

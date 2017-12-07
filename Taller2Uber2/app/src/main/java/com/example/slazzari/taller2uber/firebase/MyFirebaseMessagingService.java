@@ -82,6 +82,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         if (notification.isChatMessage()) {
             ChatMessage message = new ChatMessage(notification.getContent());
 
+            message.setFrom(0);
+
             ChatManager.getInstance().onMessageReceibe(message);
         }
 
@@ -91,6 +93,12 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             intent.setFlags (Intent.FLAG_ACTIVITY_NEW_TASK);
             intent.putExtra("obj", notification.getContent());
             startActivity(intent);
+
+            titleNotification = "Aviso de ruta";
+            messageNotification = "El conductor confirmo tu solicitud de viaje";
+
+
+            sendPush = true;
         }
 
         if (notification.isPassengerConfirmedDriver()) {

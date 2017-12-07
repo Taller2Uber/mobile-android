@@ -19,6 +19,12 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+
+/*
+* Encargado de administrar la comunicacion del chat entre el dispositivo y otro
+* dispositivo.
+*
+* */
 public class ChatManager implements MessageReceiver {
 
     private static final ChatManager ourInstance = new ChatManager();
@@ -36,6 +42,9 @@ public class ChatManager implements MessageReceiver {
 
     private ChatManager() {}
 
+    /*
+    * Devuelve los mensajes almacenadops en los shared preferences
+    * */
     public List<ChatMessage> getMessages() {
         Gson gson = new Gson();
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(MainApplication.getAppContext());
@@ -67,6 +76,9 @@ public class ChatManager implements MessageReceiver {
         return messages;
     }
 
+    /*
+    * Agrega un mensaje para ser almacenado en los shared preferences
+    * */
     public List<ChatMessage> addMessage(ChatMessage message) {
         Gson gson = new Gson();
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(MainApplication.getAppContext());
@@ -82,11 +94,24 @@ public class ChatManager implements MessageReceiver {
     }
 
 
-
+    /*
+    * Limpia el chat de todos los mensajes
+    * */
     public void clearChat() {
-        //TODO: implement
+        messages.removeAll(messages);
+
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(MainApplication.getAppContext());
+        Gson gson = new Gson();
+        SharedPreferences.Editor editor = preferences.edit();
+
+        editor.putString("chat", gson.toJson(messages));
+        editor.commit();
+
     }
 
+    /*
+    * Publica un mensaje a ser enviado al destinatario
+    * */
     public void postMessage(ChatMessage message) {
         onMessageReceibe(message);
 
@@ -105,6 +130,10 @@ public class ChatManager implements MessageReceiver {
         );
     }
 
+    /*
+    * Este método se llama cuando un mensaje llega, ya sea por parte de un usuario remoto o del
+    * mismo dispositivo
+    * */
     @Override
     public void onMessageReceibe(ChatMessage message) {
         addMessage(message);

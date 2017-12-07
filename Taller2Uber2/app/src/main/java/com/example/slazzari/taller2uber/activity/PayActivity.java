@@ -1,5 +1,6 @@
 package com.example.slazzari.taller2uber.activity;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,6 +11,8 @@ import android.widget.Toast;
 
 import com.example.slazzari.taller2uber.R;
 import com.example.slazzari.taller2uber.activity.home.driver.AvailableRoutesRecyclerViewAdapter;
+import com.example.slazzari.taller2uber.activity.home.driver.RegisterDriverCarActivity;
+import com.example.slazzari.taller2uber.model.Car;
 import com.example.slazzari.taller2uber.model.CurrentUserCredentials;
 import com.example.slazzari.taller2uber.model.Payment.Method;
 import com.example.slazzari.taller2uber.model.Payment.Methods;
@@ -111,9 +114,10 @@ public class PayActivity extends AppCompatActivity implements View.OnClickListen
                 Userinteractor.userPay(sendUser, sendMethod).enqueue(
                         new Callback<Void>() {
                             @Override
-                            public void onResponse(Call<Void> call, Response<Void> response) {
-
-
+                            public void onResponse(Call<Void> call, Response<Void> response) {Gson gson = new Gson();
+                                Intent resultIntent = new Intent();
+                                resultIntent.putExtra("obj", "");
+                                setResult(PayActivity.RESULT_OK, resultIntent);
                                 finish();
                             }
 

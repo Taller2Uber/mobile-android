@@ -63,15 +63,12 @@ public class PaymentActivity extends AppCompatActivity {
 
                 Gson gson = new Gson();
 
-
-
                 Method method = methods.getPaymethods().get(position);
                 method.setAmount(methods.getBalance() * (-1));
 
                 intent.putExtra("obj", gson.toJson(methods.getPaymethods().get(position)));
 
-                startActivity(intent);
-
+                startActivityForResult(intent, 0);
             }
 
             @Override
@@ -89,7 +86,7 @@ public class PaymentActivity extends AppCompatActivity {
                         paymentMethodsRecyclerView.setAdapter(paymentAdapter);
 
                         paymentTextView = (TextView) findViewById(R.id.debt_text_view);
-                        paymentTextView.setText("Debes " + methods.getBalance() * (-1) + " elegí una forma de pago");
+                        paymentTextView.setText("Debes " + (methods.getBalance() * (-1)) + " elegí una forma de pago");
 
                     }
 
@@ -102,20 +99,14 @@ public class PaymentActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+//        if (resultCode == RESULT_OK) {
+            paymentTextView.setText("Debes 0 elegí una forma de pago");
+//        }
+    }
 
 
 

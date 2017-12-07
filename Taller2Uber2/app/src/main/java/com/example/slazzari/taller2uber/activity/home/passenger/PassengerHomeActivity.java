@@ -7,6 +7,7 @@ import android.widget.Button;
 
 import com.example.slazzari.taller2uber.R;
 import com.example.slazzari.taller2uber.activity.BaseActivity;
+import com.example.slazzari.taller2uber.activity.PaymentActivity;
 import com.example.slazzari.taller2uber.activity.chat.ChatActivity;
 import com.example.slazzari.taller2uber.activity.home.driver.DriverHomeActivity;
 import com.example.slazzari.taller2uber.model.TrackingLooper;
@@ -37,6 +38,9 @@ public class PassengerHomeActivity extends BaseActivity implements View.OnClickL
 
         Button mapPassengerButton = (Button) findViewById(R.id.passenger_home_map_button);
         mapPassengerButton.setOnClickListener(this);
+
+        Button balancePassangerButton = (Button) findViewById(R.id.passenger_home_balance_button);
+        balancePassangerButton.setOnClickListener(this);
 
         chatButton = (Button) findViewById(R.id.passenger_home_chat_button);
         chatButton.setOnClickListener(this);
@@ -69,6 +73,12 @@ public class PassengerHomeActivity extends BaseActivity implements View.OnClickL
                 Intent chatActivityIntent = new Intent(PassengerHomeActivity.this, ChatActivity.class);
 
                 startActivity(chatActivityIntent);
+                break;
+            case R.id.passenger_home_balance_button:
+                Intent balanceActivityIntent = new Intent(PassengerHomeActivity.this, PaymentActivity.class);
+
+                startActivity(balanceActivityIntent);
+
         }
     }
 }

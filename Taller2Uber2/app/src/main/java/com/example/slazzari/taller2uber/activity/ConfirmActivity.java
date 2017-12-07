@@ -158,7 +158,6 @@ public class ConfirmActivity extends AppCompatActivity implements View.OnClickLi
 
                 startActivity(driverActivityIntent);
 
-
                 break;
 
         }

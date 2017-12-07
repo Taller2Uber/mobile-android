@@ -1,6 +1,7 @@
 package com.example.slazzari.taller2uber.activity.chat;
 
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 
 import com.example.slazzari.taller2uber.R;
 import com.example.slazzari.taller2uber.activity.home.driver.AvailableRoutesRecyclerViewAdapter;
+import com.example.slazzari.taller2uber.model.CurrentUserCredentials;
 import com.example.slazzari.taller2uber.model.chat.ChatMessage;
 import com.example.slazzari.taller2uber.model.map.AvailableRoute;
 
@@ -47,6 +49,10 @@ public class ChatRecyclerViewAdapter extends
         ChatMessage message = messages.get(position);
         holder.message = message;
         holder.messageTextView.setText(message.getMessage());
+
+        int alligned = message.getFrom() == new Integer(CurrentUserCredentials.getInstance().getId()) ? Gravity.LEFT : Gravity.RIGHT;
+
+        holder.messageTextView.setGravity(alligned);
     }
 
 
