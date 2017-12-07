@@ -28,9 +28,9 @@ import static android.content.Context.LOCATION_SERVICE;
  * Created by slazzari on 11/30/17.
  */
 
-/*
-* Encargado de enviar de forma periódica la ubicacion a el servidor
-* */
+/**
+ * Encargado de realizar las actualizaciones de la posicion y enviarlo al servidor
+ */
 public class TrackingLooper {
     private static final TrackingLooper ourInstance = new TrackingLooper();
 
@@ -67,6 +67,9 @@ public class TrackingLooper {
         }
     };
 
+    /**
+     * Setup del tracker, este debe ser llamado al inicio de la app y solicita los permisos de localizacion
+     */
     public void setup(Context context) {
 
         locationManager = (LocationManager) MainApplication.getAppContext().getSystemService(LOCATION_SERVICE);
@@ -79,6 +82,9 @@ public class TrackingLooper {
 
     }
 
+    /**
+     * Comienza a trackear
+     */
     public void beginTracking() {
         // Create a Timer task
         handler = new Handler();
@@ -144,6 +150,9 @@ public class TrackingLooper {
         handler.post(runnableCode);
     }
 
+    /**
+     * Termina de trackear
+     */
     public void finishTracking() {
         handler.removeCallbacks(runnableCode);
     }
