@@ -8,6 +8,8 @@ import com.example.slazzari.taller2uber.networking.repository.Userrepo;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.GsonBuilder;
 
+import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -185,5 +187,20 @@ public class Userinteractor {
         user.setSsId(null);
 
         return userrepo.debt(ssid, authToken);
+    }
+
+    public static Call<List<User>> getDrivers() {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create(
+                        new GsonBuilder()
+                                .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+                                .create()
+                ))
+                .build();
+
+        Userrepo userrepo= retrofit.create(Userrepo.class);
+
+        return userrepo.getDrivers(authToken);
     }
 }

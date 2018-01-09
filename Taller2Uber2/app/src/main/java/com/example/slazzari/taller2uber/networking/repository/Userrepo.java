@@ -5,6 +5,8 @@ import com.example.slazzari.taller2uber.model.Payment.Method;
 import com.example.slazzari.taller2uber.model.Payment.Methods;
 import com.example.slazzari.taller2uber.model.User;
 
+import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -67,4 +69,9 @@ public interface Userrepo {
 
     @GET(USER_DEBT)
     Call<Methods> debt(@Path("user") String userId, @Header(AUTHORIZATION_KEY) String authorization);
+
+    @GET(REGISTER_DRIVER)
+    Call<List<User>> getDrivers(@Header(AUTHORIZATION_KEY) String authorization);
+
+
 }

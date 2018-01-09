@@ -42,6 +42,9 @@ public class PassengerHomeActivity extends BaseActivity implements View.OnClickL
         Button balancePassangerButton = (Button) findViewById(R.id.passenger_home_balance_button);
         balancePassangerButton.setOnClickListener(this);
 
+        Button viewDriversButton = (Button) findViewById(R.id.passenger_home_view_drivers_button);
+        viewDriversButton.setOnClickListener(this);
+
         chatButton = (Button) findViewById(R.id.passenger_home_chat_button);
         chatButton.setOnClickListener(this);
 
@@ -78,7 +81,12 @@ public class PassengerHomeActivity extends BaseActivity implements View.OnClickL
                 Intent balanceActivityIntent = new Intent(PassengerHomeActivity.this, PaymentActivity.class);
 
                 startActivity(balanceActivityIntent);
+                break;
+            case R.id.passenger_home_view_drivers_button:
+                Intent viewDriversIntent = new Intent(PassengerHomeActivity.this, ViewDriversActivity.class);
 
+                startActivity(viewDriversIntent);
+                break;
         }
     }
 }
